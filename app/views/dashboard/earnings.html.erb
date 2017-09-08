@@ -3,20 +3,25 @@
 
   <div class="dashboard__content">
     <h3 class="content__title">Earnings</h3>
-    <h1 class="content__subtitle">&euro; <%= @total_earned %> on Account</h1>
+    <h1 class="content__subtitle">&euro; <%= @on_account %> on Account</h1>
     <a href="javascript:void(0)" class="button button--ghost content__button">withdrawal</a>
     <div class="content__subject">
       <div class="content__earning">
         <h3 class="earning__title">Current Balance</h3>
         <div class="earning__box">
           <i class="earning__icon material-icons">assignment_ind</i>
-          <span class="earning__total">&euro; <%= @total_earned %></span>
+          <span class="earning__total">&euro; <%= @on_account %></span>
           <span class="earning__label">On account</span>
         </div>
         <div class="earning__box">
           <i class="earning__icon material-icons">assignment_ind</i>
-          <span class="earning__total">&euro; <%= @total_earned %></span>
+          <span class="earning__total">&euro; <%= @paid_out %></span>
           <span class="earning__label">Paid out</span>
+        </div>
+        <div class="earning__box">
+          <i class="earning__icon material-icons">assignment_ind</i>
+          <span class="earning__total">&euro; <%= @pending %></span>
+          <span class="earning__label">Pending</span>
         </div>
       </div>
     </div>
