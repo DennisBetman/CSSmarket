@@ -27,9 +27,22 @@ class DashboardController < ApplicationController
   end
 
   def earnings
+    @current_widthdrawl = Widthdrawl.find_by_user_id_and_status(current_user.id, 0)
+    @all_widthdrawls = Widthdrawl.where(user_id: current_user.id).all
+
+    @paid_out = 0
+
     posts = Post.where(user_id: current_user.id).all
     @succesful_orders = []
     @on_account = 0
+
+    if @all_widthdrawls
+      @all_widthdrawls.each do |widthdrawl|
+        @on_account = @on_account - widthdrawl.amount
+
+        @paid_out =+ widthdrawl.amount
+      end
+    end
 
     posts.each do |post|
       tsuccesful_orders = Order.where(post_id: post.id).where("created_at <= ?", 2.weeks.ago.utc).order("created_at DESC")
@@ -52,9 +65,6 @@ class DashboardController < ApplicationController
     @succesful_orders.each do |succesful_order|
       @pending += succesful_order.amount
     end
-    
-
-    @paid_out = 0
   end
 
   def projects
