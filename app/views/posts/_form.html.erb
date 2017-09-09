@@ -40,6 +40,9 @@
 
   <div class="form__parent">
     <%= f.label :image, class: "form__label form__label--stacked" %>
+    <% if @post.image.present? %>
+      <img src="<%= @post.image %>" class="project__image" />
+    <% end %>
     <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/png", class: "form__input" %>
   </div>
 
