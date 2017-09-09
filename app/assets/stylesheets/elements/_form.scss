@@ -9,6 +9,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  &--columns {
+    flex-direction: column;
+  }
 }
 
 .form__parent {
@@ -77,6 +81,11 @@
     background: none;
   }
 
+  &--select {
+    margin-top: 5px;
+    border: 1px solid map-get($color, "light-grey");
+  }
+
   &:not(:placeholder-shown) {
     + .form__label {
       top: -5px;
@@ -112,5 +121,11 @@
 
   &--textarea {
     top: 20px;
+  }
+
+  &--stacked {
+    position: relative;
+    top: 0;
+    transform: none;
   }
 }

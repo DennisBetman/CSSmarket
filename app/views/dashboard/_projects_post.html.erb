@@ -7,6 +7,6 @@
   <div class="project__content">
     <span class="project__name"><%= post.title %></span>
 
-    <a href="#" class="project__price">Edit</a>
+    <%= link_to "Edit", edit_post_path(post), class: "project__price" %>
   </div>
 </div>
