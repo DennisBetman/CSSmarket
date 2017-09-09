@@ -1,0 +1,40 @@
+<section class="dashboard">
+  <%= render "admin/menu" %>
+
+  <div class="dashboard__content">
+    <h1>Admin Dashboard</h1>
+
+    <h3>Posts</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Created at</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @widthdrawls.each do |widthdrawl| %>
+          <tr>
+            <td><%= widthdrawl.id %></td>
+            <td><%= widthdrawl.user_id %></td>
+            <td><%= widthdrawl.amount %></td>
+            <td><%= widthdrawl.created_at.strftime("%d %b. %Y, %H:%M") %></td>
+            <td>
+              <% if widthdrawl.status == 0 %>
+                <%= form_for widthdrawl do |f| %>
+                  <%= f.hidden_field :status, value: 1 %>
+                  <%= f.submit "Mark as complete", class: "button button--gradient actions__button" %>
+                <% end %>
+              <% else %>
+                Complete
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

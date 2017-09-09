@@ -23,6 +23,10 @@ class AdminController < ApplicationController
     user_id_to_name
   end
 
+  def widthdrawls
+    @widthdrawls = Widthdrawl.order("created_at DESC").all
+  end
+
   private
 
   def user_id_to_name()
