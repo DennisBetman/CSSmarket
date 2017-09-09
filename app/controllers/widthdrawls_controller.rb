@@ -35,12 +35,12 @@ class WidthdrawlsController < ApplicationController
   end
 
   def update
-    Widthdrawl.update(status: 1)
+    Widthdrawl.update(widthdrawl_params)
     redirect_to admin_widthdrawls_path
   end
 
   private
     def widthdrawl_params
-      params.require(:widthdrawl).permit(:amount)
+      params.require(:widthdrawl).permit(:amount, :status)
     end
 end
