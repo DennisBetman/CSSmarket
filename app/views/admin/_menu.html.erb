@@ -26,4 +26,11 @@
       <span class="link__text">Posts</span>
     </span>
   <% end %>
+
+  <%= link_to admin_widthdrawls_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", admin_widthdrawls_path)}" do %>
+    <span class="link__name">
+      <i class="material-icons">subject</i>
+      <span class="link__text">Widthdrawl requests</span>
+    </span>
+  <% end %>
 </nav>

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root "posts#index"
 
-  resources :posts
   get "/category/:name" => "posts#category", as: "post_category"
 
   get "search", to: "posts#search"
@@ -26,8 +25,11 @@ Rails.application.routes.draw do
   get "/admin/users", as: "admin_users"
   get "/admin/orders", as: "admin_orders"
   get "/admin/posts", as: "admin_posts"
+  get "/admin/widthdrawls", as: "admin_widthdrawls"
 
+  resources :posts
   resources :cart_posts
   resources :charges
   resources :orders
+  resources :widthdrawls
 end
