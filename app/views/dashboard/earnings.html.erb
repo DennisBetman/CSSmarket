@@ -7,8 +7,10 @@
 
     <% if @current_widthdrawl %>
       <p>You have a widthdrawl currently pending for <strong>&euro;<%= @current_widthdrawl.amount %></strong>. Once this widthdrawl is complete, you can request another widthdrawl.</p>
+    <% elsif @on_account >= 20 %>
+      <%= link_to "widthdrawl", "javascript:void(0)", class: "button button--ghost content__button" %>
     <% else %>
-      <%= link_to "widthdrawl", "javascript:void(0)", class: "button button--ghost content__button" if @on_account > 0 %>
+      <p>You need a minimum of &euro;20 to request a widthdrawl</p>
     <% end %>
 
     <div class="content__subject">
