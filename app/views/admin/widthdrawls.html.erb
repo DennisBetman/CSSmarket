@@ -20,13 +20,13 @@
           <tr>
             <td><%= widthdrawl.id %></td>
             <td><%= widthdrawl.user_id %></td>
-            <td><%= widthdrawl.amount %></td>
+            <td>&euro; <%= widthdrawl.amount %></td>
             <td><%= widthdrawl.created_at.strftime("%d %b. %Y, %H:%M") %></td>
             <td>
               <% if widthdrawl.status == 0 %>
                 <%= form_for widthdrawl do |f| %>
                   <%= f.hidden_field :status, value: 1 %>
-                  <%= f.submit "Mark as complete", class: "button button--gradient actions__button" %>
+                  <%= f.submit "Mark as complete", class: "button button--gradient actions__button", data: { confirm: "Are you sure you want to confirm #{widthdrawl.id} for €#{widthdrawl.amount}" } %>
                 <% end %>
               <% else %>
                 Complete
