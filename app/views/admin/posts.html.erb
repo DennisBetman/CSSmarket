@@ -9,6 +9,7 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Status</th>
           <th>User</th>
           <th>Title</th>
           <th>Created at</th>
@@ -19,13 +20,21 @@
         <% @posts.each do |post| %>
           <tr>
             <td><%= post.id %></td>
+            <td><%= post.status %></td>
             <td><%= post.user_name %> <i>(<%= post.user_id %>)</i></td>
-            <td><%= post.title %></td>
+            <td><strong><%= post.title %></strong></td>
             <td><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></td>
-            <td>
-              <%= link_to "View Post", post %> <br>
-              <%= link_to "Approve Post", post %> <br>
-              <%= link_to "Decline Post", post %>
+            <td style="display: flex; flex-direction: column;">
+              <%= button_to "View Post", post, method: :get %>
+
+              <% if post.status == 0 %>
+                <%= form_for post do |f| %>
+                  <%= f.hidden_field :status, value: 1 %>
+                  <%= f.submit "Approve Post" %>
+                <% end %>
+              <% end %>
+
+              <%= button_to "Decline Post", post, method: :get %>
             </td>
           </tr>
         <% end %>

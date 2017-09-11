@@ -5,6 +5,21 @@
   <% end %>
 </section>
 
+<% if @post.status == 0 %>
+  <div class="cart__flash">
+    <center>
+      This post is awaiting approval
+
+      <% if check_user_level(100) %>
+        <%= form_for @post do |f| %>
+          <%= f.hidden_field :status, value: 1 %>
+          <%= f.submit "Approve Post" %>
+        <% end %>
+      <% end %>
+    </center>
+  </div>
+<% end %>
+
 <section class="post">
   <article class="post__article">
     <% if @post.image %>
