@@ -27,16 +27,6 @@
   }
 }
 
-.cart__flash {
-  @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
-  padding: 14px 20px;
-  font-weight: 500;
-
-  @include mediaquery("tablet") {
-    padding: 20px;
-  }
-}
-
 .product__image {
   width: 80px;
   height: 80px;
