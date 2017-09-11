@@ -10,10 +10,26 @@
   &--post {
     @include maxwidth(30px);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     color: map-get($color, "white");
+
+    @include mediaquery("tablet") {
+      font-size: 22px;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .button {
+      margin-top: 10px;
+
+      @include mediaquery("tablet") {
+        margin: 0;
+      }
+    }
   }
 }
