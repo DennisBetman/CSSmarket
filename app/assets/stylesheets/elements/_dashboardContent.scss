@@ -3,12 +3,10 @@
 
   @include mediaquery("tablet") {
     width: calc(100% - 263px);
-    max-width: calc(550px + 50px);
     padding-left: 50px;
   }
 
   @include mediaquery("desktop") {
-    max-width: calc(550px + 128px);
     padding-left: 128px;
   }
 

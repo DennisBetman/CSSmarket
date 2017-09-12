@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+  padding-top: 45px;
+
+  @include mediaquery("tablet") {
+    padding-top: 65px;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid map-get($color, "light-grey");
+  }
+}
