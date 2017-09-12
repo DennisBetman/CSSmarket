@@ -6,7 +6,8 @@ table {
     padding-top: 65px;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     border: 1px solid map-get($color, "light-grey");
   }
