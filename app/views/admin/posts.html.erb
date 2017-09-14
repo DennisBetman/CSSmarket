@@ -2,43 +2,39 @@
   <%= render "admin/menu" %>
 
   <div class="dashboard__content">
-    <h1>Admin Dashboard</h1>
+    <h3 class="content__title">Admin dashboard</h3>
+    <h1 class="content__subtitle">Posts</h1>
 
-    <h3>Posts</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>User</th>
-          <th>Title</th>
-          <th>Created at</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @posts.each do |post| %>
-          <tr>
-            <td><%= post.id %></td>
-            <td><%= post.status %></td>
-            <td><%= post.user_name %> <i>(<%= post.user_id %>)</i></td>
-            <td><strong><%= post.title %></strong></td>
-            <td><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></td>
-            <td style="display: flex; flex-direction: column;">
-              <%= button_to "View Post", post, method: :get %>
+    <div class="table content__subject">
+      <div class="table__list table__list--col5 table__list--posts">
+        <div class="table__item">ID</div>
+        <div class="table__item">Stat</div>
+        <div class="table__item">User</div>
+        <div class="table__item">Title</div>
+        <div class="table__item">Created at</div>
+        <div class="table__item">Actions</div>
+      </div>
+      <% @posts.each do |post| %>
+        <div class="table__list table__list--posts">
+          <div class="table__item"><%= post.id %></div>
+          <div class="table__item"><%= post.status %></div>
+          <div class="table__item"><%= post.user_name %> <i>(<%= post.user_id %>)</i></div>
+          <div class="table__item"><%= post.title %></div>
+          <div class="table__item"><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></div>
+          <div class="table__item table__item--actions">
+            <%= button_to "View", post, method: :get %>
 
-              <% if post.status == 0 %>
-                <%= form_for post do |f| %>
-                  <%= f.hidden_field :status, value: 1 %>
-                  <%= f.submit "Approve Post" %>
-                <% end %>
+            <% if post.status == 0 %>
+              <%= form_for post do |f| %>
+                <%= f.hidden_field :status, value: 1 %>
+                <%= f.submit "Approve" %>
               <% end %>
+            <% end %>
 
-              <%= button_to "Decline Post", post, method: :get %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            <%= button_to "Decline", post, method: :get %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </section>
