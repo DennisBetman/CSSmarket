@@ -34,13 +34,13 @@
 }
 
 .content__subject {
-  padding-top: 45px;
+  margin-top: 45px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
   @include mediaquery("tablet") {
-    padding-top: 65px;
+    margin-top: 65px;
   }
 
   .projects {

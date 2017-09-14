@@ -1,14 +1,102 @@
-table {
+.table {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid map-get($color, "light-grey");
+  border-right: 0;
+  border-bottom: 0;
   width: 100%;
-  padding-top: 45px;
 
-  @include mediaquery("tablet") {
-    padding-top: 65px;
+  &--spacing {
+    margin-top: 45px;
+
+    @include mediaquery("tablet") {
+      margin-top: 65px;
+    }
+  }
+}
+
+.table__list {
+  display: grid;
+
+  &:first-of-type {
+    font-weight: 700;
   }
 
-  th,
-  td {
-    padding: 10px;
-    border: 1px solid map-get($color, "light-grey");
+  &--users {
+    grid-template-columns: 80px 100px repeat(3, 1fr);
+  }
+
+  &--order {
+    grid-template-columns: 80px repeat(3, 1fr);
+  }
+
+  &--posts {
+    grid-template-columns: 80px 90px repeat(4, 1fr);
+  }
+
+  &--drawl {
+    grid-template-columns: 80px 100px repeat(3, 1fr);
+  }
+
+  &--earnings {
+    grid-template-columns: 1fr 100px;
+
+    @include mediaquery("tablet") {
+      grid-template-columns: 1fr 120px;
+    }
+
+    @include mediaquery("desktop") {
+      grid-template-columns: 138px 1fr 120px;
+    }
+  }
+}
+
+.table__item {
+  @include dotdotdot();
+  padding: 15px;
+  border-bottom: 1px solid map-get($color, "light-grey");
+  border-right: 1px solid map-get($color, "light-grey");
+
+  @include mediaquery("tablet") {
+    padding: 20px;
+  }
+
+  &--desktop {
+    display: none;
+
+    @include mediaquery("desktop") {
+      display: block;
+    }
+  }
+
+  &--actions {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      background: none;
+      border: 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 400;
+      font-family: 'Open Sans', sans-serif;
+    }
+  }
+
+  &--plus {
+    color: map-get($color, "green");
+    font-weight: 600;
+  }
+
+  &--min {
+    color: map-get($color, "error");
+    font-weight: 600;
+  }
+
+  .table__list--earnings & {
+    &:last-of-type {
+      text-align: right;
+    }
   }
 }

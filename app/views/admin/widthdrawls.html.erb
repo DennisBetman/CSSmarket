@@ -2,39 +2,35 @@
   <%= render "admin/menu" %>
 
   <div class="dashboard__content">
-    <h1>Admin Dashboard</h1>
+    <h3 class="content__title">Admin dashboard</h3>
+    <h1 class="content__subtitle">Widthdrawl</h1>
 
-    <h3>Posts</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>User</th>
-          <th>Amount</th>
-          <th>Created at</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @widthdrawls.each do |widthdrawl| %>
-          <tr>
-            <td><%= widthdrawl.id %></td>
-            <td><%= widthdrawl.user_id %></td>
-            <td>&euro; <%= widthdrawl.amount %></td>
-            <td><%= widthdrawl.created_at.strftime("%d %b. %Y, %H:%M") %></td>
-            <td>
-              <% if widthdrawl.status == 0 %>
-                <%= form_for widthdrawl do |f| %>
-                  <%= f.hidden_field :status, value: 1 %>
-                  <%= f.submit "Mark as complete", class: "button button--gradient actions__button", data: { confirm: "Are you sure you want to confirm #{widthdrawl.id} for €#{widthdrawl.amount}" } %>
-                <% end %>
-              <% else %>
-                Complete
+    <div class="table content__subject">
+      <div class="table__list table__list--col5 table__list--drawl">
+        <div class="table__item">ID</div>
+        <div class="table__item">User</div>
+        <div class="table__item">Amount</div>
+        <div class="table__item">Created at</div>
+        <div class="table__item">Actions</div>
+      </div>
+      <% @widthdrawls.each do |widthdrawl| %>
+        <div class="table__list table__list--drawl">
+          <div class="table__item"><%= widthdrawl.id %></div>
+          <div class="table__item"><%= widthdrawl.user_id %></div>
+          <div class="table__item">&euro; <%= widthdrawl.amount %></div>
+          <div class="table__item"><%= widthdrawl.created_at.strftime("%d %b. %Y, %H:%M") %></div>
+          <div class="table__item">
+            <% if widthdrawl.status == 0 %>
+              <%= form_for widthdrawl do |f| %>
+                <%= f.hidden_field :status, value: 1 %>
+                <%= f.submit "Complete", class: "button button--gradient actions__button", data: { confirm: "Are you sure you want to confirm #{widthdrawl.id} for €#{widthdrawl.amount}" } %>
               <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            <% else %>
+              Complete
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </section>
