@@ -47,3 +47,6 @@ linters:
       'Hz', 'kHz',                             # Frequency
       'dpi', 'dpcm', 'dppx',                   # Resolution
       '%', 'fr']                               # Other
+
+  PropertySpelling:
+    enabled: false
