@@ -10,7 +10,7 @@
     This post is waiting for approval
 
     <% if check_user_level(100) %>
-      <%= form_for @post do |f| %>
+      <%= form_for @post, url: post_path(@post.nice_url) do |f| %>
         <%= f.hidden_field :status, value: 1 %>
         <%= f.submit "Approve Post", class: "button button--white" %>
       <% end %>
@@ -40,7 +40,7 @@
   <aside class="post__aside">
     <span class="post__price">&euro; <%= @post.price %></span>
     <p class="post__licence"><%= @post.license %></p>
-    <%= link_to "Live Preview", post_preview_path(@post.id), class: "post__button button button--grey" %>
+    <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "post__button button button--grey" %>
 
     <% if @has_ordered %>
       <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>
