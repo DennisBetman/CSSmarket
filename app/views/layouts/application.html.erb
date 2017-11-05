@@ -40,10 +40,20 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
+    <% id = @post ? @post.id : 0 %>
 
-    <%= yield %>
+    <% if current_page?(post_preview_path(id)) %>
+      <%= render "layouts/preview_header" %>
 
-    <%= render "layouts/footer" %>
+      <div class="preview-post-<%= @post.id %>">
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= render "layouts/header" %>
+
+      <%= yield %>
+      
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>
