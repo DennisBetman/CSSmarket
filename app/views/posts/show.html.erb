@@ -40,7 +40,7 @@
   <aside class="post__aside">
     <span class="post__price">&euro; <%= @post.price %></span>
     <p class="post__licence"><%= @post.license %></p>
-    <a href="#" class="post__button button button--grey">Live Preview</a>
+    <%= link_to "Live Preview", post_preview_path(@post.id), class: "post__button button button--grey" %>
 
     <% if @has_ordered %>
       <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>

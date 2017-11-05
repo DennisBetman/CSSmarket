@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get "/admin/posts", as: "admin_posts"
   get "/admin/widthdrawls", as: "admin_widthdrawls"
 
+  get "/posts/:id/preview" => "posts#preview", as: "post_preview"
+
   resources :posts
   resources :cart_posts
   resources :charges
