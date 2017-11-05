@@ -1,5 +1,5 @@
 <div class="project">
-  <%= link_to post_path(post), class: "project__image", style: "background-image: url(#{post.image})" do %>
+  <%= link_to post_path(post.nice_url), class: "project__image", style: "background-image: url(#{post.image})" do %>
     <div class="project__overlay">
       <i class="project__icon material-icons">search</i>
     </div>

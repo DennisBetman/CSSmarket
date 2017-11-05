@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find params[:id]
+    @post = Post.find_by_nice_url params[:nice_url]
     user = User.select("id", "name").find_by_id(@post.user_id)
     @post.user_name = user.name
 
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
   end
 
   def preview
-    @post = Post.find params[:id]
+    @post = Post.find_by_nice_url params[:nice_url]
   end
 
   def category
@@ -50,10 +50,11 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new post_params
+    @post.nice_url = @post.title.parameterize
     @post.user_id = current_user.id
 
     if @post.save
-      redirect_to @post
+      redirect_to post_path(@post.nice_url)
     else
       render "new"
     end
@@ -64,10 +65,10 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.find_by_nice_url params[:nice_url]
 
     if @post.update post_params
-      redirect_to @post
+      redirect_to post_path(@post.nice_url)
     else
       render "edit"
     end

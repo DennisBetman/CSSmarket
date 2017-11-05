@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910221532) do
+ActiveRecord::Schema.define(version: 20171105163439) do
 
   create_table "cart_posts", id: false, force: :cascade do |t|
     t.integer "post_id"
@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 20170910221532) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "carts_posts", id: false, force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "cart_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -46,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170910221532) do
     t.string   "license"
     t.string   "file"
     t.integer  "status",      default: 0
+    t.string   "nice_url"
   end
 
   create_table "users", force: :cascade do |t|

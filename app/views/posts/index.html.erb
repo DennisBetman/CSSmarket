@@ -6,9 +6,7 @@
 <section class="projects">
   <h3 class="projects__title">Recente projects</h3>
   <div class="projects__parent">
-    <% @posts.each do |post| %>
-      <%= render post %>
-    <% end %>
+    <%= render @posts %>
   </div>
   <a href="#" class="button button--grey projects__more">see more</a>
 </section>

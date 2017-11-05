@@ -25,7 +25,7 @@
             <%= button_to "View", post, method: :get %>
 
             <% if post.status == 0 %>
-              <%= form_for post do |f| %>
+              <%= form_for post, url: post_path(post.nice_url) do |f| %>
                 <%= f.hidden_field :status, value: 1 %>
                 <%= f.submit "Approve" %>
               <% end %>
