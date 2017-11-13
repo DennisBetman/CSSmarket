@@ -20,10 +20,6 @@
   position: relative;
   margin-bottom: 25px;
 
-  &--four {
-    width: calc((100% / 2) - 15px);
-  }
-
   @include mediaquery("mobile-large") {
     width: calc((100% / 2) - 15px);
 
@@ -63,6 +59,10 @@
     &--four {
       width: calc((100% / 4) - 15px);
     }
+  }
+
+  &--four {
+    width: calc((100% / 2) - 15px);
   }
 
   .button {
