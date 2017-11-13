@@ -20,11 +20,19 @@
   position: relative;
   margin-bottom: 25px;
 
+  &--four {
+    width: calc((100% / 2) - 15px);
+  }
+
   @include mediaquery("mobile-large") {
     width: calc((100% / 2) - 15px);
 
     &--full {
       width: 100%;
+    }
+
+    &--four {
+      width: calc((100% / 4) - 15px);
     }
   }
 
@@ -35,6 +43,14 @@
     &--full {
       width: 100%;
     }
+
+    &--four {
+      width: calc((100% / 4) - 15px);
+    }
+
+    &--second {
+      width: calc((100% / 2) - 15px);
+    }
   }
 
   @include mediaquery("desktop") {
@@ -42,6 +58,10 @@
 
     &--full {
       width: 100%;
+    }
+
+    &--four {
+      width: calc((100% / 4) - 15px);
     }
   }
 
@@ -110,6 +130,7 @@
   font-weight: 300;
   color: darken(map-get($color, "light-grey"), 25%);
   top: 50%;
+  left: 0;
   transform: translate(0, -50%);
   pointer-events: none;
   transition: all 150ms ease;
