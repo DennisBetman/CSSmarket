@@ -1,10 +1,43 @@
-<%= form_for :charge, url: charges_path do |f| %>
-  <h1>Price: &euro; <%= @total_price %></h1>
+<section class="intro intro--blue intro--cart grow">
+  <h1 class="intro__title">Pay with Creditcard</h1>
+  <h2 class="intro__subtitle">More payment options coming soon</h2>
 
-  <%= f.text_field :card_number, placeholder: "Card Number", class: "" %>
-  <%= f.text_field :card_exp_month, placeholder: "Exp. Month", class: "" %>
-  <%= f.text_field :card_exp_year, placeholder: "Exp. Year", class: "" %>
-  <%= f.text_field :card_cvc, placeholder: "CVC", class: "" %>
+  <div class="cart">
+    <%= form_for :charge, url: charges_path do |f| %>
 
-  <%= f.submit %>
-<% end %>
+      <div class="cart__payment">
+        <div class="form__parent form__parent--full">
+          <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
+          <%= f.label :card_number, "Card Number", class: "form__label" %>
+        </div>
+
+        <div class="form__parent form__parent--four">
+          <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
+          <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+        </div>
+
+        <div class="form__parent form__parent--four">
+          <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
+          <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+        </div>
+
+        <div class="form__parent form__parent--second">
+          <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
+          <%= f.label :card_number, "CVC", class: "form__label" %>
+        </div>
+      </div>
+
+      <div class="cart__product">
+        <div class="product__content product__content--total">
+          <div class="product__detail">
+            <span class="product__name product__name--big">Total price</span>
+          </div>
+          <div class="product__price product__price--big">&euro; <%= @total_price %></div>
+        </div>
+      </div>
+      <div class="cart__product cart__product--checkout">
+        <%= f.submit "Make payment", class: "button button--gradient" %>
+      </div>
+    <% end %>
+  </div>
+</section>
