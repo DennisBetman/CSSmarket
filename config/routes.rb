@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   end
 
   get "/p/:nice_url" => "posts#show", as: "post"
-  patch "/p/:nice_url" => "posts#update"
+  get "/p/:nice_url/edit" => "posts#edit", as: "edit_post"
+  patch "/p/:id" => "posts#update"
   get "/p/:nice_url/preview" => "posts#preview", as: "post_preview"
 
   resources :posts

@@ -26,9 +26,9 @@
         </div>
       <% end %>
     </div>
-
+    
     <main class="post__content">
-      <%= @post.content %>
+      <%= markdown(@post.content) %>
     </main>
   </article>
 
