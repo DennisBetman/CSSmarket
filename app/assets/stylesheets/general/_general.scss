@@ -9,7 +9,6 @@ body {
   margin: 0;
   padding: 0;
   font-weight: 300;
-  background: map-get($color, "light-grey");
 
   @include mediaquery("tablet") {
     font-size: 16px;
