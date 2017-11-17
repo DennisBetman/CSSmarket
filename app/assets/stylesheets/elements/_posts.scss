@@ -1,10 +1,12 @@
 .post {
   @include maxwidth(30px);
+  position: relative;
 
   @include mediaquery("tablet") {
     @include maxwidth(50px);
     display: flex;
     justify-content: space-between;
+    margin-top: -200px;
   }
 }
 
@@ -12,33 +14,24 @@
   width: 100%;
 
   @include mediaquery("tablet") {
-    width: 70%;
-    padding: 0 20px 0 0;
-    border-right: 1px solid darken(map-get($color, "white"), 8%);
+    width: calc(100% - 366px);
+    padding: 0 25px 0 0;
   }
 }
 
 .post__aside {
   width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: map-get($color, "white");
-  padding: 15px 20px;
-  border-top: 1px solid darken(map-get($color, "white"), 7%);
-  display: flex;
-  justify-content: space-between;
 
   @include mediaquery("tablet") {
     position: relative;
-    width: 30%;
-    padding: 0 0 0 20px;
-    display: block;
-    border-top: 0;
+    width: 366px;
   }
 }
 
-.post__button,
+.post__button {
+  margin-top: 16px;
+}
+
 .post__form {
   width: 48%;
   display: block;
@@ -50,6 +43,7 @@
     font-size: 13px;
     padding: 12px 20px;
     margin-bottom: 10px;
+    padding: 0;
   }
 
   input {
@@ -57,57 +51,12 @@
   }
 }
 
-.post__form {
-  @include mediaquery("tablet") {
-    padding: 0;
-  }
-}
-
-.post__price {
-  position: absolute;
-  top: 11px;
-  left: 50%;
-  transform: translate(-50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: map-get($color, "white");
-  border: 1px solid darken(map-get($color, "white"), 7%);
-  color: map-get($color, "brand-primary");
-  font-weight: 700;
-
-  @include mediaquery("tablet") {
-    position: relative;
-    top: -10px;
-    left: inherit;
-    transform: none;
-    width: auto;
-    height: auto;
-    border-radius: none;
-    display: block;
-    text-align: left;
-    background: none;
-    border: 0;
-    font-size: 30px;
-  }
-}
-
-.post__licence {
-  display: none;
-  margin-top: 0;
-
-  @include mediaquery("tablet") {
-    display: block;
-  }
-}
-
 .post__image {
   width: 100%;
-  border-radius: 5px;
+  background: map-get($color, "white");
+  box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
 .post__content {
@@ -117,5 +66,37 @@
   p {
     margin: 25px 0;
     line-height: 26px;
+  }
+}
+
+.post__license {
+  background: map-get($color, "white");
+  margin-top: 48px;
+  padding: 35px;
+  box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+  color: map-get($color, "dark-grey");
+}
+
+.post__price {
+  font-size: 38px;
+  line-height: 38px;
+  font-weight: 700;
+}
+
+.license__title {
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: none;
+  margin: 23px 0 19px;
+  letter-spacing: 0;
+}
+
+.lisence__content {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
