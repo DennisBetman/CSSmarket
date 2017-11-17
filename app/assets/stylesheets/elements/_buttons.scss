@@ -46,4 +46,26 @@
       margin-top: 15px;
     }
   }
+
+  &--large {
+    height: 56px;
+    width: 100%;
+    max-width: 366px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    background: map-get($color, "white");
+    color: darken(map-get($color, "light-grey"), 30%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 0;
+    text-decoration: none;
+  }
+
+  &--green {
+    background: linear-gradient(90deg, map-get($color, "green-primary"), map-get($color, "green-secondary"));
+    color: map-get($color, "white");
+  }
 }
