@@ -61,11 +61,11 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.find_by_nice_url params[:nice_url]
   end
 
   def update
-    @post = Post.find_by_nice_url params[:nice_url]
+    @post = Post.find_by_id params[:id]
 
     if @post.update post_params
       redirect_to post_path(@post.nice_url)
