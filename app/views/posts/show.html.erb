@@ -32,7 +32,7 @@
     </p>
 
     <div class="post__content">
-      <%= @post.content %>
+      <%= markdown(@post.content) %>
     </div>
     <span class="post__category"><%= @post.categories %></span>
   </article>
