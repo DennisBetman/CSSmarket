@@ -7,29 +7,55 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.where(status: 1).order("created_at DESC").all
+    @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.to_a
 
     user_id_to_name
   end
 
   def show
-    @post = Post.find_by_nice_url params[:nice_url]
+    @post = Post.where(nice_url: params[:nice_url]).where(status: 1).order("created_at DESC").first
+    if current_user
+      unless @post
+        @post = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
+      end
+
+      if current_user.id == @post.user_id || check_user_level(100)
+        @total_posts = Post.where(parent_id: @post.parent_id).where(status: 0).all
+        @awaiting_edit = ""
+
+        if @total_posts.length > 0
+          @awaiting_edit = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
+          @post = @awaiting_edit
+        end
+      end
+    end
+
+    unless @post
+      @post = Post.where(nice_url: params[:nice_url]).where(status: 1).order("created_at DESC").first
+    end
+
+    unless @post
+      @post = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
+    end
+
+    if current_user
+      if @post.user_id == current_user.id || check_user_level(100)
+      else
+        if @post.status == 0
+          raise ActionController::RoutingError.new("Not Found")
+        end
+      end
+    else
+      if @post.status == 0
+        raise ActionController::RoutingError.new("Not Found")
+      end
+    end
+
     user = User.select("id", "name").find_by_id(@post.user_id)
     @post.user_name = user.name
 
     if current_user
       @has_ordered = Order.find_by_post_id_and_user_id(@post.id, current_user.id)
-    end
-
-    if @post.status == 0
-      if current_user
-        if @post.user_id == current_user.id || check_user_level(100)
-        else
-          raise ActionController::RoutingError.new("Not Found")
-        end
-      else
-        raise ActionController::RoutingError.new("Not Found")
-      end
     end
   end
 
@@ -52,6 +78,7 @@ class PostsController < ApplicationController
     @post = Post.new post_params
     @post.nice_url = @post.title.parameterize
     @post.user_id = current_user.id
+    @post.parent_id = SecureRandom.urlsafe_base64(16)
 
     if @post.save
       redirect_to post_path(@post.nice_url)
@@ -61,7 +88,11 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by_nice_url params[:nice_url]
+    @post = Post.where(nice_url: params[:nice_url]).order("created_at DESC").first
+
+    if @post.status == 0
+      redirect_to post_path(@post.nice_url)
+    end
 
     if @post.user_id != current_user.id
       redirect_to post_path(@post.nice_url)
@@ -69,12 +100,27 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find_by_id params[:id]
+    if post_params[:status]
+      @post = Post.find_by_id params[:id]
 
-    if @post.update post_params
-      redirect_to post_path(@post.nice_url)
+      if @post.update post_params
+        redirect_to post_path(@post.nice_url)
+      else
+        render "edit"
+      end
     else
-      render "edit"
+      @parent_post = Post.find_by_id params[:id]
+      @post = Post.new post_params
+
+      @post.nice_url = @parent_post.nice_url
+      @post.user_id = current_user.id
+      @post.parent_id = @parent_post.parent_id
+
+      if @post.save
+        redirect_to post_path(@post.nice_url)
+      else
+        render "edit"
+      end
     end
   end
 
