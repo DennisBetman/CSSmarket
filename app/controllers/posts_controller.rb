@@ -62,6 +62,10 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find_by_nice_url params[:nice_url]
+
+    if @post.user_id != current_user.id
+      redirect_to post_path(@post.nice_url)
+    end
   end
 
   def update
