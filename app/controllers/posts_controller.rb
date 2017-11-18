@@ -19,7 +19,7 @@ class PostsController < ApplicationController
         @post = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
       end
 
-      if current_user.id == @post.user_id
+      if current_user.id == @post.user_id || check_user_level(100)
         @total_posts = Post.where(parent_id: @post.parent_id).where(status: 0).all
         @awaiting_edit = ""
 
