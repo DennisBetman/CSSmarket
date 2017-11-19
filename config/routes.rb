@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get "/p/:nice_url/preview" => "posts#preview", as: "post_preview"
 
   resources :posts
+  get "/all" => "posts#overview", as: "posts_overview"
 
   resources :cart_posts, :charges, :orders, :widthdrawls
 end
