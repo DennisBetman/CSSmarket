@@ -23,6 +23,12 @@ class AdminController < ApplicationController
     user_id_to_name
   end
 
+  def parent_posts
+    @posts = Post.where(parent_id: params[:parent_id]).order("created_at DESC").all
+
+    user_id_to_name
+  end
+
   def widthdrawls
     @widthdrawls = Widthdrawl.order("created_at DESC").all
   end

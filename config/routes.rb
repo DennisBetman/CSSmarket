@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get :posts
     get :widthdrawls
   end
+  get "/admin/posts/:parent_id" => "admin#parent_posts", as: "admin_parent_posts"
 
   get "/p/:nice_url" => "posts#show", as: "post"
   get "/p/:nice_url/edit" => "posts#edit", as: "edit_post"

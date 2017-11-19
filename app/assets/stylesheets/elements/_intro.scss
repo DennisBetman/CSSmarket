@@ -54,6 +54,8 @@
 }
 
 .intro__head {
+  position: relative;
+  z-index: 10;
   min-height: 90px;
   width: 100%;
   display: flex;
