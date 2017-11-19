@@ -1,6 +1,6 @@
 .intro {
   @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
-  height: 178px;
+  min-height: 178px;
   color: map-get($color, "white");
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@
   position: relative;
 
   @include mediaquery("tablet") {
-    height: 280px;
+    min-height: 280px;
   }
 
   &::before {
@@ -54,13 +54,27 @@
 }
 
 .intro__head {
-  height: 130px;
+  position: relative;
+  z-index: 10;
+  min-height: 90px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-align: left;
   justify-content: center;
-  position: relative;
-  z-index: 10;
+  margin-bottom: calc(178px - 90px);
+  padding: 20px 0;
+
+  @include mediaquery("tablet") {
+    min-height: 130px;
+    margin-bottom: calc(280px - 130px);
+    padding: 25px 25px 25px 0;
+    max-width: calc(100% - 315px);
+  }
+
+  @include mediaquery("desktop") {
+    max-width: calc(100% - 366px);
+  }
 }
 
 .intro__title {
@@ -69,8 +83,13 @@
   color: map-get($color, "white");
 
   &--small {
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 18px;
+    line-height: 25px;
+
+    @include mediaquery("tablet") {
+      font-size: 28px;
+      line-height: 34px;
+    }
   }
 }
 

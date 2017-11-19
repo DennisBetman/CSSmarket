@@ -2,11 +2,11 @@
   <div class="intro__head">
     <h1 class="intro__title intro__title--small"><%= @post.title %></h1>
     <% if @post.user_name %>
-      <h2 class="intro__subtitle intro__subtitle--small">
+      <span class="intro__subtitle intro__subtitle--small">
         By <%= link_to @post.user_name, profile_path(@post.user_name) %>
         in <%= link_to @post.categories, post_category_path(@post.categories) %>
         created at <span><%= @post.created_at.strftime("%B %d, %Y") %></span>
-      </h2>
+      </span>
     <% end %>
   </div>
 </section>
@@ -43,18 +43,58 @@
         </div>
       <% end %>
     </div>
+    
+    <div class="post__actions post__actions--mobile">
+      <div class="actions__buttons">
+        <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--full button--grey" %>
 
+        <% if @has_ordered %>
+          <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient button--full" %>
+        <% elsif current_user %>
+          <% if @post.user_id != current_user.id %>
+            <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
+
+              <% if not @post.nil? and @post.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@post.errors.count, "error") %> prohibited
+                  this post from being saved:</h2>
+                <ul>
+                <% @post.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+                </ul>
+              </div>
+              <% end %>
+
+              <%= f.hidden_field :post_id, value: @post.id %>
+              <%= f.hidden_field :cart_id, value: session[:cart_id] %>
+
+              <%= f.submit "Add to Cart (€#{@post.price})", class: "post__button button button--large button--green button--full" %>
+            <% end %>
+          <% else %>
+            <%= link_to "Edit Post", edit_post_path(@post), class: "post__button button button--large button--gradient button--full" %>
+          <% end %>
+        <% else %>
+          <%= link_to "Add to Cart (€#{@post.price})", login_path, class: "post__button button button--large button--green button--full" %>
+        <% end %>
+      </div>
+      <span class="actions__title">
+        <span>Regular Lisence</span>
+        <div class="actions__question">?</div>
+      </span>
+    </div>
+  
     <main class="post__content">
       <%= markdown(@post.content) %>
     </main>
   </article>
 
   <aside class="post__aside">
-    <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large" %>
+    <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--grey" %>
 
     <% if @post.status == 1 %>
       <% if @has_ordered %>
-        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--green" %>
+        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>
       <% elsif current_user %>
         <% if @post.user_id != current_user.id %>
           <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
@@ -77,7 +117,7 @@
             <%= f.submit "Add to Cart", class: "post__button button button--large button--green" %>
           <% end %>
         <% elsif @post.status == 1 %>
-          <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--green" %>
+          <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
         <% end %>
       <% else %>
         <%= link_to "Add to Cart", login_path, class: "post__button button button--large button--green" %>
@@ -85,10 +125,21 @@
     <% end %>
 
     <div class="post__license">
-      <span class="post__price">&euro; <%= @post.price %></span>
+      <span class="post__price">&euro;<%= @post.price %></span>
       <h3 class="license__title">Regular license</h3>
       <p class="lisence__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum sapien vitae malesuada. Suspendisse sed egestas eros. Nulla non iaculis lectus. Morbi convallis malesuada consequat. Pellentesque cursus odio ut </p>
       <p class="lisence__content">fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>
     </div>
   </aside>
+</section>
+
+<section class="popup">
+  <div class="popup__content">
+    <h2>Regular Lisence</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum sapien vitae malesuada. Suspendisse sed egestas eros. Nulla non iaculis lectus. Morbi convallis malesuada consequat. Pellentesque cursus odio ut </p>
+    <p>fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>
+    <div class="popup__actions popup__actions--less">
+      <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Close</a>
+    </div>
+  </div>
 </section>

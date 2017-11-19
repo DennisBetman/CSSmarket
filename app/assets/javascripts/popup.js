@@ -1,4 +1,4 @@
-$(document).on("click", ".content__button", function() {
+$(document).on("click", ".content__button, .actions__question", function() {
   $(".popup").addClass("popup--animation-in");
 
   //Prevent scrolling

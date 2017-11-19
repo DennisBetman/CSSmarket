@@ -1,4 +1,8 @@
 .button {
+  &:focus {
+    outline: none;
+  }
+
   &--gradient {
     @include button(
       0, //background color
@@ -54,18 +58,23 @@
     text-align: center;
     font-size: 18px;
     font-weight: 700;
-    background: map-get($color, "white");
-    color: darken(map-get($color, "light-grey"), 30%);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     border: 0;
     text-decoration: none;
+    text-transform: none;
   }
 
   &--green {
     background: linear-gradient(90deg, map-get($color, "green-primary"), map-get($color, "green-secondary"));
     color: map-get($color, "white");
+    cursor: pointer;
+  }
+
+  &--full {
+    width: 100%;
+    max-width: 100%;
   }
 }
