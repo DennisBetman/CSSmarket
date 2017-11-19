@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   end
 
   def category
-    @posts = Post.where(categories: params[:name]).where(status: 1).all
+    @posts = Post.group(:parent_id).where(categories: params[:name]).where(status: 1).order("created_at DESC").all.to_a
     @posts_total = @posts ? @posts.count : 0
 
     user_id_to_name

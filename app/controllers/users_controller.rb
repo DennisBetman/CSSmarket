@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.select("id", "name", "created_at").find_by_name(params[:name])
-    @posts = Post.where(user_id: @user.id).where(status: 1).all
+    @posts = Post.group(:parent_id).where(user_id: @user.id).where(status: 1).order("created_at DESC").all.to_a
   end
 
   private
