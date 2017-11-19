@@ -17,30 +17,35 @@
       <% if @post.image %>
         <%= image_tag(@post.image) %>
       <% end %>
-      <% if @post.status == 0 && @awaiting_edit == "" %>
-        <div class="note__flash note__flash--post">
-          This post is waiting for approval
 
-          <% if check_user_level(100) %>
-            <%= form_for @post, url: post_path(@post.id) do |f| %>
-              <%= f.hidden_field :status, value: 1 %>
-              <%= f.submit "Approve Post", class: "button button--white" %>
-            <% end %>
+      <% if current_user %>
+        <% if current_user.id == @post.user_id || check_user_level(100) %>
+          <% if @post.status == 0 && @awaiting_edit == "" %>
+            <div class="note__flash note__flash--post">
+              This post is waiting for approval
+
+              <% if check_user_level(100) %>
+                <%= form_for @post, url: post_path(@post.id) do |f| %>
+                  <%= f.hidden_field :status, value: 1 %>
+                  <%= f.submit "Approve Post", class: "button button--white" %>
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
 
-      <% if @awaiting_edit != "" %>
-        <div class="note__flash note__flash--post">
-          The edits are awaiting approval
+          <% if @awaiting_edit != "" %>
+            <div class="note__flash note__flash--post">
+              The edits are awaiting approval
 
-          <% if check_user_level(100) %>
-            <%= form_for @post, url: post_path(@post.id) do |f| %>
-              <%= f.hidden_field :status, value: 1 %>
-              <%= f.submit "Approve Post", class: "button button--white" %>
-            <% end %>
+              <% if check_user_level(100) %>
+                <%= form_for @post, url: post_path(@post.id) do |f| %>
+                  <%= f.hidden_field :status, value: 1 %>
+                  <%= f.submit "Approve Post", class: "button button--white" %>
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
     </div>
     
