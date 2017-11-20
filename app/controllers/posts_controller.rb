@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authorize, except: [:show, :index, :search, :category, :preview]
+  before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
     if check_user_level(0)
       redirect_to dashboard_path
@@ -7,6 +7,12 @@ class PostsController < ApplicationController
   end
 
   def index
+    @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.limit(8).to_a
+
+    user_id_to_name
+  end
+
+  def overview
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.to_a
 
     user_id_to_name

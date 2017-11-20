@@ -8,7 +8,7 @@
   <div class="projects__parent">
     <%= render @posts %>
   </div>
-  <a href="#" class="button button--grey projects__more">see more</a>
+  <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" %>
 </section>
 
 <section class="media media--gradient">
