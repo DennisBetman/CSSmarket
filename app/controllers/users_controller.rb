@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
+      UserMailer.welcome(user).deliver_later
       session[:user_id] = user.id
       redirect_to root_path
     else
