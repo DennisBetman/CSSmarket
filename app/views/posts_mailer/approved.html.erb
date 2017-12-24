@@ -1,0 +1,15 @@
+<table class="email-table">
+  <tbody>
+    <tr class="header-row">
+      <td>
+        <h1>Hello, <%= @user.name %>!</h1>
+      </td>
+    </tr>
+    <tr class="body-row">
+      <td>
+        <p>Your post <strong><%= @post.title %></strong> has been approved</p>
+        <p><%= link_to "View it here", post_path(@post.nice_url) %></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
