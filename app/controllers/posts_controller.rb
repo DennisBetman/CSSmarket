@@ -111,6 +111,8 @@ class PostsController < ApplicationController
 
       if @post.update post_params
         redirect_to post_path(@post.nice_url)
+
+        PostsMailer.approved(current_user, @post).deliver_later
       else
         render "edit"
       end

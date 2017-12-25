@@ -43,6 +43,11 @@ class ChargesController < ApplicationController
 
       if @order.save
         session.delete(:cart_id)
+        PurchaseMailer.confirm(current_user, post).deliver_later
+
+        seller_id = Post.find_by_id(post.user_id)
+        seller = User.find_by_id(seller_id)
+        PurchaseMailer.notify_seller(seller, post).deliver_later
       else
         redirect_to cart_path, flash: { error: "Something went horribly wrong" }
       end
