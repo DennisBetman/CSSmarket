@@ -141,14 +141,15 @@ class PostsController < ApplicationController
   end
 
   private
-    def post_params
-      params.require(:post).permit :title, :content, :categories, :price, :image, :file, :license, :status
-    end
+  
+  def post_params
+    params.require(:post).permit :title, :content, :categories, :price, :image, :file, :license, :status
+  end
 
-    def user_id_to_name
-      @posts.each do |post|
-        user = User.select("id", "name").find_by_id(post.user_id)
-        post.user_name = user.name
-      end
+  def user_id_to_name
+    @posts.each do |post|
+      user = User.select("id", "name").find_by_id(post.user_id)
+      post.user_name = user.name
     end
+  end
 end
