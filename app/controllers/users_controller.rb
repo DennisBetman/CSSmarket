@@ -17,6 +17,10 @@ class UsersController < ApplicationController
   def update
     user = User.find_by_id(params[:id])
     if user.update(user_params)
+      if user_params[:password]
+        UserMailer.password_updated(user).deliver_later
+      end
+
       session[:user_id] = user.id
       redirect_to root_path
     else
