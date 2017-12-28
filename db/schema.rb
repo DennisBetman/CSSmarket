@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118144500) do
+ActiveRecord::Schema.define(version: 20171227125529) do
 
   create_table "cart_posts", id: false, force: :cascade do |t|
     t.integer "post_id"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20171118144500) do
     t.string   "source"
     t.integer  "post_id"
     t.integer  "user_id"
+  end
+
+  create_table "password_resets", force: :cascade do |t|
+    t.string   "reset_id"
+    t.integer  "user_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "posts", force: :cascade do |t|

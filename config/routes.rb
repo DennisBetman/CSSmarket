@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/create'
+
   root "posts#index"
 
   get "/category/:name" => "posts#category", as: "post_category"
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   get "/logout" => "sessions#destroy"
 
   get "/signup" => "users#new", as: "signup"
-  post "/users" => "users#create"
+  resources :users, only: [:create, :update]
 
   get "/profile/:name" => "users#show", as: "profile"
 
@@ -39,6 +41,9 @@ Rails.application.routes.draw do
 
   resources :posts
   get "/all" => "posts#overview", as: "posts_overview"
+
+  resources :password_resets, only: [:create, :new]
+  get "/password_reset/:reset_id" => "password_resets#show", as: "password_reset"
 
   resources :cart_posts, :charges, :orders, :widthdrawls
 end
