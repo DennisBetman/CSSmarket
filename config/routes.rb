@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'seller_requests/create'
-
   root "posts#index"
 
   get "/category/:name" => "posts#category", as: "post_category"
@@ -43,6 +41,9 @@ Rails.application.routes.draw do
   get "/all" => "posts#overview", as: "posts_overview"
 
   resources :seller_requests, only: [:create, :new]
+
+  resources :password_resets, only: [:create, :new]
+  get "/password_reset/:reset_id" => "password_resets#show", as: "password_reset"
 
   resources :cart_posts, :charges, :orders, :widthdrawls
 end
