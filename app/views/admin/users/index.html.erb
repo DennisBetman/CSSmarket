@@ -15,9 +15,19 @@
       </div>
       <% @users.each do |user| %>
         <div class="table__list table__list--users">
-          <div class="table__item"><%= user.id %></div>
-          <div class="table__item"><%= user.level %></div>
-          <div class="table__item"><%= user.name %></div>
+          <div class="table__item"><%= link_to user.id, admin_user_path(user.id) %></div>
+          <div class="table__item">
+            <%= user.level %>
+
+            <%= form_for user, url: user_path(user.id), html: { class: "form" } do |f| %>
+              <div>
+                <%= f.text_field :level, placeholder: "Level" %>
+              </div>
+
+              <%= f.submit "Submit" %>
+            <% end %>
+          </div>
+          <div class="table__item"><%= link_to user.name, profile_path(user.name) %></div>
           <div class="table__item"><%= user.email %></div>
           <div class="table__item"><%= user.created_at.strftime("%d %b. %Y, %H:%M") %></div>
         </div>
