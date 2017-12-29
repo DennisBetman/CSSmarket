@@ -25,12 +25,11 @@ Rails.application.routes.draw do
 
   scope "/admin", as: "admin" do
     resources :users, only: [:index, :show], module: "admin", as: "users"
-    resources :posts, only: [:index], module: "admin", as: "posts"
+    resources :posts, only: [:index, :show], module: "admin", as: "posts"
     resources :orders, only: [:index], module: "admin", as: "orders"
     resources :widthdrawls, only: [:index], module: "admin", as: "widthdrawls"
     resources :seller_requests, only: [:index], module: "admin", as: "seller_requests"
   end
-  get "/admin/posts/:parent_id" => "admin#parent_posts", as: "admin_parent_posts"
 
   get "/p/:nice_url" => "posts#show", as: "post"
   get "/p/:nice_url/edit" => "posts#edit", as: "edit_post"
