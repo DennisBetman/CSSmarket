@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
     if check_user_level(0)
-      redirect_to dashboard_path
+      redirect_to user_settings_path
     end
   end
 
@@ -141,7 +141,7 @@ class PostsController < ApplicationController
   end
 
   private
-  
+
   def post_params
     params.require(:post).permit :title, :content, :categories, :price, :image, :file, :license, :status
   end

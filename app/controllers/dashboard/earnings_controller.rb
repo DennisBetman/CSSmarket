@@ -1,32 +1,5 @@
-class DashboardController < ApplicationController
-  before_action :authorize
-  before_action only: [:earnings, :projects] do
-    if check_user_level(0)
-      redirect_to dashboard_path
-    end
-  end
-
+class Dashboard::EarningsController < Dashboard::BaseController
   def index
-  end
-
-  def downloads
-    @succesful_orders = Order.where(user_id: current_user.id).all
-    @posts = []
-
-    @succesful_orders.each do |succesful_order|
-      tposts = Post.where(id: succesful_order.post_id).order("created_at DESC")
-      @posts += tposts if tposts
-    end
-
-    @posts.each do |post|
-      user = User.select("id", "name").find_by_id(post.user_id)
-      post.user_name = user.name
-    end
-
-    @total_posts = @posts ? @posts.count : 0
-  end
-
-  def earnings
     @current_widthdrawl = Widthdrawl.find_by_user_id_and_status(current_user.id, 0)
     @all_widthdrawls = Widthdrawl.where(user_id: current_user.id).all
 
@@ -65,9 +38,5 @@ class DashboardController < ApplicationController
     @succesful_orders.each do |succesful_order|
       @pending += succesful_order.amount
     end
-  end
-
-  def projects
-    @posts = Post.where(user_id: current_user.id).all
   end
 end

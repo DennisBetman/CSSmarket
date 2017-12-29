@@ -10,17 +10,17 @@ Rails.application.routes.draw do
   get "/logout" => "sessions#destroy"
 
   get "/signup" => "users#new", as: "signup"
-  resources :users, only: [:create, :update]
+  get "/user/settings" => "users#settings", as: "user_settings"
+  resources :users, only: [:create, :update, :destroy]
 
   get "/profile/:name" => "users#show", as: "profile"
 
   get "/cart" => "carts#index"
 
-  get "/dashboard" => "dashboard#index", as: "dashboard"
-  namespace :dashboard do
-    get :downloads
-    get :earnings
-    get :projects
+  scope "/dashboard", as: "dashboard" do
+    resources :downloads, only: [:index], module: "dashboard", as: "downloads"
+    resources :earnings, only: [:index], module: "dashboard", as: "earnings"
+    resources :projects, only: [:index], module: "dashboard", as: "projects"
   end
 
   scope "/admin", as: "admin" do

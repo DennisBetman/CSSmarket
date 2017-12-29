@@ -58,21 +58,22 @@ class ChargesController < ApplicationController
   end
 
   private
-    def cart
-      @cart = session[:cart_id]
-      @cart_posts = CartPost.where(cart_id: @cart).all
-      @posts = []
-      @total_price = 0
-      @order_description = ""
+  
+  def cart
+    @cart = session[:cart_id]
+    @cart_posts = CartPost.where(cart_id: @cart).all
+    @posts = []
+    @total_price = 0
+    @order_description = ""
 
-      @cart_posts.each do |post|
-        tposts = Post.where(id: post.post_id).order("created_at DESC")
-        @posts += tposts if tposts
-      end
-
-      @posts.each do |post|
-        @total_price += post.price.to_i
-        @order_description += post.title + ", "
-      end
+    @cart_posts.each do |post|
+      tposts = Post.where(id: post.post_id).order("created_at DESC")
+      @posts += tposts if tposts
     end
+
+    @posts.each do |post|
+      @total_price += post.price.to_i
+      @order_description += post.title + ", "
+    end
+  end
 end

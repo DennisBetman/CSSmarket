@@ -40,7 +40,8 @@ class WidthdrawlsController < ApplicationController
   end
 
   private
-    def widthdrawl_params
-      params.require(:widthdrawl).permit(:amount, :status)
-    end
+  
+  def widthdrawl_params
+    params.require(:widthdrawl).permit(:amount, :status)
+  end
 end
