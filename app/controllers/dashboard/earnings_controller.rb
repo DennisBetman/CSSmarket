@@ -1,4 +1,10 @@
 class Dashboard::EarningsController < Dashboard::BaseController
+  before_action do
+    if check_user_level(0)
+      redirect_to user_settings_path
+    end
+  end
+  
   def index
     @current_widthdrawl = Widthdrawl.find_by_user_id_and_status(current_user.id, 0)
     @all_widthdrawls = Widthdrawl.where(user_id: current_user.id).all
