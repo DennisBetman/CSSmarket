@@ -1,4 +1,4 @@
-class Widthdrawl < ApplicationRecord
+class Withdrawal < ApplicationRecord
   validates :amount, presence: true, numericality: true
   validates :user_id, presence: true
 end

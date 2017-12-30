@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WithdrawalTest < ActiveSupport::TestCase
+class WithdrawalsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

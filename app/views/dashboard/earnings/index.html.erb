@@ -5,12 +5,12 @@
     <h3 class="content__title">Earnings</h3>
     <h1 class="content__subtitle">&euro; <%= @on_account %> on Account</h1>
 
-    <% if @current_widthdrawl %>
-      <p>You have a widthdrawl currently pending for <strong>&euro;<%= @current_widthdrawl.amount %></strong>. Once this widthdrawl is complete, you can request another widthdrawl.</p>
+    <% if @current_withdrawal %>
+      <p>You have a withdrawal currently pending for <strong>&euro;<%= @current_withdrawal.amount %></strong>. Once this withdrawal is complete, you can request another withdrawal.</p>
     <% elsif @on_account >= 20 %>
-      <%= link_to "widthdrawl", "javascript:void(0)", class: "button button--ghost content__button" %>
+      <%= link_to "withdrawal", "javascript:void(0)", class: "button button--ghost content__button" %>
     <% else %>
-      <p>You need a minimum of &euro;20 to request a widthdrawl</p>
+      <p>You need a minimum of &euro;20 to request a withdrawal</p>
     <% end %>
 
     <div class="content__subject">
@@ -31,42 +31,51 @@
           <span class="earning__total">&euro; <%= @pending %></span>
           <span class="earning__label">Pending</span>
         </div>
-      </div>
-
-      <div class="table table--spacing">
-        <div class="table__list table__list--col5 table__list--earnings">
-          <div class="table__item table__item--desktop">Date</div>
-          <div class="table__item">Title</div>
-          <div class="table__item">Amount</div>
-        </div>
-        <div class="table__list table__list--earnings">
-          <div class="table__item table__item--desktop">11 Sep. 2017</div>
-          <div class="table__item">Dit is een titel van een bericht</div>
-          <div class="table__item table__item--plus">+ &euro; 25</div>
-        </div>
-        <div class="table__list table__list--earnings">
-          <div class="table__item table__item--desktop">11 Sep. 2017</div>
-          <div class="table__item">Money transferd to paypal</div>
-          <div class="table__item table__item--min">- &euro; 45</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="popup">
-  <div class="popup__content">
-    <h2>Withdrawal</h2>
-    <p>You are about to transfer <strong>&euro; <%= @on_account %></strong> to your paypal account: <strong>paypal@paypal.com</strong></p>
-    <div class="popup__actions">
-      <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Cancel</a>
-
-      <% if false %> <!-- TODO FIXME -->
-        <%= form_for :widthdrawl, url: {controller: "widthdrawls", action: "create"} do |f| %>
-          <%= f.hidden_field :amount, value: @on_account %>
-          <%= f.submit "widthdrawl", class: "button button--gradient actions__button" %>
+        <% if @current_withdrawal %>
+          <div class="earning__box">
+            <i class="earning__icon material-icons">assignment_ind</i>
+            <span class="earning__total">&euro; <%= @current_withdrawal.amount %></span>
+            <span class="earning__label">Pending Withdrawal Request</span>
+          </div>
         <% end %>
+      </div>
+
+      <% if @succesful_orders %>
+        <h2>Your sales</h2>
+
+        <div class="table">
+          <div class="table__list table__list--col5 table__list--earnings">
+            <div class="table__item table__item--desktop">Date</div>
+            <div class="table__item">Title</div>
+            <div class="table__item">Amount</div>
+          </div>
+
+          <% @succesful_orders.each do |succesful_order| %>
+            <div class="table__list table__list--earnings">
+              <div class="table__item table__item--desktop"><%= succesful_order.created_at.strftime("%b %d, %Y") %></div>
+              <div class="table__item"><strong><%= succesful_order.description %></strong> has been purchased</div>
+              <div class="table__item table__item--plus">&euro;<%= succesful_order.amount %></div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
 </section>
+
+<% if !@current_withdrawal %>
+  <section class="popup">
+    <div class="popup__content">
+      <h2>Withdrawals</h2>
+      <p>You are about to transfer <strong>&euro; <%= @on_account %></strong> to your paypal account: <strong>paypal@paypal.com</strong></p>
+      <div class="popup__actions">
+        <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Cancel</a>
+
+        <%= form_for :withdrawal, url: { controller: "/withdrawals", action: "create" } do |f| %>
+          <%= f.hidden_field :amount, value: @on_account %>
+          <%= f.submit "Withdrawal", class: "button button--gradient actions__button" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
