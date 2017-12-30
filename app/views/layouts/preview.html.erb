@@ -21,18 +21,10 @@
   </head>
 
   <body>
-    <%= flash[:global_message] if flash[:global_message] %>
+    <%= render "layouts/preview_header" %>
 
-    <% if @post %>
-      <% id = @post.nice_url ? @post.nice_url : 0 %>
-    <% else %>
-      <% id = 0 %>
-    <% end %>
-
-    <%= render "layouts/header" %>
-
-    <%= yield %>
-
-    <%= render "layouts/footer" %>
+    <div class="preview-post-<%= @post.id %>">
+      <%= yield %>
+    </div>
   </body>
 </html>

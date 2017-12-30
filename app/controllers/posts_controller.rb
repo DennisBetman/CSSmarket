@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  layout "preview", only: [:preview]
+  
   before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
     if check_user_level(0)
@@ -119,6 +121,14 @@ class PostsController < ApplicationController
     else
       @parent_post = Post.find_by_id params[:id]
       @post = Post.new post_params
+
+      if post_params[:image].nil?
+        @post.image = @parent_post.image
+      end
+
+      if post_params[:file].nil?
+        @post.file = @parent_post.file
+      end
 
       @post.nice_url = @parent_post.nice_url
       @post.user_id = current_user.id
