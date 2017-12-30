@@ -29,7 +29,7 @@
         <div class="earning__box">
           <i class="earning__icon material-icons">assignment_ind</i>
           <span class="earning__total">&euro; <%= @pending %></span>
-          <span class="earning__label">Pending</span>
+          <span class="earning__label">Pending <small>(14 days)</small></span>
         </div>
         <% if @current_withdrawal %>
           <div class="earning__box">
@@ -53,8 +53,8 @@
           <% @succesful_orders.each do |succesful_order| %>
             <div class="table__list table__list--earnings">
               <div class="table__item table__item--desktop"><%= succesful_order.created_at.strftime("%b %d, %Y") %></div>
-              <div class="table__item"><strong><%= succesful_order.description %></strong> has been purchased</div>
-              <div class="table__item table__item--plus">&euro;<%= succesful_order.amount %></div>
+              <div class="table__item"><strong><%= succesful_order.description %></strong> has been purchased <%= succesful_order.created_at < 2.weeks.ago ? "" : "(Pending)" %></div>
+              <div class="table__item <%= succesful_order.created_at < 2.weeks.ago ? "table__item--plus" : "table__item--pending" %>">&euro;<%= succesful_order.amount %></div>
             </div>
           <% end %>
         </div>
