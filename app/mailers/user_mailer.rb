@@ -6,8 +6,8 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Welcome to our site!")
   end
 
-  def password_updated(user)
+  def account_updated(user)
     @user = user
-    mail(to: @user.email, subject: "Your password has been updated")
+    mail(to: @user.email, subject: "Your account has been updated")
   end
 end

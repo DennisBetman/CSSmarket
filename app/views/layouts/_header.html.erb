@@ -25,7 +25,7 @@
     <!-- tablet and higher -->
     <% if current_user %>
       <%= link_to "admin", admin_users_path, class: "header__link header__link--tablet" if check_user_level(100)  %>
-      <%= link_to "dashboard", dashboard_path, class: "header__link header__link--tablet" %>
+      <%= link_to "dashboard", user_settings_path, class: "header__link header__link--tablet" %>
       <%= link_to "logout", logout_path, class: "header__link header__link--tablet" %>
     <% else %>
       <%= link_to "login/register", login_path, class: "header__link header__link--tablet" %>
@@ -83,7 +83,7 @@
 
   <div class="menu__login <% if current_user %>menu__login--flex<% end %>">
     <% if current_user %>
-      <%= link_to "dashboard", dashboard_path, class: "menu__link menu__link--extra" %>
+      <%= link_to "dashboard", user_settings_path, class: "menu__link menu__link--extra" %>
       <%= link_to "logout", logout_path, class: "menu__link menu__link--extra" %>
     <% else %>
       <%= link_to "login/register", login_path, class: "menu__link menu__link--extra" %>
