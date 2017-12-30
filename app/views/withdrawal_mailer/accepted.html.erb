@@ -1,0 +1,14 @@
+<table class="email-table">
+  <tbody>
+    <tr class="header-row">
+      <td>
+        <h1>Hello, <%= @user.name %>!</h1>
+      </td>
+    </tr>
+    <tr class="body-row">
+      <td>
+        <p>Your withdrawal request has been accepted. You should see the amount of: <%= @withdrawal.amount %> in your PayPal shortly.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

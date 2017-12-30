@@ -89,6 +89,11 @@
     font-weight: 600;
   }
 
+  &--pending {
+    color: map-get($color, "yellow");
+    font-weight: 600;
+  }
+
   &--min {
     color: map-get($color, "error");
     font-weight: 600;
