@@ -1,14 +1,12 @@
-<table class="email-table">
-  <tbody>
-    <tr class="header-row">
-      <td>
-        <h1>Hello, <%= @user.name %>!</h1>
-      </td>
-    </tr>
-    <tr class="body-row">
-      <td>
-        <p>We have received your withdrawal request for <%= @withdrawal.amount %>.</p>
-      </td>
-    </tr>
-  </tbody>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top" style="padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
+      <h1>Hello, <%= @user.name %>!</h1>
+      <p style="margin-top: 20px; margin-bottom: 0;">
+        <strong>We have received your withdrawal request for &euro;<%= @withdrawal.amount %>.</strong> This request will be reviewed. Once it has been verified you will receive the amount on your attached PayPal account. Please verify this is the correct account in your account settings.<br>
+        <br>
+        <em>This process takes 1-2 business days.</em>
+      </p>
+    </td>
+  </tr>
 </table>
