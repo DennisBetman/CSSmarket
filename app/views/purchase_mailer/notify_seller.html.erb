@@ -1,10 +1,17 @@
-<table class="email-table">
-  <tbody>
-    <tr class="body-row">
-      <td>
-        <p>Someone has purchased <strong><%= @purchase.title %></strong></p>
-        <p>Cost: <%= @purchase.price %></p>
-      </td>
-    </tr>
-  </tbody>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top" style="padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
+      <h1>Hello, <%= @user.name %>!</h1>
+      <p style="margin-top: 20px; margin-bottom: 0;">
+        Someone has purchased <strong><%= @purchase.title %></strong><br>
+        Cost: <strong>&euro; <%= @purchase.price %></strong>
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" style="padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; background-color: #eceff1; text-align: center;">
+      <%= link_to "View your balance", dashboard_earnings_path, style: "background-color: #f35b48; text-transform: uppercase; text-decoration: none; color: #fff; font-size: 13px; min-width: 155px; text-align: center; border-radius: 1000px; padding: 10px 20px; font-weight: 700; letter-spacing: 1px; -webkit-appearance: none; font-family: 'Open Sans', sans-serif; border: 0; cursor: pointer;" %>
+    </td>
+  </tr>
 </table>
