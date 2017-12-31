@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   layout "preview", only: [:preview]
-  
+
   before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
     if check_user_level(0)
@@ -63,7 +63,18 @@ class PostsController < ApplicationController
     @post.user_name = user.name
 
     if current_user
-      @has_ordered = Order.find_by_post_id_and_user_id(@post.id, current_user.id)
+      @has_ordered = false
+
+      parent_id = @post.parent_id
+      posts = Post.group(:parent_id).order("created_at DESC").all.to_a
+
+      posts.each do |post|
+        order = Order.find_by_post_id_and_user_id(post.id, current_user.id)
+
+        if order
+          @has_ordered = true
+        end
+      end
     end
   end
 
