@@ -10,7 +10,7 @@ class SellerRequestsController < ApplicationController
     @seller_request.user_id = current_user.id
 
     if @seller_request.save
-      redirect_to root_path, flash: { global_message: "Submition received, thanks!" }
+      redirect_to root_path, flash: { global_message: "You submission has been received. You will receive a message once it has been reviewed." }
     else
       render "new"
     end
