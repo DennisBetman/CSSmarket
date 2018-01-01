@@ -21,7 +21,14 @@
   </head>
 
   <body>
-    <%= flash[:global_message] if flash[:global_message] %>
+    <% if flash[:global_message] %>
+      <div class="alert" data-role="alert">
+        <div class="alert__content">
+          <span><%= flash[:global_message] %></span>
+          <%= button_tag "close", class: "alert__close material-icons", data: { role: "alert-close" } %>
+        </div>
+      </div>
+    <% end %>
 
     <% if @post %>
       <% id = @post.nice_url ? @post.nice_url : 0 %>
