@@ -22,7 +22,7 @@
 
     &:hover,
     &:active {
-      color: rgba(map-get($color, "white"), .8);
+      color: rgba(map-get($color, "white"), 0.8);
     }
 
     &:focus {
