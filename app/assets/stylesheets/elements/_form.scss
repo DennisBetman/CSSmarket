@@ -156,11 +156,12 @@
     }
 
     &::placeholder {
-       color: rgba(map-get($color, "white"), 0.25);
+      color: rgba(map-get($color, "white"), 0.25);
     }
 
     &:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 30px map-get($color, "brand-primary-third") inset;
+      // scss-lint:disable ImportantRule
       -webkit-text-fill-color: map-get($color, "white") !important;
     }
 

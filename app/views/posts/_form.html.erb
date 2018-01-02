@@ -61,8 +61,8 @@
     <aside class="post__aside post__aside--upload">
       <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--preview" %>
       <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--project" %>
-      <a href="javascript:void(0)" class="button button--large button--grey button--column button--preview button--full"><span>Upload preview</span><span class="button__uploadFile button__uploadFile--preview">No preview selected</span></a>
-      <a href="javascript:void(0)" class="post__button button button--large button--gradient button--column button--project button--full"><span>Upload project</span><span class="button__uploadFile button__uploadFile--project">No project selected</span></a>
+      <a href="javascript:void(0)" class="button button--large button--grey button--column button--preview button--full"><span>Upload preview</span><span class="button__upload-file button__upload-file--preview">No preview selected</span></a>
+      <a href="javascript:void(0)" class="post__button button button--large button--gradient button--column button--project button--full"><span>Upload project</span><span class="button__upload-file button__upload-file--project">No project selected</span></a>
       <div class="post__license">
         <span class="post__price post__price--upload">&euro; <%= f.text_field :price, class: "form__input form__input--price-upload", placeholder: "0" %></span>
         <h3 class="license__title">Regular license</h3>
@@ -73,5 +73,5 @@
       <%= f.submit "Create post", class: "button button--gradient button--mobile" %>
     </aside>
   </section>
-  
+
 <% end %>

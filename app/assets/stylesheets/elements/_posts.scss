@@ -42,7 +42,7 @@
     display: block;
     margin-top: 20px;
 
-    @include mediaquery('tablet') {
+    @include mediaquery("tablet") {
       margin-top: 0;
     }
   }
@@ -160,7 +160,7 @@
     width: 100px;
     fill: map-get($color, "light-grey");
 
-    @include mediaquery('mobile') {
+    @include mediaquery("mobile") {
       height: 100px;
     }
   }
@@ -236,7 +236,7 @@
   flex-direction: column;
   cursor: pointer;
 
-  @include mediaquery('desktop') {
+  @include mediaquery("desktop") {
     right: 20px;
     top: 20px;
   }

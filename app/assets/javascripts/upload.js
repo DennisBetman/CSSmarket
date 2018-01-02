@@ -141,7 +141,7 @@ $(document).on('click', '.button--preview', function() {
 
 $(document).on('change', '.form__input--preview', function (e) {
   var value = $(this).val();
-  showUploadFileName(value, "button__uploadFile--preview");
+  showUploadFileName(value, "button__upload-file--preview");
 });
 
 $(document).on('click', '.button--project', function() {
@@ -150,5 +150,5 @@ $(document).on('click', '.button--project', function() {
 
 $(document).on('change', '.form__input--project', function (e) {
   var value = $(this).val();
-  showUploadFileName(value, "button__uploadFile--project");
+  showUploadFileName(value, "button__upload-file--project");
 });

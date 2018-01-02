@@ -88,7 +88,7 @@
   &--mobile {
     display: block;
 
-    @include mediaquery('tablet') {
+    @include mediaquery("tablet") {
       display: none;
     }
   }
@@ -96,16 +96,16 @@
   &--desktop {
     display: none;
 
-    @include mediaquery('tablet') {
+    @include mediaquery("tablet") {
       display: block;
     }
   }
 }
 
-.button__uploadFile {
+.button__upload-file {
   font-size: 10px;
   text-transform: none;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
