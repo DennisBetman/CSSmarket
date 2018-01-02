@@ -1,4 +1,4 @@
-<section class="dashboard">
+<section class="dashboard dashboard--full-width">
   <%= render "admin/menu" %>
 
   <div class="dashboard__content">
@@ -8,7 +8,7 @@
     <%= link_to "Back to all posts", admin_posts_path %>
 
     <div class="table content__subject">
-      <div class="table__list table__list--col5 table__list--posts">
+      <div class="table__list table__list--col6 table__list--posts">
         <div class="table__item">ID</div>
         <div class="table__item">Stat</div>
         <div class="table__item">User</div>
@@ -17,7 +17,7 @@
         <div class="table__item">Actions</div>
       </div>
       <% @posts.each do |post| %>
-        <div class="table__list table__list--posts">
+        <div class="table__list table__list--col6">
           <div class="table__item"><%= post.id %></div>
           <div class="table__item"><%= post.status %></div>
           <div class="table__item"><%= post.user_name %> <i>(<%= link_to post.user_id, admin_user_path(post.user_id) %>)</i></div>

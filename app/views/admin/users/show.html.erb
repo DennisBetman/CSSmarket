@@ -1,4 +1,4 @@
-<section class="dashboard">
+<section class="dashboard dashboard--full-width">
   <%= render "admin/menu" %>
 
   <div class="dashboard__content">
@@ -19,14 +19,9 @@
       <div class="table__list table__list--users">
         <div class="table__item"><%= @user.id %></div>
         <div class="table__item">
-          <%= @user.level %>
-
-          <%= form_for @user, url: user_path(@user.id), html: { class: "form" } do |f| %>
-            <div>
-              <%= f.text_field :level, placeholder: "Level" %>
-            </div>
-
-            <%= f.submit "Submit" %>
+          <%= form_for @user, url: user_path(@user.id), html: { class: "table-form" } do |f| %>
+            <%= f.text_field :level, placeholder: "Level", class: "table-form__input" %>
+            <%= f.submit ">", class: "table-form__button" %>
           <% end %>
         </div>
         <div class="table__item"><%= link_to @user.name, profile_path(@user.name) %></div>
