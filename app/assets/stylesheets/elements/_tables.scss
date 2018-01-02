@@ -19,6 +19,10 @@
 .table__list {
   display: grid;
 
+  &:hover {
+    background: lighten(map-get($color, "light-grey"), 5%);
+  }
+
   &:first-of-type {
     font-weight: 700;
   }
