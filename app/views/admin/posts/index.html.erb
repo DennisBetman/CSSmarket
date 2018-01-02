@@ -1,4 +1,4 @@
-<section class="dashboard">
+<section class="dashboard dashboard--full-width">
   <%= render "admin/menu" %>
 
   <div class="dashboard__content">
@@ -6,7 +6,7 @@
     <h1 class="content__subtitle">Posts</h1>
 
     <div class="table content__subject">
-      <div class="table__list table__list--col5 table__list--posts">
+      <div class="table__list table__list--col7 table__list--posts">
         <div class="table__item">ID</div>
         <div class="table__item">PID</div>
         <div class="table__item">Stat</div>
@@ -16,7 +16,7 @@
         <div class="table__item">Actions</div>
       </div>
       <% @posts.each do |post| %>
-        <div class="table__list table__list--posts">
+        <div class="table__list table__list--col7">
           <div class="table__item"><%= post.id %></div>
           <div class="table__item" style="white-space: inherit; word-break: break-word"><%= link_to post.parent_id, admin_post_path(post.parent_id) %></strong></div>
           <div class="table__item"><%= post.status %></div>

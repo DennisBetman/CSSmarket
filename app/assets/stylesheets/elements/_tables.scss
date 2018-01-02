@@ -39,6 +39,14 @@
     grid-template-columns: 80px 100px repeat(3, 1fr);
   }
 
+  &--col6 {
+    grid-template-columns: auto repeat(5, 1fr);
+  }
+
+  &--col7 {
+    grid-template-columns: auto repeat(6, 1fr);
+  }
+
   &--earnings {
     grid-template-columns: 1fr 100px;
 
@@ -102,6 +110,41 @@
   .table__list--earnings & {
     &:last-of-type {
       text-align: right;
+    }
+  }
+}
+
+.table-form {
+  display: flex;
+
+  &__input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid map-get($color, "light-grey");
+    border-radius: 0;
+
+    &:focus {
+      outline: 0;
+      border-color: darken(map-get($color, "light-grey"), 10%);
+    }
+  }
+
+  &__button {
+    -webkit-appearance: none;
+    padding: .3em .5em;
+    margin: 0;
+    border: 0;
+    background: map-get($color, "light-grey");
+    width: auto;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background: darken(map-get($color, "light-grey"), 10%);
+    }
+
+    &:focus {
+      outline: 0;
     }
   }
 }
