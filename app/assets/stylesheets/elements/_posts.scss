@@ -37,6 +37,15 @@
   @include mediaquery("desktop") {
     width: 366px;
   }
+
+  &--upload {
+    display: block;
+    margin-top: 20px;
+
+    @include mediaquery('tablet') {
+      margin-top: 0;
+    }
+  }
 }
 
 .post__actions {
@@ -125,6 +134,118 @@
   box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
   position: relative;
   overflow: hidden;
+
+  &::before {
+    content: "";
+    padding-top: 57.6%;
+    width: 100%;
+    display: block;
+  }
+}
+
+.image__banner-upload {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  svg {
+    height: 60px;
+    width: 100px;
+    fill: map-get($color, "light-grey");
+
+    @include mediaquery('mobile') {
+      height: 100px;
+    }
+  }
+}
+
+.image__error {
+  position: absolute;
+  bottom: -150px;
+  left: 0;
+  width: 100%;
+  background: map-get($color, "brand-secondary");
+  color: map-get($color, "white");
+  padding: 20px 25px;
+  font-weight: 600;
+  z-index: 80;
+  pointer-events: none;
+  transition: bottom 300ms ease;
+
+  &--is-active {
+    bottom: 0;
+  }
+
+  &--thumb {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+}
+
+.image__title {
+  padding-top: 5px;
+  color: darken(map-get($color, "light-grey"), 11%);
+  font-weight: 600;
+}
+
+.image__description {
+  color: darken(map-get($color, "light-grey"), 11%);
+  font-style: italic;
+  padding: 5px 20px 0;
+  width: 100%;
+  max-width: 490px;
+  text-align: center;
+}
+
+.image__placeholder {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.image__placeholder-thumb {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.image__thumbnail {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 100px;
+  width: 100px;
+  background: map-get($color, "white");
+  box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+
+  @include mediaquery('desktop') {
+    right: 20px;
+    top: 20px;
+  }
+
+  svg {
+    height: 50px;
+    width: 50px;
+    fill: map-get($color, "light-grey");
+  }
 }
 
 .post__content {
@@ -151,16 +272,25 @@
 
 .post__license {
   background: map-get($color, "white");
-  margin-top: 48px;
-  padding: 35px;
+  padding: 25px;
   box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
   color: map-get($color, "dark-grey");
+  margin: 20px 0;
+
+  @include mediaquery("tablet") {
+    margin: 48px 0 0;
+    padding: 35px;
+  }
 }
 
 .post__price {
   font-size: 38px;
   line-height: 38px;
   font-weight: 700;
+
+  &--upload {
+    display: flex;
+  }
 }
 
 .license__title {

@@ -75,6 +75,10 @@
   @include mediaquery("desktop") {
     max-width: calc(100% - 366px);
   }
+
+  &--form {
+    margin-bottom: 0;
+  }
 }
 
 .intro__title {
@@ -104,6 +108,10 @@
     color: rgba(map-get($color, "white"), 0.36);
     position: relative;
     margin-top: -3px;
+  }
+
+  &--upload {
+    display: flex;
   }
 
   span {
