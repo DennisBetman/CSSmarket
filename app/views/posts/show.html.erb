@@ -48,7 +48,7 @@
         <% end %>
       <% end %>
     </div>
-    
+
     <div class="post__actions post__actions--mobile">
       <div class="actions__buttons">
         <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--full button--grey" %>
@@ -88,7 +88,7 @@
         <div class="actions__question">?</div>
       </span>
     </div>
-  
+
     <main class="post__content">
       <%= markdown(@post.content) %>
     </main>

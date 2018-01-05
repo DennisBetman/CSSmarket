@@ -1,12 +1,20 @@
 class PostsController < ApplicationController
-  before_action :authorize, except: [:show, :index, :search, :category, :preview]
+  layout "preview", only: [:preview]
+
+  before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
     if check_user_level(0)
-      redirect_to dashboard_path
+      redirect_to user_settings_path
     end
   end
 
   def index
+    @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.limit(8).to_a
+
+    user_id_to_name
+  end
+
+  def overview
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.to_a
 
     user_id_to_name
@@ -55,7 +63,18 @@ class PostsController < ApplicationController
     @post.user_name = user.name
 
     if current_user
-      @has_ordered = Order.find_by_post_id_and_user_id(@post.id, current_user.id)
+      @has_ordered = false
+
+      parent_id = @post.parent_id
+      posts = Post.group(:parent_id).order("created_at DESC").all.to_a
+
+      posts.each do |post|
+        order = Order.find_by_post_id_and_user_id(post.id, current_user.id)
+
+        if order
+          @has_ordered = true
+        end
+      end
     end
   end
 
@@ -64,7 +83,7 @@ class PostsController < ApplicationController
   end
 
   def category
-    @posts = Post.where(categories: params[:name]).where(status: 1).all
+    @posts = Post.group(:parent_id).where(categories: params[:name]).where(status: 1).order("created_at DESC").all.to_a
     @posts_total = @posts ? @posts.count : 0
 
     user_id_to_name
@@ -105,12 +124,22 @@ class PostsController < ApplicationController
 
       if @post.update post_params
         redirect_to post_path(@post.nice_url)
+
+        PostsMailer.approved(current_user, @post).deliver_later
       else
         render "edit"
       end
     else
       @parent_post = Post.find_by_id params[:id]
       @post = Post.new post_params
+
+      if post_params[:image].nil?
+        @post.image = @parent_post.image
+      end
+
+      if post_params[:file].nil?
+        @post.file = @parent_post.file
+      end
 
       @post.nice_url = @parent_post.nice_url
       @post.user_id = current_user.id
@@ -133,14 +162,15 @@ class PostsController < ApplicationController
   end
 
   private
-    def post_params
-      params.require(:post).permit :title, :content, :categories, :price, :image, :file, :license, :status
-    end
 
-    def user_id_to_name
-      @posts.each do |post|
-        user = User.select("id", "name").find_by_id(post.user_id)
-        post.user_name = user.name
-      end
+  def post_params
+    params.require(:post).permit :title, :content, :categories, :price, :image, :file, :license, :status
+  end
+
+  def user_id_to_name
+    @posts.each do |post|
+      user = User.select("id", "name").find_by_id(post.user_id)
+      post.user_name = user.name
     end
+  end
 end

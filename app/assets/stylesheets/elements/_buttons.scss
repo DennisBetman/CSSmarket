@@ -58,6 +58,13 @@
     }
   }
 
+  &--tiny {
+    padding: 0.5em 0.75em;
+    margin: 0;
+    min-width: 0;
+    font-size: 11px;
+  }
+
   &--large {
     height: 56px;
     width: 100%;

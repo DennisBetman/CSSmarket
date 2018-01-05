@@ -10,5 +10,6 @@ class Post < ActiveRecord::Base
   validates :title, presence: true, length: { minimum: 8 }
   validates :price, presence: true, numericality: true
   validates :user_id, presence: true
+  validates :image, presence: true
   validates_inclusion_of :categories, :in => ["buttons", "menus", "forms"]
 end

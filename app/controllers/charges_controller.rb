@@ -43,6 +43,11 @@ class ChargesController < ApplicationController
 
       if @order.save
         session.delete(:cart_id)
+        PurchaseMailer.confirm(current_user, post).deliver_later
+
+        seller_id = Post.find_by_id(post.user_id)
+        seller = User.find_by_id(seller_id)
+        PurchaseMailer.notify_seller(seller, post).deliver_later
       else
         redirect_to cart_path, flash: { error: "Something went horribly wrong" }
       end
@@ -53,21 +58,22 @@ class ChargesController < ApplicationController
   end
 
   private
-    def cart
-      @cart = session[:cart_id]
-      @cart_posts = CartPost.where(cart_id: @cart).all
-      @posts = []
-      @total_price = 0
-      @order_description = ""
+  
+  def cart
+    @cart = session[:cart_id]
+    @cart_posts = CartPost.where(cart_id: @cart).all
+    @posts = []
+    @total_price = 0
+    @order_description = ""
 
-      @cart_posts.each do |post|
-        tposts = Post.where(id: post.post_id).order("created_at DESC")
-        @posts += tposts if tposts
-      end
-
-      @posts.each do |post|
-        @total_price += post.price.to_i
-        @order_description += post.title + ", "
-      end
+    @cart_posts.each do |post|
+      tposts = Post.where(id: post.post_id).order("created_at DESC")
+      @posts += tposts if tposts
     end
+
+    @posts.each do |post|
+      @total_price += post.price.to_i
+      @order_description += post.title + ", "
+    end
+  end
 end
