@@ -36,6 +36,13 @@
     border: 2px solid map-get($color, "brand-secondary-second");
   }
 
+  &--column {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   &--small {
     min-width: 31px;
     font-size: 9px;
@@ -83,5 +90,39 @@
   &--full {
     width: 100%;
     max-width: 100%;
+  }
+
+  &--mobile {
+    display: block;
+
+    @include mediaquery("tablet") {
+      display: none;
+    }
+  }
+
+  &--desktop {
+    display: none;
+
+    @include mediaquery("tablet") {
+      display: block;
+    }
+  }
+}
+
+.button__upload-file {
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+
+  &::before {
+    content: "(";
+  }
+
+  &::after {
+    content: ")";
   }
 }
