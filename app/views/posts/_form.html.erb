@@ -1,5 +1,19 @@
 <%= form_for @post, html: { class: "",  } do |f| %>
 
+  <% if not @post.nil? and @post.errors.any? %>
+    <div class="alert" id="error_explanation">
+      <div class="alert__content">
+        <h2><%= pluralize(@post.errors.count, "error") %> prohibited
+          this post from being saved:</h2>
+        <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
   <section class="intro intro--blue intro--content">
     <div class="intro__head intro__head--form">
       <div class="intro__title intro__title--small">
