@@ -59,18 +59,6 @@
           <% if @post.user_id != current_user.id %>
             <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
 
-              <% if not @post.nil? and @post.errors.any? %>
-              <div id="error_explanation">
-                <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-                  this post from being saved:</h2>
-                <ul>
-                <% @post.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                <% end %>
-                </ul>
-              </div>
-              <% end %>
-
               <%= f.hidden_field :post_id, value: @post.id %>
               <%= f.hidden_field :cart_id, value: session[:cart_id] %>
 

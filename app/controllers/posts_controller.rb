@@ -66,7 +66,7 @@ class PostsController < ApplicationController
       @has_ordered = false
 
       parent_id = @post.parent_id
-      posts = Post.group(:parent_id).order("created_at DESC").all.to_a
+      posts = Post.where(parent_id: parent_id).order("created_at DESC").all.to_a
 
       posts.each do |post|
         order = Order.find_by_post_id_and_user_id(post.id, current_user.id)
