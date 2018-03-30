@@ -1,6 +1,6 @@
-class CreateWidthdrawls < ActiveRecord::Migration[5.0]
+class CreateWithdrawals < ActiveRecord::Migration[5.0]
   def change
-    create_table :widthdrawls do |t|
+    create_table :withdrawals do |t|
       t.integer :amount
       t.integer :user_id
 
