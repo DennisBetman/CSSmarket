@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :withdrawals, only: [:create, :update]
 
+  resources :charges, only: [:create]
+
   scope "/dashboard", as: "dashboard" do
     resources :downloads, only: [:index], module: "dashboard", as: "downloads"
     resources :earnings, only: [:index], module: "dashboard", as: "earnings"

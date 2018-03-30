@@ -5,6 +5,8 @@ class ChargesController < ApplicationController
   end
 
   def create
+    @post = Post.find_by_id params[:charge][:post_id]
+
     card = params[:charge]
 
     source = Stripe::Source.create(
@@ -25,23 +27,23 @@ class ChargesController < ApplicationController
 
     charge = Stripe::Charge.create(
       :customer    => customer.id,
-      :amount      => @total_price * 100,
-      :description => @order_description,
+      :amount      => @post.price.to_i * 100,
+      :description => @post.title,
       :currency    => source.currency
     )
 
-    @posts.each do |post|
-      @order = Order.new(amount: post.price, description: post.title, customer_id: customer.id, source: charge.id, post_id: post.id, user_id: current_user.id)
+    @order = Order.new(amount: @post.price, description: @post.title, customer_id: customer.id, source: charge.id, post_id: @post.id, user_id: current_user.id)
 
-      if @order.save
-        PurchaseMailer.confirm(current_user, post).deliver_later
+    if @order.save
+      render file: "charges/success.js.erb"
 
-        seller_id = Post.find_by_id(post.user_id)
-        seller = User.find_by_id(seller_id)
-        PurchaseMailer.notify_seller(seller, post).deliver_later
-      else
-        redirect_to root_path, flash: { error: "Something went horribly wrong" }
-      end
+      PurchaseMailer.confirm(current_user, @post).deliver_later
+
+      seller_id = Post.find_by_id(@post.user_id)
+      seller = User.find_by_id(seller_id)
+      PurchaseMailer.notify_seller(seller, @post).deliver_later
+    else
+      render file: "charges/error.js.erb"
     end
   rescue Stripe::CardError => e
     flash[:error] = e.message
