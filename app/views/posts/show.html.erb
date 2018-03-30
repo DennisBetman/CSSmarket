@@ -56,17 +56,7 @@
         <% if @has_ordered %>
           <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient button--full" %>
         <% elsif current_user %>
-          <% if @post.user_id != current_user.id %>
-            <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
 
-              <%= f.hidden_field :post_id, value: @post.id %>
-              <%= f.hidden_field :cart_id, value: session[:cart_id] %>
-
-              <%= f.submit "Add to Cart (€#{@post.price})", class: "post__button button button--large button--green button--full" %>
-            <% end %>
-          <% else %>
-            <%= link_to "Edit Post", edit_post_path(@post), class: "post__button button button--large button--gradient button--full" %>
-          <% end %>
         <% else %>
           <%= link_to "Add to Cart (€#{@post.price})", login_path, class: "post__button button button--large button--green button--full" %>
         <% end %>
@@ -90,25 +80,7 @@
         <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>
       <% elsif current_user %>
         <% if @post.user_id != current_user.id %>
-          <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
-
-            <% if not @post.nil? and @post.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-                this post from being saved:</h2>
-              <ul>
-              <% @post.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-              </ul>
-            </div>
-            <% end %>
-
-            <%= f.hidden_field :post_id, value: @post.id %>
-            <%= f.hidden_field :cart_id, value: session[:cart_id] %>
-
-            <%= f.submit "Add to Cart", class: "post__button button button--large button--green" %>
-          <% end %>
+          <%= link_to "Purchase", root_path, class: "post__button button button--large button--gradient" %>
         <% elsif @post.status == 1 %>
           <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
         <% end %>

@@ -15,8 +15,6 @@ Rails.application.routes.draw do
 
   get "/profile/:name" => "users#show", as: "profile"
 
-  get "/cart" => "carts#index"
-
   resources :withdrawals, only: [:create, :update]
 
   scope "/dashboard", as: "dashboard" do
@@ -45,6 +43,4 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:create, :new]
   get "/password_reset/:reset_id" => "password_resets#show", as: "password_reset"
-
-  resources :cart_posts, :charges, :orders
 end
