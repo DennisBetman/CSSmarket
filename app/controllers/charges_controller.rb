@@ -32,7 +32,7 @@ class ChargesController < ApplicationController
       :currency    => source.currency
     )
 
-    @order = Order.new(amount: @post.price, description: @post.title, customer_id: customer.id, source: charge.id, post_id: @post.id, user_id: current_user.id)
+    @order = Order.new(amount: @post.price, description: @post.title, customer_id: customer.id, source: charge.id, post_id: @post.id, user_id: current_user.id, payment_type: "stripe")
 
     if @order.save
       render file: "charges/success.js.erb"

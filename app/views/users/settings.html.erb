@@ -25,6 +25,19 @@
         <%= f.label :password_confirmation, "Re-type password", class: "form__label" %>
       </div>
 
+      <% if current_user.level != 0 %>
+        <h4 style="flex: 0 0 100%;">Crypto</h4>
+
+        <div class="form__parent">
+          <%= f.text_field :nano_address, class: "form__input", placeholder: " " %>
+          <%= f.label :nano_address, class: "form__label" %>
+        </div>
+
+        <div class="form__parent">
+
+        </div>
+      <% end %>
+
       <%= f.submit "Save", class: "button button--gradient" %>
     <% end %>
   </div>
