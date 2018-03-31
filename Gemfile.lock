@@ -1,18 +1,3 @@
-GIT
-  remote: https://github.com/carrierwaveuploader/carrierwave.git
-  revision: f64f499d73f22ae6c8ce8daf0921d7b84799ae83
-  specs:
-    carrierwave (1.2.2)
-      activemodel (>= 4.0.0)
-      activesupport (>= 4.0.0)
-      mime-types (>= 1.16)
-
-GIT
-  remote: https://github.com/codahale/bcrypt-ruby.git
-  revision: f2db689ba567d1a018f4dacb1ccf909adc93e887
-  specs:
-    bcrypt (3.1.11)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -54,9 +39,15 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    bcrypt (3.1.11)
+    bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.1)
+    carrierwave (1.2.2)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -198,6 +189,7 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
+    wdm (0.1.1)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -212,9 +204,9 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bcrypt!
+  bcrypt
   byebug
-  carrierwave!
+  carrierwave
   coffee-rails (~> 4.2)
   elasticsearch-model
   elasticsearch-rails
@@ -236,7 +228,8 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
+  wdm (~> 0.1.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
