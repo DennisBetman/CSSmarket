@@ -25,7 +25,7 @@ class Dashboard::EarningsController < Dashboard::BaseController
     end
 
     posts.each do |post|
-      tsuccesful_orders = Order.where(post_id: post.id).where("created_at <= ?", 2.weeks.ago.utc).order("created_at DESC")
+      tsuccesful_orders = Order.where(post_id: post.id).where("created_at <= ?", 2.weeks.ago.utc).where(payment_type: "stripe").order("created_at DESC")
       @succesful_orders += tsuccesful_orders if tsuccesful_orders
     end
 
@@ -37,7 +37,7 @@ class Dashboard::EarningsController < Dashboard::BaseController
     @pending = 0
 
     posts.each do |post|
-      tsuccesful_orders = Order.where(post_id: post.id).where("created_at >= ?", 2.weeks.ago.utc).order("created_at ASC")
+      tsuccesful_orders = Order.where(post_id: post.id).where("created_at >= ?", 2.weeks.ago.utc).where(payment_type: "stripe").order("created_at ASC")
       @succesful_orders += tsuccesful_orders if tsuccesful_orders
     end
 
@@ -48,10 +48,19 @@ class Dashboard::EarningsController < Dashboard::BaseController
     @succesful_orders = []
 
     posts.each do |post|
-      tsuccesful_orders = Order.where(post_id: post.id).order("created_at DESC")
+      tsuccesful_orders = Order.where(post_id: post.id).where(payment_type: "stripe").order("created_at DESC")
       @succesful_orders += tsuccesful_orders if tsuccesful_orders
     end
 
     @succesful_orders = @succesful_orders.sort_by{ |i| i.created_at }.reverse!
+
+    @nano_orders = []
+
+    posts.each do |post|
+      tnano_orders = Order.where(post_id: post.id).where(payment_type: "nano").order("created_at DESC")
+      @nano_orders += tnano_orders if tnano_orders
+    end
+
+    @nano_orders = @nano_orders.sort_by{ |i| i.created_at }.reverse!
   end
 end
