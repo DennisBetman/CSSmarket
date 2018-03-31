@@ -71,7 +71,7 @@
       <div class="popup__actions">
         <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Cancel</a>
 
-        <%= form_for :withdrawal, url: { controller: "/withdrawals", action: "create" } do |f| %>
+        <%= form_for :withdrawal, url: withdrawals_path do |f| %>
           <%= f.hidden_field :amount, value: @on_account %>
           <%= f.submit "Withdrawal", class: "button button--gradient actions__button" %>
         <% end %>

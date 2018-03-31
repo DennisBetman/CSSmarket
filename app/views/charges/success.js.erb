@@ -1,0 +1,8 @@
+dropdown = $("[data-role='dropdown']");
+dropdownContent = dropdown.find(".dropdown__content");
+dropdownButton = dropdown.find("[data-role='toggle-dropdown']");
+
+dropdownContent.html('Success! <%= link_to "Download your purchase", dashboard_downloads_path %>');
+dropdownContent.addClass("dropdown__content--success");
+dropdownButton.remove();
+dropdown.append('<%= link_to "Downloads", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>');

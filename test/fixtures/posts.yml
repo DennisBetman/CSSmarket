@@ -1,11 +1,12 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  content: MyString
-  categories: MyString
-
-two:
-  title: MyString
-  content: MyString
-  categories: MyString
+test_post:
+  parent_id: u758ruk8ak38rh69,
+  title: Test Post,
+  nice_url: test-post,
+  content: Test Content,
+  categories: menus,
+  user_id: 2,
+  price: 14,
+  description: This is a short description,
+  image: empty,
+  file: empty,
+  license: Standard license

@@ -1,0 +1,47 @@
+@keyframes move-in-dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(110%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  &--is-active {
+    .dropdown__content {
+      display: block;
+    }
+  }
+}
+
+.dropdown__content {
+  @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
+  display: none;
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  transform: translateY(100%);
+  width: 100%;
+  z-index: 1000;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+
+  &--submit-pending {
+    form {
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+
+  &--success {
+    background: map-get($color, "green-primary");
+  }
+}

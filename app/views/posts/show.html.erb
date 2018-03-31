@@ -56,17 +56,7 @@
         <% if @has_ordered %>
           <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient button--full" %>
         <% elsif current_user %>
-          <% if @post.user_id != current_user.id %>
-            <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
 
-              <%= f.hidden_field :post_id, value: @post.id %>
-              <%= f.hidden_field :cart_id, value: session[:cart_id] %>
-
-              <%= f.submit "Add to Cart (€#{@post.price})", class: "post__button button button--large button--green button--full" %>
-            <% end %>
-          <% else %>
-            <%= link_to "Edit Post", edit_post_path(@post), class: "post__button button button--large button--gradient button--full" %>
-          <% end %>
         <% else %>
           <%= link_to "Add to Cart (€#{@post.price})", login_path, class: "post__button button button--large button--green button--full" %>
         <% end %>
@@ -90,30 +80,43 @@
         <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>
       <% elsif current_user %>
         <% if @post.user_id != current_user.id %>
-          <%= form_for :cart_post, url: cart_posts_path, html: { class: "post__form" } do |f| %>
 
-            <% if not @post.nil? and @post.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-                this post from being saved:</h2>
-              <ul>
-              <% @post.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+          <div class="dropdown" data-role="dropdown">
+            <div class="dropdown__content">
+              <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
+                <%= f.hidden_field :post_id, value: @post.id %>
+
+                <div class="form__parent form__parent--full">
+                  <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
+                  <%= f.label :card_number, "Card Number", class: "form__label" %>
+                </div>
+
+                <div class="form__parent form__parent--four">
+                  <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
+                  <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+                </div>
+
+                <div class="form__parent form__parent--four">
+                  <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
+                  <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+                </div>
+
+                <div class="form__parent form__parent--second">
+                  <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
+                  <%= f.label :card_number, "CVC", class: "form__label" %>
+                </div>
+
+                <%= f.submit "Submit", class: "post__button button button--large button--white", data: { role: "remote-submit" } %>
               <% end %>
-              </ul>
             </div>
-            <% end %>
 
-            <%= f.hidden_field :post_id, value: @post.id %>
-            <%= f.hidden_field :cart_id, value: session[:cart_id] %>
-
-            <%= f.submit "Add to Cart", class: "post__button button button--large button--green" %>
-          <% end %>
+            <%= link_to "Purchase", "#", class: "post__button button button--large button--green", data: { role: "toggle-dropdown" } %>
+          </div>
         <% elsif @post.status == 1 %>
           <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
         <% end %>
       <% else %>
-        <%= link_to "Add to Cart", login_path, class: "post__button button button--large button--green" %>
+        <%= link_to "Purchase", login_path, class: "post__button button button--large button--green" %>
       <% end %>
     <% end %>
 

@@ -15,10 +15,6 @@
   </div>
   <div class="header__column">
     <!-- mobile -->
-    <%= link_to cart_path, class: "header__link" do %>
-      <i class="header__icon material-icons">shopping_cart</i>
-      <span class="icon__label"><%= shopping_cart_total %></span>
-    <% end %>
     <a href="javascript:void(0)" class="header__link" data-menu-toggle>
       <i class="header__icon header__icon--mobile-menu material-icons">menu</i>
     </a>
@@ -30,8 +26,6 @@
     <% else %>
       <%= link_to "login/register", login_path, class: "header__link header__link--tablet" %>
     <% end %>
-
-    <%= link_to "cart (#{ shopping_cart_total })", cart_path, class: "button button--gradient header__link--tablet" %>
   </div>
 </header>
 
