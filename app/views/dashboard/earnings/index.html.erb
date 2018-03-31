@@ -59,6 +59,33 @@
           <% end %>
         </div>
       <% end %>
+
+      <% if @nano_orders %>
+        <div>
+          <hr>
+          <h3>Nano Sales</h3>
+
+          <p>
+            Nano orders are paid out instantly to the Nano Address connected to your account.
+          </p>
+        </div>
+
+        <div class="table">
+          <div class="table__list table__list--col5 table__list--earnings">
+            <div class="table__item table__item--desktop">Date</div>
+            <div class="table__item">Title</div>
+            <div class="table__item">Amount</div>
+          </div>
+
+          <% @nano_orders.each do |nano_order| %>
+            <div class="table__list table__list--earnings">
+              <div class="table__item table__item--desktop"><%= nano_order.created_at.strftime("%b %d, %Y") %></div>
+              <div class="table__item"><strong><%= nano_order.description %></strong> has been purchased</div>
+              <div class="table__item">&euro;<%= nano_order.amount %></div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

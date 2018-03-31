@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require simplemde.min
+//= require brainblocks
 //= require_tree .

@@ -59,8 +59,7 @@ class PostsController < ApplicationController
       end
     end
 
-    user = User.select("id", "name").find_by_id(@post.user_id)
-    @post.user_name = user.name
+    @author = User.select("id", "name", "nano_address").find_by_id(@post.user_id)
 
     if current_user
       @has_ordered = false

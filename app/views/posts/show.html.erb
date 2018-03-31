@@ -1,9 +1,9 @@
 <section class="intro intro--blue intro--content">
   <div class="intro__head">
     <h1 class="intro__title intro__title--small"><%= @post.title %></h1>
-    <% if @post.user_name %>
+    <% if @author.name %>
       <span class="intro__subtitle intro__subtitle--small">
-        By <%= link_to @post.user_name, profile_path(@post.user_name) %>
+        By <%= link_to @author.name, profile_path(@author.name) %>
         in <%= link_to @post.categories, post_category_path(@post.categories) %>
         created at <span><%= @post.created_at.strftime("%B %d, %Y") %></span>
       </span>
@@ -107,6 +107,30 @@
                 </div>
 
                 <%= f.submit "Submit", class: "post__button button button--large button--white", data: { role: "remote-submit" } %>
+              <% end %>
+
+              <% if @author.nano_address.present? %>
+                <hr>
+
+                <div id="nano-button"></div>
+
+                <script>
+                  brainblocks.Button.render({
+                    payment: {
+                      destination: "<%= @author.nano_address %>",
+                      currency: "eur",
+                      amount: <%= @post.price %> <%= "/ 1000" if Rails.env.development? %> // Divide by 1000 only for testing
+                    },
+
+                    onPayment: function(data) {
+                      $.ajax({
+                        type: "POST",
+                        url: "<%= url_for nano_payments_path %>",
+                        data: { token: data.token, post_id: <%= @post.id %> }
+                      });
+                    }
+                  }, "#nano-button");
+                </script>
               <% end %>
             </div>
 

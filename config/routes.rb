@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root "posts#index"
 
   get "/category/:name" => "posts#category", as: "post_category"
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   resources :withdrawals, only: [:create, :update]
 
   resources :charges, only: [:create]
+  resources :nano_payments, only: [:create]
 
   scope "/dashboard", as: "dashboard" do
     resources :downloads, only: [:index], module: "dashboard", as: "downloads"

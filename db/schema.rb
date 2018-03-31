@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171230132315) do
+ActiveRecord::Schema.define(version: 20180331151512) do
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "amount"
     t.string   "description"
     t.string   "customer_id"
     t.string   "source"
     t.integer  "post_id"
     t.integer  "user_id"
+    t.string   "payment_type"
   end
 
   create_table "password_resets", force: :cascade do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20171230132315) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "level",           default: 0, null: false
+    t.string   "nano_address"
   end
 
   create_table "withdrawals", force: :cascade do |t|
