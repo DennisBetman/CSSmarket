@@ -6,6 +6,7 @@ class ChargesController < ApplicationController
 
   def create
     @post = Post.find_by_id params[:charge][:post_id]
+    @author = User.find_by_id @post.user_id
 
     card = params[:charge]
 
@@ -32,7 +33,7 @@ class ChargesController < ApplicationController
       :currency    => source.currency
     )
 
-    @order = Order.new(amount: @post.price, description: @post.title, customer_id: customer.id, source: charge.id, post_id: @post.id, user_id: current_user.id, payment_type: "stripe")
+    @order = Order.new(amount: @post.price, author_cut: @post.price.to_d * @author.cut_percentage, description: @post.title, customer_id: customer.id, source: charge.id, post_id: @post.id, user_id: current_user.id, payment_type: "stripe")
 
     if @order.save
       render file: "charges/success.js.erb"

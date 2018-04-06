@@ -27,7 +27,7 @@ class WithdrawalsController < ApplicationController
     end
 
     succesful_orders.each do |succesful_order|
-      on_account += succesful_order.amount
+      on_account += succesful_order.author_cut
     end
 
     @withdrawal = Withdrawal.new withdrawal_params
