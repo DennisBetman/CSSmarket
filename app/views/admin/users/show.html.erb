@@ -8,19 +8,26 @@
     <%= link_to "Back to users overview", admin_users_path %>
 
     <div class="table content__subject">
-      <div class="table__list table__list--col5 table__list--users">
+      <div class="table__list table__list--col6 table__list--users">
         <div class="table__item">ID</div>
         <div class="table__item">Level</div>
+        <div class="table__item">Cut</div>
         <div class="table__item">Name</div>
         <div class="table__item">Email</div>
         <div class="table__item">Created at</div>
       </div>
 
-      <div class="table__list table__list--users">
+      <div class="table__list table__list--col6">
         <div class="table__item"><%= @user.id %></div>
         <div class="table__item">
           <%= form_for @user, url: user_path(@user.id), html: { class: "table-form" } do |f| %>
             <%= f.text_field :level, placeholder: "Level", class: "table-form__input" %>
+            <%= f.submit ">", class: "table-form__button" %>
+          <% end %>
+        </div>
+        <div class="table__item">
+          <%= form_for @user, url: user_path(@user.id), html: { class: "table-form" } do |f| %>
+            <%= f.text_field :cut_percentage, placeholder: "Cut", class: "table-form__input" %>
             <%= f.submit ">", class: "table-form__button" %>
           <% end %>
         </div>

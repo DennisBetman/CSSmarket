@@ -18,9 +18,9 @@ class Dashboard::EarningsController < Dashboard::BaseController
 
     if @completed_withdrawals
       @completed_withdrawals.each do |withdrawal|
-        @on_account = @on_account - withdrawal.amount
+        @on_account = @on_account - withdrawal.author_cut
 
-        @paid_out =+ withdrawal.amount
+        @paid_out =+ withdrawal.author_cut
       end
     end
 
@@ -30,7 +30,7 @@ class Dashboard::EarningsController < Dashboard::BaseController
     end
 
     @succesful_orders.each do |succesful_order|
-      @on_account += succesful_order.amount
+      @on_account += succesful_order.author_cut
     end
 
     @succesful_orders = []
@@ -42,7 +42,7 @@ class Dashboard::EarningsController < Dashboard::BaseController
     end
 
     @succesful_orders.each do |succesful_order|
-      @pending += succesful_order.amount
+      @pending += succesful_order.author_cut
     end
 
     @succesful_orders = []

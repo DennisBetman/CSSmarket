@@ -2,7 +2,7 @@ class NanoPaymentsController < ApplicationController
   def create
     @post = Post.find_by_id params[:post_id]
 
-    @order = Order.new(amount: @post.price, description: @post.title, customer_id: params[:token], source: "nano", post_id: @post.id, user_id: current_user.id, payment_type: "nano")
+    @order = Order.new(amount: @post.price, author_cut: @post.price, description: @post.title, customer_id: params[:token], source: "nano", post_id: @post.id, user_id: current_user.id, payment_type: "nano")
 
     if @order.save
       render file: "charges/success.js.erb"

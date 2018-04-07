@@ -13,6 +13,8 @@
       <p>You need a minimum of &euro;20 to request a withdrawal</p>
     <% end %>
 
+    <h2>You receive <strong><%= (current_user.cut_percentage.to_f * 100).round %>%</strong> from all sales you make.</h2>
+
     <div class="content__subject">
       <div class="content__earning">
         <h3 class="earning__title">Current Balance</h3>
@@ -54,7 +56,7 @@
             <div class="table__list table__list--earnings">
               <div class="table__item table__item--desktop"><%= succesful_order.created_at.strftime("%b %d, %Y") %></div>
               <div class="table__item"><strong><%= succesful_order.description %></strong> has been purchased <%= succesful_order.created_at < 2.weeks.ago ? "" : "(Pending)" %></div>
-              <div class="table__item <%= succesful_order.created_at < 2.weeks.ago ? "table__item--plus" : "table__item--pending" %>">&euro;<%= succesful_order.amount %></div>
+              <div class="table__item <%= succesful_order.created_at < 2.weeks.ago ? "table__item--plus" : "table__item--pending" %>">&euro;<%= succesful_order.author_cut %></div>
             </div>
           <% end %>
         </div>
@@ -66,7 +68,7 @@
           <h3>Nano Sales</h3>
 
           <p>
-            Nano orders are paid out instantly to the Nano Address connected to your account.
+            Nano orders are paid out instantly to the Nano Address connected to your account. You receive 100% of the sales made with Nano.
           </p>
         </div>
 
@@ -81,7 +83,7 @@
             <div class="table__list table__list--earnings">
               <div class="table__item table__item--desktop"><%= nano_order.created_at.strftime("%b %d, %Y") %></div>
               <div class="table__item"><strong><%= nano_order.description %></strong> has been purchased</div>
-              <div class="table__item">&euro;<%= nano_order.amount %></div>
+              <div class="table__item">&euro;<%= nano_order.author_cut %></div>
             </div>
           <% end %>
         </div>
@@ -99,7 +101,7 @@
         <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Cancel</a>
 
         <%= form_for :withdrawal, url: withdrawals_path do |f| %>
-          <%= f.hidden_field :amount, value: @on_account %>
+          <%= f.hidden_field :author_cut, value: @on_account %>
           <%= f.submit "Withdrawal", class: "button button--gradient actions__button" %>
         <% end %>
       </div>
