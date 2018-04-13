@@ -19,7 +19,17 @@
       <% @posts.each do |post| %>
         <div class="table__list table__list--col6">
           <div class="table__item"><%= post.id %></div>
-          <div class="table__item"><%= post.status %></div>
+          <div class="table__item">
+            <%= post.status %><br>
+
+            <%= if post.status == 0
+                "Pending"
+              elsif post.status == 1
+                "Approved"
+              elsif post.status == 2
+                "Declined"
+              end %>
+          </div>
           <div class="table__item"><%= post.user_name %> <i>(<%= link_to post.user_id, admin_user_path(post.user_id) %>)</i></div>
           <div class="table__item"><%= post.title %></div>
           <div class="table__item"><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></div>
@@ -31,11 +41,23 @@
                 <%= f.hidden_field :status, value: 1 %>
                 <%= f.submit "Approve" %>
               <% end %>
-            <% end %>
 
-            <%= button_tag "Decline" %>
+
+              <div class="dropdown" data-role="dropdown">
+                <%= link_to "Decline", "#", data: { role: "toggle-dropdown" } %>
+
+                <div class="dropdown__content dropdown__content--centered">
+                  <% if post.status == 0 %>
+                    <%= form_for :declined_post, url: declined_posts_path do |f| %>
+                      <%= f.hidden_field :post_id, value: post.id %>
+                      <%= f.text_area :description, rows: 10, style: "width: 100%" %><br>
+                      <%= f.submit "Decline", class: "button button--white" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
-        </div>
       <% end %>
     </div>
   </div>
