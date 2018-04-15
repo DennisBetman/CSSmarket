@@ -27,6 +27,10 @@
 
   &--selected {
     box-shadow: 0 0 10px rgba(map-get($color, "black"), 0.16);
+
+    .accordion__arrow {
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -43,6 +47,7 @@
 .accordion__arrow {
   font-size: 30px;
   color: darken(map-get($color, "white"), 40%);
+  transition: transform 200ms ease;
 }
 
 .name__icon {
@@ -52,6 +57,11 @@
   i {
     font-size: 36px;
     color: map-get($color, "brand-secondary-second");
+  }
+
+  svg {
+    width: 36px;
+    height: 36px;
   }
 }
 
