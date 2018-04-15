@@ -15,7 +15,10 @@
   <article class="post__article">
     <div class="post__image">
       <% if @post.image %>
-        <%= image_tag(@post.image) %>
+        <%= image_tag @post.image, class: "image__banner" %>
+        <div class="image__thumbnail image__thumbnail--cursor-normal">
+          <img src="" class="image__thumb" />
+        </div>
       <% end %>
 
       <% if current_user %>
@@ -112,7 +115,7 @@
               <% if @author.nano_address.present? %>
                 <hr>
 
-                <div id="nano-button"></div>
+                <!-- <div id="nano-button"></div>
 
                 <script>
                   brainblocks.Button.render({
@@ -130,8 +133,80 @@
                       });
                     }
                   }, "#nano-button");
-                </script>
+                </script> -->
               <% end %>
+            </div>
+
+            <div class="accordion">
+              <div class="accordion__item">
+                <div class="accordion__header">
+                  <div class="accordion__name">
+                    <div class="name__icon"><i class="material-icons">credit_card</i></div>
+                    <div class="name__about">
+                      <span class="name__price">&euro;<%= @post.price %></span>
+                      <span class="name__payment">Creditcard</span>
+                    </div>
+                  </div>
+                  <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+                </div>
+                <div class="accordion__content">
+                  <div class="accordion__innerContent">
+                  <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
+                    <%= f.hidden_field :post_id, value: @post.id %>
+
+                    <div class="form__parent form__parent--full">
+                      <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
+                      <%= f.label :card_number, "Card Number", class: "form__label" %>
+                    </div>
+
+                    <div class="form__parent form__parent--second">
+                      <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
+                      <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+                    </div>
+
+                    <div class="form__parent form__parent--second">
+                      <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
+                      <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+                    </div>
+
+                    <div class="form__parent form__parent--full">
+                      <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
+                      <%= f.label :card_number, "CVC", class: "form__label" %>
+                    </div>
+
+                    <%= f.submit "Submit", class: "post__button button button--gradient", data: { role: "remote-submit" } %>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion__item">
+                <div class="accordion__header">
+                  De accordion header
+                </div>
+                <div class="accordion__content">
+                  <div class="accordion__innerContent">
+                    <div id="nano-button"></div>
+
+                    <script>
+                      brainblocks.Button.render({
+                        payment: {
+                          destination: "<%= @author.nano_address %>",
+                          currency: "eur",
+                          amount: <%= @post.price %> <%= "/ 1000" if Rails.env.development? %> // Divide by 1000 only for testing
+                        },
+
+                        onPayment: function(data) {
+                          $.ajax({
+                            type: "POST",
+                            url: "<%= url_for nano_payments_path %>",
+                            data: { token: data.token, post_id: <%= @post.id %> }
+                          });
+                        }
+                      }, "#nano-button");
+                    </script>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <%= link_to "Purchase", "#", class: "post__button button button--large button--green", data: { role: "toggle-dropdown" } %>
