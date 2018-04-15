@@ -26,6 +26,17 @@
       </div>
 
       <% if current_user.level != 0 %>
+        <h4 style="flex: 0 0 100%;">Payments</h4>
+
+        <div class="form__parent">
+          <%= f.text_field :paypal_address, class: "form__input", placeholder: " " %>
+          <%= f.label :paypal_address, class: "form__label" %>
+        </div>
+
+        <div class="form__parent">
+
+        </div>
+
         <h4 style="flex: 0 0 100%;">Crypto</h4>
 
         <div class="form__parent">

@@ -8,7 +8,11 @@
     <% if @current_withdrawal %>
       <p>You have a withdrawal currently pending for <strong>&euro;<%= @current_withdrawal.amount %></strong>. Once this withdrawal is complete, you can request another withdrawal.</p>
     <% elsif @on_account >= 20 %>
-      <%= link_to "withdrawal", "javascript:void(0)", class: "button button--ghost content__button" %>
+      <% if current_user.paypal_address %>
+        <%= link_to "withdrawal", "javascript:void(0)", class: "button button--ghost content__button" %>
+      <% else %>
+        Please add a Paypal address in your <%= link_to "Account settings", user_settings_path %> to Withdrawal your earnings
+      <% end %>
     <% else %>
       <p>You need a minimum of &euro;20 to request a withdrawal</p>
     <% end %>
@@ -96,7 +100,7 @@
   <section class="popup">
     <div class="popup__content">
       <h2>Withdrawals</h2>
-      <p>You are about to transfer <strong>&euro; <%= @on_account %></strong> to your paypal account: <strong>paypal@paypal.com</strong></p>
+      <p>You are about to transfer <strong>&euro; <%= @on_account %></strong> to your paypal account: <strong><%= current_user.paypal_address %></strong></p>
       <div class="popup__actions">
         <a href="javascript:void(0)" class="button button--grey actions__button popup__close">Cancel</a>
 
