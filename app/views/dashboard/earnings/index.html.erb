@@ -8,7 +8,7 @@
     <% if @current_withdrawal %>
       <p>You have a withdrawal currently pending for <strong>&euro;<%= @current_withdrawal.amount %></strong>. Once this withdrawal is complete, you can request another withdrawal.</p>
     <% elsif @on_account >= 20 %>
-      <% if current_user.paypal_address %>
+      <% if current_user.paypal_address.present? %>
         <%= link_to "withdrawal", "javascript:void(0)", class: "button button--ghost content__button" %>
       <% else %>
         Please add a Paypal address in your <%= link_to "Account settings", user_settings_path %> to Withdrawal your earnings
