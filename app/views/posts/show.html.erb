@@ -78,44 +78,120 @@
   <aside class="post__aside">
     <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--gradient" %>
 
-    <% if @post.status == 1 %>
       <% if @has_ordered %>
-        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>
-      <% elsif current_user %>
-        <% if @post.user_id != current_user.id %>
-
-          <div class="dropdown" data-role="dropdown">
-            <div class="dropdown__content">
-              <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
-                <%= f.hidden_field :post_id, value: @post.id %>
-
-                <div class="form__parent form__parent--full">
-                  <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
-                  <%= f.label :card_number, "Card Number", class: "form__label" %>
+        <div class="accordion">
+          <div class="accordion__item">
+            <div class="accordion__header">
+              <div class="accordion__name">
+                <div class="name__icon"><i class="material-icons">cloud_download</i></div>
+                <div class="name__about">
+                  <span class="name__price">Download</span>
+                  <span class="name__payment"><%= @post.title %></span>
                 </div>
-
-                <div class="form__parent form__parent--four">
-                  <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+              </div>
+              <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+            </div>
+            <div class="accordion__content">
+              <div class="accordion__innerContent">
+                <div class="accordion__message">
+                  <span>You already bought this item.</span>
+                  <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>
                 </div>
-
-                <div class="form__parent form__parent--four">
-                  <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif @post.status == 1 && current_user && @post.user_id == current_user.id %>
+        <div class="accordion">
+          <div class="accordion__item">
+            <div class="accordion__header">
+              <div class="accordion__name">
+                <div class="name__icon"><i class="material-icons">edit</i></div>
+                <div class="name__about">
+                  <span class="name__price">Edit</span>
+                  <span class="name__payment"><%= @post.title %></span>
                 </div>
-
-                <div class="form__parent form__parent--second">
-                  <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_number, "CVC", class: "form__label" %>
+              </div>
+              <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+            </div>
+            <div class="accordion__content">
+              <div class="accordion__innerContent">
+                <div class="accordion__message">
+                  <span>Edit your post</span>
+                  <%= link_to "Edit now", edit_post_path(@post.nice_url), class: "post__button button button--gradient" %>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="accordion">
+          <div class="accordion__item">
+            <div class="accordion__header">
+              <div class="accordion__name">
+                <div class="name__icon"><i class="material-icons">credit_card</i></div>
+                <div class="name__about">
+                  <span class="name__price">&euro;<%= @post.price %></span>
+                  <span class="name__payment">Creditcard</span>
+                </div>
+              </div>
+              <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+            </div>
+            <div class="accordion__content">
+              <div class="accordion__innerContent">
+              <% if current_user %>
+                <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
+                  <%= f.hidden_field :post_id, value: @post.id %>
 
-                <%= f.submit "Submit", class: "post__button button button--large button--white", data: { role: "remote-submit" } %>
+                  <div class="form__parent form__parent--full">
+                    <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
+                    <%= f.label :card_number, "Card Number", class: "form__label" %>
+                  </div>
+
+                  <div class="form__parent form__parent--second">
+                    <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
+                    <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+                  </div>
+
+                  <div class="form__parent form__parent--second">
+                    <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
+                    <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+                  </div>
+
+                  <div class="form__parent form__parent--full">
+                    <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
+                    <%= f.label :card_number, "CVC", class: "form__label" %>
+                  </div>
+
+                  <%= f.submit "Buy now", class: "post__button button button--gradient" %>
+                <% end %>
+              <% else %>
+                <div class="accordion__message">
+                  <span>Login or Register to buy<strong><%= @post.title %></strong></span>
+                  <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
+                </div>
               <% end %>
-
-              <% if @author.nano_address.present? %>
-                <hr>
-
-                <!-- <div id="nano-button"></div>
+              </div>
+            </div>
+          </div>
+          <% if @author.nano_address.present? %>
+          <div class="accordion__item">
+            <div class="accordion__header">
+              <div class="accordion__name">
+                <div class="name__icon">
+                  <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1730 760.9" width="2500" height="1100"><style>.st0{fill:#4a90e2}</style><circle class="st0" cx="124.5" cy="625.3" r="124.5"/><path class="st0" d="M1608.1 8c-67.4 0-124.5 54.5-124.5 124.5 0 98.6-15.6 124.5-124.5 124.5h-10.4c-62.2 5.2-111.5 57.1-111.5 121.9v2.6c0 96-18.2 119.3-124.5 119.3-5.2 0-10.4 0-13 2.6-62.2 7.8-111.5 59.7-111.5 121.9 0 67.4 54.5 124.5 124.5 124.5 64.8 0 119.3-51.9 121.9-114.1v-10.4c0-88.2 28.5-121.9 121.9-124.5h2.6c64.8 0 119.3-51.9 121.9-116.7v-7.8c0-90.8 28.5-124.5 124.5-124.5 67.4 0 124.5-54.5 124.5-124.5C1730 62.5 1675.5 8 1608.1 8zM876.7 257h-10.4c-108.9 0-124.5-25.9-124.5-124.5C741.8 65.1 687.3 8 617.3 8c-67.4 0-124.5 54.5-124.5 124.5 0 98.6-15.6 121.9-124.5 121.9h-10.4c-62.2 5.2-111.5 57.1-111.5 121.9 0 67.4 54.5 124.5 124.5 124.5 64.8 0 119.3-51.9 121.9-114.1v-7.8c0-90.8 28.5-124.5 124.5-124.5s124.5 33.7 124.5 121.9c0 67.4 54.5 124.5 124.5 124.5s124.5-54.5 124.5-124.5c-2.6-62.2-51.9-114.1-114.1-119.3z"/></svg>
+                </div>
+                <div class="name__about">
+                  <span class="name__price">1.042467654</span>
+                  <span class="name__payment">Nano</span>
+                </div>
+              </div>
+              <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+            </div>
+            <div class="accordion__content">
+              <div class="accordion__innerContent">
+                <% if current_user %>
+                <div id="nano-button"></div>
 
                 <script>
                   brainblocks.Button.render({
@@ -133,101 +209,19 @@
                       });
                     }
                   }, "#nano-button");
-                </script> -->
-              <% end %>
-            </div>
-
-            <div class="accordion">
-              <div class="accordion__item">
-                <div class="accordion__header">
-                  <div class="accordion__name">
-                    <div class="name__icon"><i class="material-icons">credit_card</i></div>
-                    <div class="name__about">
-                      <span class="name__price">&euro;<%= @post.price %></span>
-                      <span class="name__payment">Creditcard</span>
-                    </div>
+                </script>
+                <% else %>
+                  <div class="accordion__message">
+                    <span>Login or Register to buy<strong><%= @post.title %></strong></span>
+                    <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
                   </div>
-                  <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
-                </div>
-                <div class="accordion__content">
-                  <div class="accordion__innerContent">
-                  <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
-                    <%= f.hidden_field :post_id, value: @post.id %>
-
-                    <div class="form__parent form__parent--full">
-                      <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
-                      <%= f.label :card_number, "Card Number", class: "form__label" %>
-                    </div>
-
-                    <div class="form__parent form__parent--second">
-                      <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
-                      <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
-                    </div>
-
-                    <div class="form__parent form__parent--second">
-                      <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
-                      <%= f.label :card_number, "Exp. Year", class: "form__label" %>
-                    </div>
-
-                    <div class="form__parent form__parent--full">
-                      <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
-                      <%= f.label :card_number, "CVC", class: "form__label" %>
-                    </div>
-
-                    <%= f.submit "Buy now", class: "post__button button button--gradient", data: { role: "remote-submit" } %>
-                  <% end %>
-                  </div>
-                </div>
+                <% end %>
               </div>
-              <% if @author.nano_address.present? %>
-              <div class="accordion__item">
-                <div class="accordion__header">
-                  <div class="accordion__name">
-                    <div class="name__icon">
-                      <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1730 760.9" width="2500" height="1100"><style>.st0{fill:#4a90e2}</style><circle class="st0" cx="124.5" cy="625.3" r="124.5"/><path class="st0" d="M1608.1 8c-67.4 0-124.5 54.5-124.5 124.5 0 98.6-15.6 124.5-124.5 124.5h-10.4c-62.2 5.2-111.5 57.1-111.5 121.9v2.6c0 96-18.2 119.3-124.5 119.3-5.2 0-10.4 0-13 2.6-62.2 7.8-111.5 59.7-111.5 121.9 0 67.4 54.5 124.5 124.5 124.5 64.8 0 119.3-51.9 121.9-114.1v-10.4c0-88.2 28.5-121.9 121.9-124.5h2.6c64.8 0 119.3-51.9 121.9-116.7v-7.8c0-90.8 28.5-124.5 124.5-124.5 67.4 0 124.5-54.5 124.5-124.5C1730 62.5 1675.5 8 1608.1 8zM876.7 257h-10.4c-108.9 0-124.5-25.9-124.5-124.5C741.8 65.1 687.3 8 617.3 8c-67.4 0-124.5 54.5-124.5 124.5 0 98.6-15.6 121.9-124.5 121.9h-10.4c-62.2 5.2-111.5 57.1-111.5 121.9 0 67.4 54.5 124.5 124.5 124.5 64.8 0 119.3-51.9 121.9-114.1v-7.8c0-90.8 28.5-124.5 124.5-124.5s124.5 33.7 124.5 121.9c0 67.4 54.5 124.5 124.5 124.5s124.5-54.5 124.5-124.5c-2.6-62.2-51.9-114.1-114.1-119.3z"/></svg>
-                    </div>
-                    <div class="name__about">
-                      <span class="name__price">1.042467654</span>
-                      <span class="name__payment">Nano</span>
-                    </div>
-                  </div>
-                  <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
-                </div>
-                <div class="accordion__content">
-                  <div class="accordion__innerContent">
-                    <div id="nano-button"></div>
-
-                    <script>
-                      brainblocks.Button.render({
-                        payment: {
-                          destination: "<%= @author.nano_address %>",
-                          currency: "eur",
-                          amount: <%= @post.price %> <%= "/ 1000" if Rails.env.development? %> // Divide by 1000 only for testing
-                        },
-
-                        onPayment: function(data) {
-                          $.ajax({
-                            type: "POST",
-                            url: "<%= url_for nano_payments_path %>",
-                            data: { token: data.token, post_id: <%= @post.id %> }
-                          });
-                        }
-                      }, "#nano-button");
-                    </script>
-                  </div>
-                </div>
-              </div>
-              <% end %>
             </div>
-
           </div>
-        <% elsif @post.status == 1 %>
-          <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
-        <% end %>
-      <% else %>
-        <%= link_to "Purchase", login_path, class: "post__button button button--large button--green" %>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
   </aside>
 </section>
 
