@@ -15,7 +15,10 @@
   <article class="post__article">
     <div class="post__image">
       <% if @post.image %>
-        <%= image_tag(@post.image) %>
+        <%= image_tag @post.image, class: "image__banner" %>
+        <div class="image__thumbnail image__thumbnail--cursor-normal">
+          <img src="" class="image__thumb" />
+        </div>
       <% end %>
 
       <% if current_user %>
@@ -82,84 +85,54 @@
   </article>
 
   <aside class="post__aside">
-    <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--grey" %>
+    <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--gradient" %>
 
-    <% if @post.status == 1 %>
+    <div class="accordion" data-role="charge-container">
+      <% if current_user && current_user.id == @post.user_id || check_user_level(100) %>
+        <% if @post.status == 0 && @awaiting_edit.present? %>
+          <%= render "posts/accordion", icon: "remove_red_eye", price: "In review", name: @post.title do %>
+            <span>This post is waiting for approval</span>
+
+            <% if check_user_level(100) %>
+              <%= form_for @post, url: post_path(@post.id) do |f| %>
+                <%= f.hidden_field :status, value: 1 %>
+                <%= f.submit "Approve Post", class: "post__button button button--gradient" %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% unless @awaiting_edit.present? %>
+          <%= render "posts/accordion", icon: "edit", price: "Edit", name: @post.title do %>
+            <span>Edit your post</span>
+            <%= link_to "Edit now", edit_post_path(@post.nice_url), class: "post__button button button--gradient" %>
+          <% end if current_user && current_user.id == @post.user_id %>
+        <% end %>
+      <% end %>
       <% if @has_ordered %>
-        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>
-      <% elsif current_user %>
-        <% if @post.user_id != current_user.id %>
-
-          <div class="dropdown" data-role="dropdown">
-            <div class="dropdown__content">
-              <%= form_for :charge, url: charges_path, html: { class: "form" }, remote: true do |f| %>
-                <%= f.hidden_field :post_id, value: @post.id %>
-
-                <div class="form__parent form__parent--full">
-                  <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
-                  <%= f.label :card_number, "Card Number", class: "form__label" %>
-                </div>
-
-                <div class="form__parent form__parent--four">
-                  <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
-                </div>
-
-                <div class="form__parent form__parent--four">
-                  <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_number, "Exp. Year", class: "form__label" %>
-                </div>
-
-                <div class="form__parent form__parent--second">
-                  <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
-                  <%= f.label :card_number, "CVC", class: "form__label" %>
-                </div>
-
-                <%= f.submit "Submit", class: "post__button button button--large button--white", data: { role: "remote-submit" } %>
-              <% end %>
-
-              <% if @author.nano_address.present? %>
-                <hr>
-
-                <div id="nano-button"></div>
-
-                <script>
-                  brainblocks.Button.render({
-                    payment: {
-                      destination: "<%= @author.nano_address %>",
-                      currency: "eur",
-                      amount: <%= @post.price %> <%= "/ 1000" if Rails.env.development? %> // Divide by 1000 only for testing
-                    },
-
-                    onPayment: function(data) {
-                      $.ajax({
-                        type: "POST",
-                        url: "<%= url_for nano_payments_path %>",
-                        data: { token: data.token, post_id: <%= @post.id %> }
-                      });
-                    }
-                  }, "#nano-button");
-                </script>
-              <% end %>
-            </div>
-
-            <%= link_to "Purchase", "#", class: "post__button button button--large button--green", data: { role: "toggle-dropdown" } %>
-          </div>
-        <% elsif @post.status == 1 %>
-          <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
+        <%= render "posts/accordion", icon: "cloud_download", price: "Download", name: @post.title do %>
+          <span>You already bought this item.</span>
+          <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>
         <% end %>
       <% else %>
-        <%= link_to "Purchase", login_path, class: "post__button button button--large button--green" %>
-      <% end %>
-    <% elsif @post.status == 2 %>
-      <%= link_to "Edit Post", edit_post_path(@post.nice_url), class: "post__button button button--large button--gradient" %>
-    <% end %>
+        <%= render "posts/accordion", icon: "credit_card", price: "€#{@post.price}", name: "Creditcard" do %>
+          <% if current_user %>
+            <%= render "charges/form_creditcard", post: @post %>
+          <% else %>
+            <span>Login or Register to buy<strong><%= @post.title %></strong></span>
+            <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
+          <% end %>
+        <% end unless current_user && current_user.id == @post.user_id %>
 
-    <div class="post__license">
-      <span class="post__price">&euro;<%= @post.price %></span>
-      <h3 class="license__title">Regular license</h3>
-      <p class="lisence__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum sapien vitae malesuada. Suspendisse sed egestas eros. Nulla non iaculis lectus. Morbi convallis malesuada consequat. Pellentesque cursus odio ut </p>
-      <p class="lisence__content">fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>
+        <%= render "posts/accordion", icon: image_tag("crypto/nano.svg", width: 36), price: "1.042467654", name: "Nano" do %>
+          <% if current_user %>
+            <%= render "charges/form_nano", post: @post %>
+          <% else %>
+            <span>Login or Register to buy<strong><%= @post.title %></strong></span>
+            <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
+          <% end %>
+        <% end if @author.nano_address.present? %>
+      <% end unless current_user && current_user.id == @post.user_id %>
     </div>
   </aside>
 </section>
