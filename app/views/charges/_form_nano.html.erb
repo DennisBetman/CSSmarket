@@ -1,0 +1,19 @@
+<div id="nano-button"></div>
+
+<script>
+  brainblocks.Button.render({
+    payment: {
+      destination: "<%= @author.nano_address %>",
+      currency: "eur",
+      amount: <%= post.price %> <%= "/ 1000" if Rails.env.development? %> // Divide by 1000 only for testing
+    },
+
+    onPayment: function(data) {
+      $.ajax({
+        type: "POST",
+        url: "<%= url_for nano_payments_path %>",
+        data: { token: data.token, post_id: <%= post.id %> }
+      });
+    }
+  }, "#nano-button");
+</script>

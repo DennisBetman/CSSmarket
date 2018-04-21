@@ -1,0 +1,25 @@
+<%= form_for :charge, url: charges_path, html: { class: "form", data: { role: "remote-submit" }}, remote: true do |f| %>
+  <%= f.hidden_field :post_id, value: post.id %>
+
+  <div class="form__parent form__parent--full">
+    <%= f.text_field :card_number, class: "form__input credit__card", placeholder: " " %>
+    <%= f.label :card_number, "Card Number", class: "form__label" %>
+  </div>
+
+  <div class="form__parent form__parent--second">
+    <%= f.text_field :card_exp_month, class: "form__input", placeholder: " " %>
+    <%= f.label :card_exp_month, "Exp. Month", class: "form__label" %>
+  </div>
+
+  <div class="form__parent form__parent--second">
+    <%= f.text_field :card_exp_year, class: "form__input", placeholder: " " %>
+    <%= f.label :card_number, "Exp. Year", class: "form__label" %>
+  </div>
+
+  <div class="form__parent form__parent--full">
+    <%= f.text_field :card_cvc, class: "form__input", placeholder: " " %>
+    <%= f.label :card_number, "CVC", class: "form__label" %>
+  </div>
+
+  <%= f.submit "Buy now", class: "post__button button button--gradient" %>
+<% end %>
