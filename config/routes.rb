@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy"
 
+  get "/users", to: redirect("/login")
+
   get "/signup" => "users#new", as: "signup"
   get "/user/settings" => "users#settings", as: "user_settings"
   resources :users, only: [:create, :update, :destroy]
