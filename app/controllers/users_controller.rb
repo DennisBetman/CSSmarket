@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      UserMailer.welcome(user).deliver_later
-      session[:user_id] = user.id
+    @user = User.new(user_params)
+    if @user.save
+      UserMailer.welcome(@user).deliver_later
+      session[:user_id] = @user.id
       redirect_to root_path
     else
-      redirect_to login_path, flash: { user_error: "A field was invalid" }
+      render "sessions/new"
     end
   end
 

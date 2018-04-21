@@ -28,10 +28,16 @@
   left: 0;
   transform: translateY(100%);
   width: 100%;
+  min-width: 220px;
   z-index: 1000;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+
+  &--centered {
+    transform: translateX(-50%) translateY(100%);
+    left: 50%;
+  }
 
   &--submit-pending {
     form {

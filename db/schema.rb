@@ -10,8 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415124914) do
+ActiveRecord::Schema.define(version: 20180413094802) do
 
+  create_table "declined_posts", force: :cascade do |t|
+    t.integer  "post_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+  
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false

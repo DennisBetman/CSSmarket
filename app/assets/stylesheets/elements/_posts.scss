@@ -143,6 +143,14 @@
   }
 }
 
+.image__banner {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .image__banner-upload {
   cursor: pointer;
   position: absolute;
@@ -239,6 +247,10 @@
   @include mediaquery("desktop") {
     right: 20px;
     top: 20px;
+  }
+
+  &--cursor-normal {
+    cursor: default;
   }
 
   svg {

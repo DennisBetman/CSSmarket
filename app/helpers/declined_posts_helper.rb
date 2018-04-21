@@ -1,0 +1,2 @@
+module DeclinedPostsHelper
+end
