@@ -21,7 +21,6 @@
   align-items: center;
   padding: 0 25px;
   cursor: pointer;
-  display: flex;
   justify-content: space-between;
   transition: box-shadow 200ms ease;
 
@@ -98,6 +97,6 @@
   transition: height 200ms ease;
 }
 
-.accordion__innerContent {
+.accordion__inner-content {
   padding: 30px 25px;
 }
