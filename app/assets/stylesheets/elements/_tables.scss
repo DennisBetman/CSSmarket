@@ -69,6 +69,7 @@
   padding: 15px;
   border-bottom: 1px solid map-get($color, "light-grey");
   border-right: 1px solid map-get($color, "light-grey");
+  overflow: visible;
 
   @include mediaquery("tablet") {
     padding: 20px;
@@ -87,7 +88,6 @@
     flex-direction: column;
 
     input {
-      background: none;
       border: 0;
       cursor: pointer;
       font-size: 16px;
