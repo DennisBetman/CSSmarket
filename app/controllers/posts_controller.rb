@@ -24,15 +24,15 @@ class PostsController < ApplicationController
     @post = Post.where(nice_url: params[:nice_url]).where(status: 1).order("created_at DESC").first
     if current_user
       unless @post
-        @post = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
+        @post = Post.where(nice_url: params[:nice_url]).where.not(status: 1).order("created_at DESC").first
       end
 
       if current_user.id == @post.user_id || check_user_level(100)
-        @total_posts = Post.where(parent_id: @post.parent_id).where(status: 0).all
+        @total_posts = Post.where(parent_id: @post.parent_id).where.not(status: 1).all
         @awaiting_edit = ""
 
         if @total_posts.length > 0
-          @awaiting_edit = Post.where(nice_url: params[:nice_url]).where(status: 0).order("created_at DESC").first
+          @awaiting_edit = Post.where(nice_url: params[:nice_url]).where.not(status: 1).order("created_at DESC").first
           @post = @awaiting_edit
         end
       end

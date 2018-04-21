@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root "posts#index"
 
   get "/category/:name" => "posts#category", as: "post_category"
@@ -9,6 +8,8 @@ Rails.application.routes.draw do
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy"
+
+  get "/users", to: redirect("/login")
 
   get "/signup" => "users#new", as: "signup"
   get "/user/settings" => "users#settings", as: "user_settings"
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
 
   resources :posts
   get "/all" => "posts#overview", as: "posts_overview"
+
+  resources :declined_posts, only: [:create]
 
   resources :seller_requests, only: [:create, :new]
 
