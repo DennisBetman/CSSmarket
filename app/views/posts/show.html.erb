@@ -49,47 +49,42 @@
     <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--gradient" %>
 
     <div class="accordion" data-role="charge-container">
-      <% if current_user && current_user.id == @post.user_id || check_user_level(100) && @post.status == 0 && @awaiting_edit == "" %>
-        <%= render "posts/accordion", icon: "remove_red_eye", price: "In review", name: @post.title do %>
-          <span>This post is waiting for approval</span>
+      <% if current_user && current_user.id == @post.user_id || check_user_level(100) %>
+        <% if @post.status == 0 && @awaiting_edit.present? %>
+          <%= render "posts/accordion", icon: "remove_red_eye", price: "In review", name: @post.title do %>
+            <span>This post is waiting for approval</span>
 
-          <% if check_user_level(100) %>
-            <%= form_for @post, url: post_path(@post.id) do |f| %>
-              <%= f.hidden_field :status, value: 1 %>
-              <%= f.submit "Approve Post", class: "post__button button button--gradient" %>
+            <% if check_user_level(100) %>
+              <%= form_for @post, url: post_path(@post.id) do |f| %>
+                <%= f.hidden_field :status, value: 1 %>
+                <%= f.submit "Approve Post", class: "post__button button button--gradient" %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
-      <% elsif current_user && current_user.id == @post.user_id || check_user_level(100) && @awaiting_edit != "" %>
-        <%= render "posts/accordion", icon: "remove_red_eye", price: "In review", name: @post.title do %>
-          <span>This post is waiting for approval</span>
 
-          <% if check_user_level(100) %>
-            <%= form_for @post, url: post_path(@post.id) do |f| %>
-              <%= f.hidden_field :status, value: 1 %>
-              <%= f.submit "Approve Post", class: "post__button button button--gradient" %>
-            <% end %>
-          <% end %>
+        <% unless @awaiting_edit.present? %>
+          <%= render "posts/accordion", icon: "edit", price: "Edit", name: @post.title do %>
+            <span>Edit your post</span>
+            <%= link_to "Edit now", edit_post_path(@post.nice_url), class: "post__button button button--gradient" %>
+          <% end if current_user && current_user.id == @post.user_id %>
         <% end %>
-      <% elsif @has_ordered %>
+      <% end %>
+
+      <% if @has_ordered %>
         <%= render "posts/accordion", icon: "cloud_download", price: "Download", name: @post.title do %>
           <span>You already bought this item.</span>
           <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>
         <% end %>
-      <% elsif @post.status == 1 && current_user && @post.user_id == current_user.id %>
-        <%= render "posts/accordion", icon: "cloud_download", price: "Download", name: @post.title do %>
-          <span>Edit your post</span>
-          <%= link_to "Edit now", edit_post_path(@post.nice_url), class: "post__button button button--gradient" %>
-        <% end %>
       <% else %>
-        <%= render "posts/accordion", icon: "credit_card", price: @post.price, name: "Creditcard" do %>
+        <%= render "posts/accordion", icon: "credit_card", price: "€#{@post.price}", name: "Creditcard" do %>
           <% if current_user %>
             <%= render "charges/form_creditcard", post: @post %>
           <% else %>
             <span>Login or Register to buy<strong><%= @post.title %></strong></span>
             <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
           <% end %>
-        <% end %>
+        <% end unless current_user && current_user.id == @post.user_id %>
 
         <%= render "posts/accordion", icon: image_tag("crypto/nano.svg", width: 36), price: "1.042467654", name: "Nano" do %>
           <% if current_user %>
@@ -99,7 +94,7 @@
             <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
           <% end %>
         <% end if @author.nano_address.present? %>
-      <% end %>
+      <% end unless current_user && current_user.id == @post.user_id %>
     </div>
   </aside>
 </section>
