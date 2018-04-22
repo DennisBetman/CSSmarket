@@ -67,6 +67,8 @@
 .name__icon {
   padding-right: 15px;
   height: 36px;
+  display: flex;
+  align-items: center;
 
   i {
     font-size: 36px;
@@ -99,4 +101,33 @@
 
 .accordion__inner-content {
   padding: 30px 25px;
+}
+
+.accordion__inner-pending {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accordion__pending {
+  @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 100%;
+  box-shadow: 0 0 0 0 rgba(map-get($color, "brand-secondary"), 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(map-get($color, "brand-secondary"), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(map-get($color, "brand-secondary"), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(map-get($color, "brand-secondary"), 0);
+  }
 }
