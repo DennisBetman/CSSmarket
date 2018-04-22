@@ -1,19 +1,35 @@
 .intro {
   @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
-  height: 178px;
+  min-height: 178px;
   color: map-get($color, "white");
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  position: relative;
 
   @include mediaquery("tablet") {
-    height: 280px;
+    min-height: 280px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: image-url("patterns/pattern1.png");
+    opacity: 0.1;
   }
 
   &--blue {
     background: map-get($color, "brand-primary-third");
+
+    &::before {
+      opacity: 0.025;
+    }
   }
 
   &--cart {
@@ -26,6 +42,42 @@
       padding-top: 60px;
       padding-bottom: 60px;
     }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &--content {
+    display: block;
+  }
+}
+
+.intro__head {
+  position: relative;
+  z-index: 10;
+  min-height: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+  margin-bottom: calc(178px - 90px);
+  padding: 20px 0;
+
+  @include mediaquery("tablet") {
+    min-height: 130px;
+    margin-bottom: calc(280px - 130px);
+    padding: 25px 25px 25px 0;
+    max-width: calc(100% - 315px);
+  }
+
+  @include mediaquery("desktop") {
+    max-width: calc(100% - 366px);
+  }
+
+  &--form {
+    margin-bottom: 0;
   }
 }
 
@@ -33,6 +85,16 @@
   margin-bottom: 5px;
   width: 100%;
   color: map-get($color, "white");
+
+  &--small {
+    font-size: 18px;
+    line-height: 25px;
+
+    @include mediaquery("tablet") {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
 }
 
 .intro__subtitle {
@@ -40,6 +102,26 @@
   font-size: 15px;
   line-height: 19px;
   width: 100%;
+
+  &--small {
+    font-size: 13px;
+    color: rgba(map-get($color, "white"), 0.36);
+    position: relative;
+    margin-top: -3px;
+  }
+
+  &--upload {
+    display: flex;
+  }
+
+  span {
+    color: rgba(map-get($color, "white"), 0.66);
+  }
+
+  a {
+    color: rgba(map-get($color, "white"), 0.66);
+    text-decoration: none;
+  }
 }
 
 .intro__icon {

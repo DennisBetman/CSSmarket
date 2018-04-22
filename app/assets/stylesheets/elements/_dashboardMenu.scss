@@ -6,6 +6,14 @@
   @include mediaquery("tablet") {
     @include maxwidth(50px);
   }
+
+  &--full-width {
+    padding: 30px;
+
+    @include mediaquery("tablet") {
+      padding: 50px;
+    }
+  }
 }
 
 .dashboard__menu {

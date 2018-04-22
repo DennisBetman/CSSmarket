@@ -1,3 +1,5 @@
+@import "simplemde.min";
+
 // Helpers
 @import "variables",
         "mixins",
@@ -15,13 +17,17 @@
 // Specific elements
 @import "elements/projects",
         "elements/form",
+        "elements/flash",
         "elements/buttons",
         "elements/intro",
         "elements/media",
         "elements/posts",
-        "elements/cart",
         "elements/popup",
         "elements/dashboardMenu",
         "elements/dashboardContent",
         "elements/add_this",
-        "elements/article";
+        "elements/article",
+        "elements/tables",
+        "elements/alert",
+        "elements/dropdown",
+        "elements/accordion";

@@ -1,0 +1,17 @@
+<section class="dashboard dashboard--full-width">
+  <%= render "admin/menu" %>
+
+  <div class="dashboard__content">
+    <h3 class="content__title">Admin dashboard</h3>
+    <h1 class="content__subtitle">Seller Requests</h1>
+
+    <% @seller_requests.each do |seller_request| %>
+      <div>
+        <h3>User: <%= link_to seller_request.user_id, admin_user_path(seller_request.user_id) %></h3>
+        <div><%= seller_request.content %></div>
+        <div><%= seller_request.portfolio_url %></div>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+</section>

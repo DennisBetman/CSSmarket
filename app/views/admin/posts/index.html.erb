@@ -1,0 +1,65 @@
+<section class="dashboard dashboard--full-width">
+  <%= render "admin/menu" %>
+
+  <div class="dashboard__content">
+    <h3 class="content__title">Admin dashboard</h3>
+    <h1 class="content__subtitle">Posts</h1>
+
+    <div class="table content__subject">
+      <div class="table__list table__list--col7 table__list--posts">
+        <div class="table__item">ID</div>
+        <div class="table__item">PID</div>
+        <div class="table__item">Stat</div>
+        <div class="table__item">User</div>
+        <div class="table__item">Title</div>
+        <div class="table__item">Created at</div>
+        <div class="table__item">Actions</div>
+      </div>
+      <% @posts.each do |post| %>
+        <div class="table__list table__list--col7">
+          <div class="table__item"><%= post.id %></div>
+          <div class="table__item" style="white-space: inherit; word-break: break-word"><%= link_to post.parent_id, admin_post_path(post.parent_id) %></strong></div>
+          <div class="table__item">
+            <%= post.status %><br>
+
+            <%= if post.status == 0
+                "Pending"
+              elsif post.status == 1
+                "Approved"
+              elsif post.status == 2
+                "Declined"
+              end %>
+          </div>
+          <div class="table__item"><%= post.user_name %> <i>(<%= link_to post.user_id, admin_user_path(post.user_id) %>)</i></div>
+          <div class="table__item"><%= post.title %></div>
+          <div class="table__item"><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></div>
+          <div class="table__item table__item--actions">
+            <%= button_to "View", post_path(post.nice_url), method: :get %>
+
+            <% if post.status == 0 %>
+              <%= form_for post, url: post_path(post.id) do |f| %>
+                <%= f.hidden_field :status, value: 1 %>
+                <%= f.submit "Approve" %>
+              <% end %>
+
+
+              <div class="dropdown" data-role="dropdown">
+                <%= link_to "Decline", "#", data: { role: "toggle-dropdown" } %>
+
+                <div class="dropdown__content dropdown__content--centered">
+                  <% if post.status == 0 %>
+                    <%= form_for :declined_post, url: declined_posts_path do |f| %>
+                      <%= f.hidden_field :post_id, value: post.id %>
+                      <%= f.text_area :description, rows: 10, style: "width: 100%" %><br>
+                      <%= f.submit "Decline", class: "button button--white" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

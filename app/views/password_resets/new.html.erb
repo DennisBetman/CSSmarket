@@ -1,0 +1,13 @@
+<%= form_for @password_reset, html: { class: "form content__subject" } do |f| %>
+
+  <%= flash[:password_sent] if flash[:password_sent] %>
+
+  <div class="form__parent">
+    <%= f.text_field :email, class: "form__input" %>
+    <%= f.label :email, class: "form__label" %>
+  </div>
+
+  <div class="form__parent">
+    <%= f.submit "Submit", class: "button button--gradient" %>
+  </div>
+<% end %>

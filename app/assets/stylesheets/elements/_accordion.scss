@@ -1,0 +1,102 @@
+.accordion {
+  width: 100%;
+  background: map-get($color, "white");
+  box-shadow: 2px 0 24px rgba(map-get($color, "black"), 0.15);
+  margin-top: 20px;
+}
+
+.accordion__item {
+  &:first-of-type {
+    .accordion__header {
+      border-top: 0;
+    }
+  }
+}
+
+.accordion__header {
+  width: 100%;
+  height: 74px;
+  border-top: 1px solid darken(map-get($color, "white"), 5%);
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: box-shadow 200ms ease;
+
+  &--selected {
+    box-shadow: 0 0 10px rgba(map-get($color, "black"), 0.16);
+
+    .accordion__arrow {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.accordion__name {
+  display: flex;
+  align-items: center;
+}
+
+.accordion__message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  span {
+    font-size: 18px;
+  }
+
+  strong {
+    display: block;
+  }
+}
+
+.name__about {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion__arrow {
+  font-size: 30px;
+  color: darken(map-get($color, "white"), 40%);
+  transition: transform 200ms ease;
+}
+
+.name__icon {
+  padding-right: 15px;
+  height: 36px;
+
+  i {
+    font-size: 36px;
+    color: map-get($color, "brand-secondary-second");
+  }
+
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.name__price {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.name__payment {
+  font-size: 14px;
+  font-weight: 300;
+  position: relative;
+  margin-top: -3px;
+}
+
+.accordion__content {
+  height: 0;
+  overflow: hidden;
+  transition: height 200ms ease;
+}
+
+.accordion__inner-content {
+  padding: 30px 25px;
+}

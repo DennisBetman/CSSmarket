@@ -6,31 +6,8 @@
 
 <section class="projects">
   <h3 class="projects__title">Your orders</h3>
-  <p class="projects__subtitle">An email has been sent to you. The items are now available on your <a href="#">download</a> page.</p>
+  <p class="projects__subtitle">An email has been sent to you. The items are now available on your <%= link_to "downloads", dashboard_downloads_path %> page.</p>
   <div class="projects__parent">
-    <div class="project">
-      <a href="#" class="project__image" style="background-image: url()">
-        <div class="project__overlay">
-          <i class="project__icon material-icons">search</i>
-        </div>
-      </a>
-      <div class="project__content">
-        <span class="project__name">Post title</span>
-        <span class="project__author">Post user</span>
-        <a href="#" class="project__price">&euro;14</a>
-      </div>
-    </div>
-    <div class="project">
-      <a href="#" class="project__image" style="background-image: url()">
-        <div class="project__overlay">
-          <i class="project__icon material-icons">search</i>
-        </div>
-      </a>
-      <div class="project__content">
-        <span class="project__name">Post title</span>
-        <span class="project__author">Post user</span>
-        <a href="#" class="project__price">&euro;14</a>
-      </div>
-    </div>
+    <%= render @posts %>
   </div>
 </section>

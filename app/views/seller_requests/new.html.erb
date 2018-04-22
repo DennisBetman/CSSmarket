@@ -1,0 +1,17 @@
+<h1>Apply as Seller</h1>
+
+<%= form_for @seller_request, html: { class: "form form--columns"  } do |f| %>
+  <div class="form__parent">
+    <%= f.text_area :content, class: "form__input" %>
+    <%= f.label :content, class: "form__label" %>
+  </div>
+
+  <div class="form__parent">
+    <%= f.text_field :portfolio_url, class: "form__input" %>
+    <%= f.label :portfolio_url, class: "form__label" %>
+  </div>
+
+  <div class="form__parent">
+    <%= f.submit %>
+  </div>
+<% end %>

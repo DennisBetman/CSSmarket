@@ -1,11 +1,11 @@
 <nav class="dashboard__menu">
   <span class="dashboard__username">Hi, <%= current_user.name %></span>
-  <a class="dashboard__link" href="#">
+  <%= link_to user_settings_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", user_settings_path)}" do %>
     <span class="link__name">
       <i class="material-icons">settings</i>
-      <span class="link__text">Settings</span>
+      <span class="link__text">Account Settings</span>
     </span>
-  </a>
+  <% end %>
 
   <% if !check_user_level(0) %>
     <%= link_to dashboard_earnings_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", dashboard_earnings_path)}" do %>
