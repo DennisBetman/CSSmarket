@@ -124,9 +124,11 @@
   0% {
     box-shadow: 0 0 0 0 rgba(map-get($color, "brand-secondary"), 0.4);
   }
+
   70% {
     box-shadow: 0 0 0 15px rgba(map-get($color, "brand-secondary"), 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(map-get($color, "brand-secondary"), 0);
   }
