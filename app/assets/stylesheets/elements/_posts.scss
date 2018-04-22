@@ -273,11 +273,39 @@
     }
   }
 
-  h2 {
-    margin-bottom: -8px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ol,
+  ul {
+    margin: 25px 0;
+  }
+
+  h3 {
+    font-size: inherit;
+    text-transform: none;
+  }
+
+  blockquote {
+    margin: 0;
+    background: darken(map-get($color, "white"), 3%);
+    padding: 10px 25px;
 
     @include mediaquery("tablet") {
-      margin-bottom: -15px;
+      padding: 10px 45px;
+    }
+
+    p {
+      &::before {
+        content: '"';
+      }
+
+      &::after {
+        content: '"';
+      }
     }
   }
 }
