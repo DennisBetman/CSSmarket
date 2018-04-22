@@ -6,7 +6,7 @@
 <section class="projects">
   <h3 class="projects__title">Recente projects</h3>
   <div class="projects__parent">
-    <%= render @posts %>
+    <%= render @posts if @posts.any? %>
   </div>
   <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" %>
 </section>

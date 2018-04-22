@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413094802) do
+ActiveRecord::Schema.define(version: 20180415124914) do
 
   create_table "declined_posts", force: :cascade do |t|
     t.integer  "post_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180413094802) do
     t.integer  "level",           default: 0,     null: false
     t.string   "nano_address"
     t.decimal  "cut_percentage",  default: "0.8"
+    t.string   "paypal_address"
   end
 
   create_table "withdrawals", force: :cascade do |t|
