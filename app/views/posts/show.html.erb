@@ -20,45 +20,6 @@
           <img src="" class="image__thumb" />
         </div>
       <% end %>
-
-      <% if current_user %>
-        <% if current_user.id == @post.user_id || check_user_level(100) %>
-          <% if @post.status != 1 && @awaiting_edit == "" %>
-            <div class="note__flash note__flash--post">
-              <% if @post.status == 2 %>
-                This post has been declined
-              <% elsif %>
-                This post is waiting for approval
-              <% end %>
-
-              <% if check_user_level(100) %>
-                <%= form_for @post, url: post_path(@post.id) do |f| %>
-                  <%= f.hidden_field :status, value: 1 %>
-                  <%= f.submit "Approve Post", class: "button button--white" %>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-
-          <% if @awaiting_edit != "" %>
-            <div class="note__flash note__flash--post">
-              <% if @post.status == 2 %>
-                This post has been declined
-              <% elsif %>
-                This post is waiting for approval
-
-                <% if check_user_level(100) %>
-                  <%= form_for @post, url: post_path(@post.id) do |f| %>
-                    <%= f.hidden_field :status, value: 1 %>
-                    <%= f.submit "Approve Post", class: "button button--white" %>
-                  <% end %>
-                <% end %>
-              <% end %>
-
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
     </div>
 
     <div class="post__actions post__actions--mobile">
@@ -111,7 +72,7 @@
       <% end %>
       <% if @has_ordered %>
         <%= render "posts/accordion", icon: "cloud_download", price: "Download", name: @post.title do %>
-          <span>You already bought this item.</span>
+          <span>You already bought this project.</span>
           <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %>
         <% end %>
       <% else %>

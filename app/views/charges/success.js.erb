@@ -1,4 +1,22 @@
 element = $("[data-role='charge-container']");
 
-element.html('Success! <%= link_to "Download your purchase", dashboard_downloads_path %>');
-element.append('<%= link_to "Downloads", dashboard_downloads_path, class: "post__button button button--large button--gradient" %>');
+element.html('<div class="accordion__item"> \
+  <div class="accordion__header accordion__header--selected"> \
+    <div class="accordion__name"> \
+      <div class="name__icon"><i class="material-icons">check</i></div> \
+      <div class="name__about"> \
+        <span class="name__price">Succeed</span> \
+        <span class="name__payment">Your payment has succeeded</span> \
+      </div> \
+    </div> \
+  </div> \
+  <div class="accordion__content" style="height: auto;"> \
+    <div class="accordion__inner-content"> \
+      <div class="accordion__message"> \
+        <span>You can now download this project</span> \
+        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--gradient" %> \
+      </div> \
+    </div> \
+  </div> \
+</div> \
+');
