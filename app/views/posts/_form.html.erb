@@ -1,18 +1,6 @@
-<%= form_for @post, html: { class: "",  } do |f| %>
+<%= form_for @post, html: { class: "",  }, remote: true do |f| %>
 
-  <% if not @post.nil? and @post.errors.any? %>
-    <div class="alert" id="error_explanation">
-      <div class="alert__content">
-        <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-          this post from being saved:</h2>
-        <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+  <%= render "errors", post: @post if not @post.nil? and @post.errors.any? %>
 
   <section class="intro intro--blue intro--content">
     <div class="intro__head intro__head--form">
@@ -69,7 +57,7 @@
       <div class="post__content">
         <%= f.text_area :content, class: "form__input form__input--textarea", data: { role: "markdown" } %>
       </div>
-      <%= f.submit "Create post", class: "button button--gradient button--desktop" %>
+      <%= f.submit class: "button button--gradient button--desktop" %>
     </div>
 
     <aside class="post__aside post__aside--upload">
@@ -84,7 +72,7 @@
         <p class="lisence__content">fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>
       </div>
 
-      <%= f.submit "Create post", class: "button button--gradient button--mobile" %>
+      <%= f.submit class: "button button--gradient button--mobile" %>
     </aside>
   </section>
 
