@@ -5,35 +5,36 @@
     <h3 class="content__title">Admin dashboard</h3>
     <h1 class="content__subtitle">Users</h1>
 
-    <div class="table content__subject">
-      <div class="table__list table__list--col6 table__list--users">
-        <div class="table__item">ID</div>
-        <div class="table__item">Level</div>
-        <div class="table__item">Cut</div>
-        <div class="table__item">Name</div>
-        <div class="table__item">Email</div>
-        <div class="table__item">Created at</div>
-      </div>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>Level</th>
+        <th>Cut</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created at</th>
+      </tr>
+
       <% @users.each do |user| %>
-        <div class="table__list table__list--col6">
-          <div class="table__item"><%= link_to user.id, admin_user_path(user.id) %></div>
-          <div class="table__item">
+        <tr>
+          <td><%= link_to user.id, admin_user_path(user.id) %></td>
+          <td>
             <%= form_for user, url: user_path(user.id), html: { class: "table-form" } do |f| %>
               <%= f.text_field :level, placeholder: "Level", class: "table-form__input" %>
               <%= f.submit ">", class: "table-form__button" %>
             <% end %>
-          </div>
-          <div class="table__item">
+          </td>
+          <td>
             <%= form_for user, url: user_path(user.id), html: { class: "table-form" } do |f| %>
               <%= f.text_field :cut_percentage, placeholder: "Cut", class: "table-form__input" %>
               <%= f.submit ">", class: "table-form__button" %>
             <% end %>
-          </div>
-          <div class="table__item"><%= link_to user.name, profile_path(user.name) %></div>
-          <div class="table__item"><%= user.email %></div>
-          <div class="table__item"><%= user.created_at.strftime("%d %b. %Y, %H:%M") %></div>
-        </div>
+          </td>
+          <td><%= link_to user.name, profile_path(user.name) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.created_at.strftime("%d %b. %Y, %H:%M") %></td>
+        </tr>
       <% end %>
     </div>
-  </div>
+  </table>
 </section>
