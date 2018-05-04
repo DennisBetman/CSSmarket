@@ -8,7 +8,7 @@
   <div class="projects__parent">
     <%= render @posts if @posts.any? %>
   </div>
-  <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" %>
+  <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" if @posts_total > 8 %>
 </section>
 
 <section class="media media--gradient">

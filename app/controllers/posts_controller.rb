@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   end
 
   def index
+    @posts_total = Post.group(:parent_id).where(status: 1).all.to_a.count
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.limit(8).to_a
 
     user_id_to_name
