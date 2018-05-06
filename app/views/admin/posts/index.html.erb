@@ -5,21 +5,22 @@
     <h3 class="content__title">Admin dashboard</h3>
     <h1 class="content__subtitle">Posts</h1>
 
-    <div class="table content__subject">
-      <div class="table__list table__list--col7 table__list--posts">
-        <div class="table__item">ID</div>
-        <div class="table__item">PID</div>
-        <div class="table__item">Stat</div>
-        <div class="table__item">User</div>
-        <div class="table__item">Title</div>
-        <div class="table__item">Created at</div>
-        <div class="table__item">Actions</div>
-      </div>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>PID</th>
+        <th>Stat</th>
+        <th>User</th>
+        <th>Title</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+
       <% @posts.each do |post| %>
-        <div class="table__list table__list--col7">
-          <div class="table__item"><%= post.id %></div>
-          <div class="table__item" style="white-space: inherit; word-break: break-word"><%= link_to post.parent_id, admin_post_path(post.parent_id) %></strong></div>
-          <div class="table__item">
+        <tr>
+          <td><%= post.id %></td>
+          <td style="white-space: inherit; word-break: break-word"><%= link_to post.parent_id, admin_post_path(post.parent_id) %></strong></td>
+          <td>
             <%= post.status %><br>
 
             <%= if post.status == 0
@@ -29,11 +30,11 @@
               elsif post.status == 2
                 "Declined"
               end %>
-          </div>
-          <div class="table__item"><%= post.user_name %> <i>(<%= link_to post.user_id, admin_user_path(post.user_id) %>)</i></div>
-          <div class="table__item"><%= post.title %></div>
-          <div class="table__item"><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></div>
-          <div class="table__item table__item--actions">
+          </td>
+          <td><%= post.user_name %> <i>(<%= link_to post.user_id, admin_user_path(post.user_id) %>)</i></td>
+          <td><%= post.title %></td>
+          <td><%= post.created_at.strftime("%d %b. %Y, %H:%M") %></td>
+          <td>
             <%= button_to "View", post_path(post.nice_url), method: :get %>
 
             <% if post.status == 0 %>
@@ -57,9 +58,9 @@
                 </div>
               </div>
             <% end %>
-          </div>
-        </div>
+          </td>
+        </tr>
       <% end %>
-    </div>
+    </table>
   </div>
 </section>

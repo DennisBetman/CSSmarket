@@ -5,25 +5,26 @@
     <h3 class="content__title">Admin dashboard</h3>
     <h1 class="content__subtitle">Orders</h1>
 
-    <div class="table content__subject">
-      <div class="table__list table__list--col6 table__list--order">
-        <div class="table__item">ID</div>
-        <div class="table__item">User</div>
-        <div class="table__item">Amount</div>
-        <div class="table__item">Customer</div>
-        <div class="table__item">Type</div>
-        <div class="table__item">Created at</div>
-      </div>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Customer</th>
+        <th>Type</th>
+        <th>Created at</th>
+      </tr>
+
       <% @orders.each do |order| %>
-        <div class="table__list table__list--col6 table__list--order">
-          <div class="table__item"><%= order.id %></div>
-          <div class="table__item"><%= order.user_id %></div>
-          <div class="table__item">&euro; <%= order.amount %></div>
-          <div class="table__item"><%= order.customer_id %></div>
-          <div class="table__item"><%= order.payment_type %></div>
-          <div class="table__item"><%= order.created_at.strftime("%d %b. %Y, %H:%M") %></div>
-        </div>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.user_id %></td>
+          <td>&euro; <%= order.amount %></td>
+          <td style="word-break: break-word; max-width: 300px"><%= order.customer_id %></td>
+          <td><%= order.payment_type %></td>
+          <td><%= order.created_at.strftime("%d %b. %Y, %H:%M") %></td>
+        </tr>
       <% end %>
-    </div>
+    </table>
   </div>
 </section>

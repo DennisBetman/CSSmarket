@@ -5,21 +5,22 @@
     <h3 class="content__title">Admin dashboard</h3>
     <h1 class="content__subtitle">Withdrawal</h1>
 
-    <div class="table content__subject">
-      <div class="table__list table__list--col5 table__list--drawl">
-        <div class="table__item">ID</div>
-        <div class="table__item">User</div>
-        <div class="table__item">Amount</div>
-        <div class="table__item">Created at</div>
-        <div class="table__item">Actions</div>
-      </div>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+
       <% @withdrawals.each do |withdrawal| %>
-        <div class="table__list table__list--drawl">
-          <div class="table__item"><%= withdrawal.id %></div>
-          <div class="table__item"><%= withdrawal.user_id %></div>
-          <div class="table__item">&euro; <%= withdrawal.amount %></div>
-          <div class="table__item"><%= withdrawal.created_at.strftime("%d %b. %Y, %H:%M") %></div>
-          <div class="table__item">
+        <tr>
+          <td><%= withdrawal.id %></td>
+          <td><%= withdrawal.user_id %></td>
+          <td>&euro; <%= withdrawal.amount %></td>
+          <td><%= withdrawal.created_at.strftime("%d %b. %Y, %H:%M") %></td>
+          <td>
             <% if withdrawal.status == 0 %>
               <%= form_for withdrawal, url: withdrawal_path(withdrawal.id) do |f| %>
                 <%= f.hidden_field :status, value: 1 %>
@@ -28,9 +29,9 @@
             <% else %>
               Complete
             <% end %>
-          </div>
-        </div>
+          </td>
+        </tr>
       <% end %>
-    </div>
+    </table>
   </div>
 </section>

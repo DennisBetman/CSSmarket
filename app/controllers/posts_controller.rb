@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   end
 
   def index
+    @posts_total = Post.group(:parent_id).where(status: 1).all.to_a.count
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.limit(8).to_a
 
     user_id_to_name
@@ -98,10 +99,14 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     @post.parent_id = SecureRandom.urlsafe_base64(16)
 
-    if @post.save
-      redirect_to post_path(@post.nice_url)
-    else
-      render "new"
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to post_path(@post.nice_url) }
+      else
+        format.html { render "edit" }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js { render layout: false, content_type: "text/javascript" }
+      end
     end
   end
 
@@ -144,10 +149,14 @@ class PostsController < ApplicationController
       @post.user_id = current_user.id
       @post.parent_id = @parent_post.parent_id
 
-      if @post.save
-        redirect_to post_path(@post.nice_url)
-      else
-        render "edit"
+      respond_to do |format|
+        if @post.save
+          format.html { redirect_to post_path(@post.nice_url) }
+        else
+          format.html { render "edit" }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+          format.js { render layout: false, content_type: "text/javascript" }
+        end
       end
     end
   end

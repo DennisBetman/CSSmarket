@@ -1,0 +1,3 @@
+$("form .alert").remove();
+
+$("form").prepend(`<%= render "errors", post: @post %>`);
