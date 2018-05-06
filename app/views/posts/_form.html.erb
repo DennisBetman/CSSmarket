@@ -7,6 +7,7 @@
       <div class="intro__title intro__title--small">
         <%= f.text_field :title, class: "from__input form__input--upload-title", placeholder: "Type your title here" %>
       </div>
+
       <span class="intro__subtitle intro__subtitle--small intro__subtitle--upload">
         Select a category
         <%= f.select :categories, options_for_select(
@@ -23,50 +24,46 @@
     <div class="post__article">
       <%= f.file_field :image, accept: "image/jpeg, image/jpg", class: "form__input form__input--hidden form__input--upload-image" %>
       <%= f.file_field :image, accept: "image/jpeg, image/jpg", class: "form__input form__input--hidden form__input--upload-thumbnail" %>
+
       <div class="post__image">
-        <div class="image__banner-upload">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
-            <defs>
-              <path d="M24 24H0V0h24v24z" id="a"/>
-            </defs>
-            <clipPath id="b">
-              <use overflow="visible" xlink:href="#a"/>
-            </clipPath>
-            <path clip-path="url(#b)" d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3zm7 9c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-3.2-5c0 1.77 1.43 3.2 3.2 3.2s3.2-1.43 3.2-3.2-1.43-3.2-3.2-3.2-3.2 1.43-3.2 3.2z"/>
-          </svg>
-          <span class="image__title">Upload banner</span>
-          <span class="image__description">1584x912, JPG/JPEG and the size must be less than 1MB</span>
-        </div>
-        <img src="" class="image__placeholder" />
+        <% if @post.image.present? %>
+          <%= image_tag @post.image, class: "image__banner-upload" %>
+        <% else %>
+          <div class="image__banner-upload">
+            <%= inline_svg "icons/icon-camera.svg" %>
+
+            <span class="image__title">Upload banner</span>
+            <span class="image__description">1584x912, JPG/JPEG and the size must be less than 1MB</span>
+          </div>
+        <% end %>
+
         <div class="image__error image__error--banner">This is a error placeholder</div>
+
         <div class="image__thumbnail">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
-            <defs>
-              <path d="M24 24H0V0h24v24z" id="a"/>
-            </defs>
-            <clipPath id="b">
-              <use overflow="visible" xlink:href="#a"/>
-            </clipPath>
-            <path clip-path="url(#b)" d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3zm7 9c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-3.2-5c0 1.77 1.43 3.2 3.2 3.2s3.2-1.43 3.2-3.2-1.43-3.2-3.2-3.2-3.2 1.43-3.2 3.2z"/>
-          </svg>
+          <%= inline_svg "icons/icon-camera.svg" %>
+
           <span class="image__description">562x562</span>
-          <img src="" class="image__placeholder-thumb" />
           <div class="image__error image__error--thumb">Placeholder</div>
         </div>
       </div>
+      
       <div class="post__content">
         <%= f.text_area :content, class: "form__input form__input--textarea", data: { role: "markdown" } %>
       </div>
+      
       <%= f.submit class: "button button--gradient button--desktop" %>
     </div>
 
     <aside class="post__aside post__aside--upload">
       <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--preview" %>
       <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--project" %>
+
       <a href="javascript:void(0)" class="button button--large button--grey button--column button--preview button--full"><span>Upload preview</span><span class="button__upload-file button__upload-file--preview">No preview selected</span></a>
       <a href="javascript:void(0)" class="post__button button button--large button--gradient button--column button--project button--full"><span>Upload project</span><span class="button__upload-file button__upload-file--project">No project selected</span></a>
+
       <div class="post__license">
         <span class="post__price post__price--upload">&euro; <%= f.text_field :price, class: "form__input form__input--price-upload", placeholder: "0" %></span>
+
         <h3 class="license__title">Regular license</h3>
         <p class="lisence__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum sapien vitae malesuada. Suspendisse sed egestas eros. Nulla non iaculis lectus. Morbi convallis malesuada consequat. Pellentesque cursus odio ut </p>
         <p class="lisence__content">fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>

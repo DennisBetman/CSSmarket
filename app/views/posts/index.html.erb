@@ -5,25 +5,23 @@
 
 <section class="projects">
   <h3 class="projects__title">Recente projects</h3>
+  
   <div class="projects__parent">
     <%= render @posts if @posts.any? %>
   </div>
+  
   <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" if @posts_total > 8 %>
 </section>
 
 <section class="media media--gradient">
     <div class="media__item">
-      <svg viewBox="0 0 191.9 195.1" xml:space="preserve" class="media__svg">
-      	<path class="st0" d="M178.4,0H13.5C5.3,0-1,7.3,0.1,15.4l20.4,145.5c0.7,5,4.1,9.1,8.8,10.8l62.1,22.6c3,1.1,6.3,1.1,9.2,0
-      		l62.1-22.6c4.7-1.7,8.1-5.9,8.8-10.8l20.4-145.5C192.9,7.3,186.6,0,178.4,0z M94.2,152c-39.1,0-55-49.6-23.4-72.3
-      		c1.3,6.3,2.4,12.3,6.4,17c15.2-16.8,14.4-49.1,0-68.1C141.1,53.8,153,152,94.2,152z"/>
-      	<path class="st1" d="M96.7,103.8c5.3,9.5-8.1,23-16.1,21.1c1.1,6.3,6.6,11,13.2,11c7.4,0,13.2-6,13.4-13.4
-      		C107.4,114.5,104.7,103.8,96.7,103.8z"/>
-      </svg>
+      <%= inline_svg "logo-cssmarket.svg" %>
     </div>
+
     <div class="media__item">
       <h3>Become a seller</h3>
       <h2>We’re looking for more awesome projects. Start selling yours.</h2>
+
       <a href="#" class="button button--white">start selling</a>
     </div>
 </section>
