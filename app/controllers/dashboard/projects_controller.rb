@@ -1,6 +1,6 @@
 class Dashboard::ProjectsController < Dashboard::BaseController
   before_action do
-    if check_user_level(0)
+    if check_user_level("regular")
       redirect_to user_settings_path
     end
   end

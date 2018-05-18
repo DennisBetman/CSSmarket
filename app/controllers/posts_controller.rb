@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   before_action :authorize, except: [:show, :index, :search, :category, :preview, :overview]
   before_action only: [:new] do
-    if check_user_level(0)
+    if check_user_level("regular")
       redirect_to user_settings_path
     end
   end
@@ -13,12 +13,16 @@ class PostsController < ApplicationController
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.limit(8).to_a
 
     user_id_to_name
+
+    @posts = @posts.reject { |p| p.user_name == "[deleted]" }
   end
 
   def overview
     @posts = Post.group(:parent_id).where(status: 1).order("created_at DESC").all.to_a
 
     user_id_to_name
+
+    @posts = @posts.reject { |p| p.user_name == "[deleted]" }
   end
 
   def show
@@ -28,7 +32,7 @@ class PostsController < ApplicationController
         @post = Post.where(nice_url: params[:nice_url]).where.not(status: 1).order("created_at DESC").first
       end
 
-      if current_user.id == @post.user_id || check_user_level(100)
+      if current_user.id == @post.user_id || check_user_level("admin")
         @total_posts = Post.where(parent_id: @post.parent_id).where.not(status: 1).all
         @awaiting_edit = ""
 
@@ -48,7 +52,7 @@ class PostsController < ApplicationController
     end
 
     if current_user
-      if @post.user_id == current_user.id || check_user_level(100)
+      if @post.user_id == current_user.id || check_user_level("admin")
       else
         if @post.status == 0
           raise ActionController::RoutingError.new("Not Found")
@@ -60,7 +64,7 @@ class PostsController < ApplicationController
       end
     end
 
-    @author = User.select("id", "name", "nano_address").find_by_id(@post.user_id)
+    @author = User.select("id", "name", "nano_address", "status").find_by_id(@post.user_id)
 
     if current_user
       @has_ordered = false
@@ -87,6 +91,8 @@ class PostsController < ApplicationController
     @posts_total = @posts ? @posts.count : 0
 
     user_id_to_name
+
+    @posts = @posts.reject { |p| p.user_name == "[deleted]" }
   end
 
   def new
@@ -177,8 +183,13 @@ class PostsController < ApplicationController
 
   def user_id_to_name
     @posts.each do |post|
-      user = User.select("id", "name").find_by_id(post.user_id)
-      post.user_name = user.name
+      user = User.select("id", "name", "status").find_by_id(post.user_id)
+
+      if user.deleted?
+        post.user_name = "[deleted]"
+      else
+        post.user_name = user.name
+      end
     end
   end
 end

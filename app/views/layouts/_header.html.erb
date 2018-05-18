@@ -7,7 +7,7 @@
     <!-- tablet and higher -->
     <%= link_to "About", page_path("about"), class: "header__link header__link--tablet" %>
     <% if current_user %>
-      <%= link_to "Sell", check_user_level(0) ? page_path("sell") : new_post_path, class: "header__link header__link--tablet" %>
+      <%= link_to "Sell", check_user_level("regular") ? page_path("sell") : new_post_path, class: "header__link header__link--tablet" %>
     <% else %>
       <%= link_to "Sell", page_path("sell"), class: "header__link header__link--tablet" %>
     <% end %>
@@ -20,7 +20,7 @@
     </a>
     <!-- tablet and higher -->
     <% if current_user %>
-      <%= link_to "admin", admin_users_path, class: "header__link header__link--tablet" if check_user_level(100)  %>
+      <%= link_to "admin", admin_users_path, class: "header__link header__link--tablet" if check_user_level("admin")  %>
       <%= link_to "dashboard", user_settings_path, class: "header__link header__link--tablet" %>
       <%= link_to "logout", logout_path, class: "header__link header__link--tablet" %>
     <% else %>
@@ -36,7 +36,7 @@
     <i class="menu__icon menu__icon--close material-icons">arrow_forward</i>
   </span>
 
-  <% if check_user_level(0) %>
+  <% if check_user_level("regular") %>
     <span class="menu__link menu__link--seller">
       <span class="menu__label">Become a seller</span>
       <a href="#" class="button button--white">Start selling</a>
@@ -53,7 +53,7 @@
     </span>
   <% end %>
 
-  <% if check_user_level(100) %>
+  <% if check_user_level("admin") %>
     <%= link_to admin_users_path, class: "menu__link" do %>
       <i class="menu__icon material-icons">dashboard</i>
       <span class="menu__label">Admin</span>
