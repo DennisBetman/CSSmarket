@@ -56,6 +56,6 @@
 
     <h3>Delete your account</h3>
     <p>Once you have deleted your account there is no going back. Your project will still be available to those who have purchased them, but they can no longer be purchased by new users. Any references to your Username or other account details will be removed completely. Any funds that are still on your account will not be transfered.</p>
-    <%= link_to "Delete your account", user_path(current_user), method: :delete, confirm: "Are you sure you want to delete your account? There is no going back!" %>
+    <%= link_to "Delete your account", user_path(current_user), method: :delete, data: { confirm: "Are you sure you want to delete your account? There is no going back!" } %>
   </div>
 </section>
