@@ -1,12 +1,12 @@
 class WithdrawalsController < ApplicationController
   before_action :authorize
   before_action only: [:update] do
-    if !check_user_level(100)
+    if !check_user_level("admin")
       redirect_to root_path
     end
   end
   before_action only: [:create] do
-    if check_user_level(0)
+    if check_user_level("regular")
       redirect_to root_path
     end
   end

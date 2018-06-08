@@ -9,8 +9,13 @@ class Dashboard::DownloadsController < Dashboard::BaseController
     end
 
     @posts.each do |post|
-      user = User.select("id", "name").find_by_id(post.user_id)
-      post.user_name = user.name
+      user = User.select("id", "name", "status").find_by_id(post.user_id)
+
+      if user.deleted?
+        post.user_name = "[deleted]"
+      else
+        post.user_name = user.name
+      end
     end
 
     @total_posts = @posts ? @posts.count : 0

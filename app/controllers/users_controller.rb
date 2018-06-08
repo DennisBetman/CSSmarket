@@ -36,6 +36,15 @@ class UsersController < ApplicationController
 
   end
 
+  def destroy
+    @user = User.find_by_id current_user.id
+
+    @user.update(name: SecureRandom.urlsafe_base64(4), email: "#{SecureRandom.urlsafe_base64(4)}@deleted.com", password: SecureRandom.urlsafe_base64(16), level: 0, nano_address: "", paypal_address: "", status: 1)
+
+    session[:user_id] = nil
+    redirect_to login_path
+  end
+
   private
 
   def user_params
