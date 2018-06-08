@@ -21,6 +21,8 @@
   </head>
 
   <body>
+    <%= render "cookies_eu/consent_banner", link: page_path("cookies") %>
+
     <% if flash[:global_message] %>
       <div class="alert" data-role="alert">
         <div class="alert__content">
