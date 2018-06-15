@@ -28,6 +28,7 @@ gem "stripe"
 gem "carrierwave"
 gem "redcarpet"
 gem "inline_svg"
+gem "cookies_eu"
 
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
