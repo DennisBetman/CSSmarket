@@ -22,7 +22,7 @@ gem "high_voltage", "~> 3.0.0"
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 
-gem "brainblocks-js", "1.0.7.2"
+gem "brainblocks-js"
 gem "stripe"
 
 gem "carrierwave"

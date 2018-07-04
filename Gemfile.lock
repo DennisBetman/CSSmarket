@@ -42,7 +42,7 @@ GEM
     bcrypt (3.1.12)
     bcrypt (3.1.12-x86-mingw32)
     bindex (0.5.0)
-    brainblocks-js (1.0.7.2)
+    brainblocks-js (1.0.9)
     builder (3.2.3)
     byebug (10.0.2)
     carrierwave (1.2.3)
@@ -213,7 +213,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  brainblocks-js (= 1.0.7.2)
+  brainblocks-js
   byebug
   carrierwave
   coffee-rails (~> 4.2)
