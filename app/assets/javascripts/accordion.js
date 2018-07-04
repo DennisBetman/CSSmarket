@@ -1,20 +1,21 @@
 $(document).on('turbolinks:load', function() {
-  var totalAcc = $(".accordion__item").length;
+  var totalAccDesktop = $(".post__aside .accordion__item").length;
+  var totalAccMobile = $(".post__actions .accordion__item").length;
 
   //calc;
-  if(totalAcc == 1) {
+  if(totalAccDesktop == 1 && totalAccMobile == 1) {
     $(".accordion__header").addClass("accordion__header--selected");
     $(".accordion__content").css({"height": "auto"});
     $(".accordion__arrow").remove();
   }
 });
-
 $(document).on('click', '.accordion__header', function () {
-  var totalAcc = $(".accordion__item").length;
+  var totalAccDesktop = $(".post__aside .accordion__item").length;
+  var totalAccMobile = $(".post__actions .accordion__item").length;
 
-  if(totalAcc > 1) {
+  if(totalAccDesktop > 1 && totalAccMobile > 1) {
     if($(this).hasClass('accordion__header--selected')) {
-      var getInner = $(this).next().find('.accordion__innerContent').outerHeight();
+      var getInner = $(this).next().find('.accordion__inner-content').outerHeight();
       $(this).next().css({"height": getInner});
 
       //Remove height;
@@ -24,13 +25,22 @@ $(document).on('click', '.accordion__header', function () {
       }, 1);
     } else {
       //Remove all heights;
-      $(".accordion__header").removeClass("accordion__header--selected");
-      $(".accordion__content").css({"height": 0});
+      var $this = $(this);
 
-      //Add height to selected;
-      $(this).addClass("accordion__header--selected");
-      var getInner = $(this).next().find('.accordion__innerContent').outerHeight();
-      $(this).next().css({"height": getInner});
+      $(".accordion__header--selected").each(function () {
+        var getHeight = $(this).parent().find('.accordion__inner-content').outerHeight();
+        $(".accordion__content").css({"height": getHeight});
+      });
+
+      setTimeout(function () {
+        $(".accordion__header--selected").parent().find(".accordion__content").css({"height": 0});
+        $(".accordion__header--selected").removeClass("accordion__header--selected");
+
+        //Add height to selected;
+        $this.addClass("accordion__header--selected");
+        var getInner = $this.parent().find('.accordion__inner-content').outerHeight();
+        $this.next().css({"height": getInner});
+      }, 10);
 
       setTimeout(function () {
         $(".accordion__header--selected").next().css({"height": "auto"});
