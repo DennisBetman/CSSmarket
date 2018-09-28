@@ -10,12 +10,11 @@
     <meta name="theme-color" content="#1e213d">
     <%= csrf_meta_tags %>
 
-    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
-
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,400italic,600italic,700,700italic,800italic,800' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
     <%= render "layouts/favicon" %>
   </head>
