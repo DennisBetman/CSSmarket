@@ -25,7 +25,7 @@
     <a class="footer__link" href="#">Privacy Policy</a>
     <a class="footer__link" href="#">Terms and Conditions</a>
     <%= link_to "About", "/about", class: "footer__link" %>
-    <%= link_to "Sell", "/sell", class: "footer__link" %>
-    <a class="footer__link" href="javascript:void(0)">&copy; 2017</a>
+    <%# <%= link_to "Sell", "/sell", class: "footer__link" %>
+    <a class="footer__link" href="javascript:void(0)">&copy; <%= Time.current.year %></a>
   </div>
 </footer>

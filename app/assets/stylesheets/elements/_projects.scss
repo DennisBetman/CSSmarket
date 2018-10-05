@@ -46,11 +46,17 @@ $gutter: 20px;
   border-radius: 5px;
   box-shadow: 0 0 13px rgba(map-get($color, "black"), 0.13);
   overflow: hidden;
+  will-change: transform;
+  transition: transform .2s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 
   &::before {
     content: "";
     display: inline-block;
-    padding-top: 160%;
+    padding-top: 150%;
     background: map-get($color, "white");
     width: 100%;
     border-radius: 5px;
@@ -59,12 +65,12 @@ $gutter: 20px;
 }
 
 .project__gradient {
+  background: linear-gradient(to top, map-get($color, "white") 50%, rgba(0, 0, 0, 0) 100%);
   position: absolute;
   bottom: 0;
   left: 0;
   width: 101%;
   height: 80%;
-  background: linear-gradient(to top, map-get($color, "white") 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 .project__image {
@@ -109,83 +115,79 @@ $gutter: 20px;
   align-items: center;
 }
 
-.project__icon {
-  color: map-get($color, "white");
-  font-size: 35px;
-}
-
 .project__content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: (map-get($element, "project-spacing") * 1.25) 0 0;
-  position: relative;
-}
+  padding: 15px;
+  word-break: break-word;
 
-.project__name {
-  @include dotdotdot();
-  font-size: 16px;
-  width: calc(100% - 65px);
-  float: left;
-  font-weight: 600;
-  color: map-get($color, "brand-primary");
+  @media screen and (min-width: 760px) {
+    padding: 30px;
+  }
 
-  @include mediaquery("tablet") {
-    font-size: 18px;
+  @media screen and (min-width: 901px) {
+    padding: 15px;
+  }
+
+  @media screen and (min-width: 1020px) {
+    padding: 30px;
   }
 }
 
-.project__author {
-  @include dotdotdot();
-  font-size: 12px;
-  width: calc(100% - 65px);
-  float: left;
-  font-weight: 400;
-  margin-top: -2px;
+.project__name {
+  color: map-get($color, "white");
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
 
-  @include mediaquery("tablet") {
-    font-size: 14px;
+  @media screen and (min-width: 425px) {
+    font-size: 18px;
+    line-height: 23px;
+    white-space: inherit;
+  }
+
+  @media screen and (min-width: 520px) {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  @media screen and (min-width: 601px) {
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  @media screen and (min-width: 670px) {
+    font-size: 20px;
+    line-height: 25px;
   }
 }
 
 .project__price {
-  position: absolute;
-  right: 0;
-  font-weight: 600;
-  color: map-get($color, "brand-secondary-second");
-  width: 57px;
-  text-align: center;
-  border: 2px solid map-get($color, "brand-secondary-second");
-  padding: 5px 0;
-  border-radius: 3px;
+  font-weight: 400;
+  color: map-get($color, "white");
+  margin: 5px 0 0;
   font-size: 14px;
-  text-decoration: none;
-  transition: color 300ms ease;
 
-  &:hover,
-  &:active {
-    color: map-get($color, "white");
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  &::before {
-    @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 300ms ease;
-  }
-
-  i {
-    vertical-align: middle;
+  @media screen and (min-width: 520px) {
+    margin: 10px 0 0;
     font-size: 19px;
   }
+}
+
+.project__author {
+  font-weight: 300;
+  font-size: 14px;
+  color: map-get($color, "white");
+  text-transform: capitalize;
+  margin-top: 2px;
 }

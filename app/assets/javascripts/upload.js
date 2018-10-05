@@ -5,8 +5,8 @@ function imageBannerPreview(input) {
     $(".image__error--banner").html("The image size has to be less than 1MB");
   } else {
     reader.onload = function(e) {
-      $('.image__placeholder').attr('src', " ");
-      $('.image__placeholder').css({"display": "block"}).attr('src', e.target.result);
+      $('.image__placeholder--banner').attr('src', " ");
+      $('.image__placeholder--banner').css({"display": "block"}).attr('src', e.target.result);
     }
     reader.readAsDataURL(input.files[0]);
   }
@@ -19,13 +19,13 @@ $(document).on('change', '.form__input--upload-image', function (e) {
 
   var data = this,
       _URL = window.URL || window.webkitURL,
-      file, img;
+      file, imgUpload;
 
   if($(this).val() === "") {
     //Valid JPG of JPEG;
     if ((file = data.files[0])) {
-       img = new Image();
-       img.onload = function () {
+       imgUpload = new Image();
+       imgUpload.onload = function () {
          //Show the preview;
          if(this.width === 1584 && this.height === 912) {
            imageBannerPreview(data);
@@ -33,7 +33,7 @@ $(document).on('change', '.form__input--upload-image', function (e) {
            $(".image__error--banner").addClass("image__error--is-active").html("Make sure that the image has the correct size (1584X912)");
          }
        };
-       img.src = _URL.createObjectURL(file);
+       imgUpload.src = _URL.createObjectURL(file);
     }
   } else {
     //Image check JPG of JPEG;
@@ -44,8 +44,8 @@ $(document).on('change', '.form__input--upload-image', function (e) {
     } else {
       //Valid JPG of JPEG;
       if ((file = data.files[0])) {
-         img = new Image();
-         img.onload = function () {
+         imgUpload = new Image();
+         imgUpload.onload = function () {
            //Show the preview;
            if(this.width === 1584 && this.height === 912) {
              imageBannerPreview(data);
@@ -53,13 +53,13 @@ $(document).on('change', '.form__input--upload-image', function (e) {
              $(".image__error--banner").addClass("image__error--is-active").html("Make sure that the image has the correct size (1584X912)");
            }
          };
-         img.src = _URL.createObjectURL(file);
+         imgUpload.src = _URL.createObjectURL(file);
       }
     }
   }
 });
 
-$(document).on('click', '.image__banner-upload, .image__placeholder', function() {
+$(document).on('click', '.image__banner-upload', function() {
   $(".form__input--upload-image").trigger('click');
 });
 
@@ -85,13 +85,13 @@ $(document).on('change', '.form__input--upload-thumbnail', function (e) {
 
   var data = this,
       _URL = window.URL || window.webkitURL,
-      file, img;
+      file, imgUpload;
 
   if($(this).val() === "") {
     //Valid JPG of JPEG;
     if ((file = data.files[0])) {
-       img = new Image();
-       img.onload = function () {
+       imgUpload = new Image();
+       imgUpload.onload = function () {
          //Show the preview;
          if(this.width === 562 && this.height === 562) {
            imageThumbnailPreview(data);
@@ -99,7 +99,7 @@ $(document).on('change', '.form__input--upload-thumbnail', function (e) {
            $(".image__error--thumb").addClass("image__error--is-active").html("Image needs to be 562X562");
          }
        };
-       img.src = _URL.createObjectURL(file);
+       imgUpload.src = _URL.createObjectURL(file);
     }
   } else {
     //Image check JPG of JPEG;
@@ -110,8 +110,8 @@ $(document).on('change', '.form__input--upload-thumbnail', function (e) {
     } else {
       //Valid JPG of JPEG;
       if ((file = data.files[0])) {
-         img = new Image();
-         img.onload = function () {
+         imgUpload = new Image();
+         imgUpload.onload = function () {
            //Show the preview;
            if(this.width === 562 && this.height === 562) {
              imageThumbnailPreview(data);
@@ -119,7 +119,7 @@ $(document).on('change', '.form__input--upload-thumbnail', function (e) {
              $(".image__error--thumb").addClass("image__error--is-active").html("Image needs to be 562X562");
            }
          };
-         img.src = _URL.createObjectURL(file);
+         imgUpload.src = _URL.createObjectURL(file);
       }
     }
   }
