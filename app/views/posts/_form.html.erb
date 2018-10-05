@@ -31,7 +31,7 @@
         <% else %>
           <div class="image__banner-upload">
             <%= inline_svg "icons/icon-camera.svg" %>
-
+            <img class="image__placeholder image__placeholder--banner" />
             <span class="image__title">Upload banner</span>
             <span class="image__description">1584x912, JPG/JPEG and the size must be less than 1MB</span>
           </div>
@@ -41,16 +41,16 @@
 
         <div class="image__thumbnail">
           <%= inline_svg "icons/icon-camera.svg" %>
-
+          <img class="image__placeholder image__placeholder-thumb" />
           <span class="image__description">562x562</span>
           <div class="image__error image__error--thumb">Placeholder</div>
         </div>
       </div>
-      
+
       <div class="post__content">
         <%= f.text_area :content, class: "form__input form__input--textarea", data: { role: "markdown" } %>
       </div>
-      
+
       <%= f.submit class: "button button--gradient button--desktop" %>
     </div>
 

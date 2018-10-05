@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require color-thief
 //= require turbolinks
 //= require simplemde.min
 //= require cookies_eu
