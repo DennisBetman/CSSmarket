@@ -15,16 +15,20 @@ gem "jquery-rails"
 gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.5"
 
-gem "bcrypt", git: "https://github.com/codahale/bcrypt-ruby.git", :require => "bcrypt"
+gem "bcrypt", :require => "bcrypt"
 
 gem "high_voltage", "~> 3.0.0"
 
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 
+gem "brainblocks-js"
 gem "stripe"
 
-gem "carrierwave", github: "carrierwaveuploader/carrierwave"
+gem "carrierwave"
+gem "redcarpet"
+gem "inline_svg"
+gem "cookies_eu"
 
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 

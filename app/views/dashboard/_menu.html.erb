@@ -1,13 +1,13 @@
 <nav class="dashboard__menu">
   <span class="dashboard__username">Hi, <%= current_user.name %></span>
-  <a class="dashboard__link" href="#">
+  <%= link_to user_settings_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", user_settings_path)}" do %>
     <span class="link__name">
       <i class="material-icons">settings</i>
-      <span class="link__text">Settings</span>
+      <span class="link__text">Account Settings</span>
     </span>
-  </a>
+  <% end %>
 
-  <% if !check_user_level(0) %>
+  <% unless check_user_level("regular") %>
     <%= link_to dashboard_earnings_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", dashboard_earnings_path)}" do %>
       <span class="link__name">
         <i class="material-icons">euro_symbol</i>
@@ -17,7 +17,7 @@
     <% end %>
   <% end %>
 
-  <% if !check_user_level(0) %>
+  <% unless check_user_level("regular") %>
     <%= link_to dashboard_projects_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", dashboard_projects_path)}" do %>
       <span class="link__name">
         <i class="material-icons">developer_board</i>
@@ -35,7 +35,7 @@
     <span class="link__number"></span>
   <% end %>
 
-  <% if !check_user_level(0) %>
+  <% unless check_user_level("regular") %>
     <%= link_to new_post_path, class: "dashboard__link #{active_class_for("dashboard__link--is-active", new_post_path)}" do %>
       <span class="link__name">
         <i class="material-icons">file_upload</i>

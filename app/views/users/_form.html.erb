@@ -1,8 +1,14 @@
-<%= form_for :user, url: "/users", html: { class: "form content__subject" } do |f| %>
+<%= form_for @user, html: { class: "form content__subject" } do |f| %>
 
-  <% if flash[:user_error] %>
-    <div style="flex: 0 0 100%">
-      <%= flash[:user_error] %>
+  <% if not @user.nil? and @user.errors.any? %>
+    <div class="alert" id="error_explanation">
+      <div class="alert__content">
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 

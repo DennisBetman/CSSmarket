@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root "posts#index"
 
-  resources :posts
   get "/category/:name" => "posts#category", as: "post_category"
 
   get "search", to: "posts#search"
@@ -10,24 +9,45 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy"
 
+  get "/users", to: redirect("/login")
+
   get "/signup" => "users#new", as: "signup"
-  post "/users" => "users#create"
+  get "/user/settings" => "users#settings", as: "user_settings"
+  resources :users, only: [:create, :update, :destroy]
 
   get "/profile/:name" => "users#show", as: "profile"
 
-  get "/cart" => "carts#index"
+  resources :withdrawals, only: [:create, :update]
 
-  get "/dashboard" => "dashboard#index", as: "dashboard"
-  get "/dashboard/downloads", as: "dashboard_downloads"
-  get "/dashboard/earnings", as: "dashboard_earnings"
-  get "/dashboard/projects", as: "dashboard_projects"
+  resources :charges, only: [:create]
+  resources :nano_payments, only: [:create]
 
-  get "/admin" => "admin#index", as: "admin"
-  get "/admin/users", as: "admin_users"
-  get "/admin/orders", as: "admin_orders"
-  get "/admin/posts", as: "admin_posts"
+  scope "/dashboard", as: "dashboard" do
+    resources :downloads, only: [:index], module: "dashboard", as: "downloads"
+    resources :earnings, only: [:index], module: "dashboard", as: "earnings"
+    resources :projects, only: [:index], module: "dashboard", as: "projects"
+  end
 
-  resources :cart_posts
-  resources :charges
-  resources :orders
+  scope "/admin", as: "admin" do
+    resources :users, only: [:index, :show], module: "admin", as: "users"
+    resources :posts, only: [:index, :show], module: "admin", as: "posts"
+    resources :orders, only: [:index], module: "admin", as: "orders"
+    resources :withdrawals, only: [:index], as: "withdrawals"
+    resources :seller_requests, only: [:index], module: "admin", as: "seller_requests"
+  end
+
+  get "/p/:nice_url" => "posts#show", as: "post"
+  get "/p/:nice_url/edit" => "posts#edit", as: "edit_post"
+  patch "/p/:id" => "posts#update"
+  get "/p/:nice_url/preview" => "posts#preview", as: "post_preview"
+
+  resources :posts
+  get "/all" => "posts#overview", as: "posts_overview"
+
+  resources :declined_posts, only: [:create]
+
+  resources :seller_requests, only: [:create, :new]
+
+  resources :password_resets, only: [:create, :new]
+  get "/password_reset/:reset_id" => "password_resets#show", as: "password_reset"
 end

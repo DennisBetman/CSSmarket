@@ -1,0 +1,2 @@
+module NanoPaymentsHelper
+end

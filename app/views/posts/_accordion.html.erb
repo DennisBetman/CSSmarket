@@ -1,0 +1,19 @@
+<div class="accordion__item">
+  <div class="accordion__header">
+    <div class="accordion__name">
+      <div class="name__icon"><i class="material-icons"><%= icon %></i></div>
+      <div class="name__about">
+        <span class="name__price"><%= price %></span>
+        <span class="name__payment"><%= name %></span>
+      </div>
+    </div>
+    <i class="material-icons accordion__arrow">keyboard_arrow_down</i>
+  </div>
+  <div class="accordion__content">
+    <div class="accordion__inner-content">
+      <div class="accordion__message">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>

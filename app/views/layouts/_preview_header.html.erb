@@ -1,0 +1,15 @@
+<header class="header">
+  <div class="header__column">
+    <%= link_to root_path do %>
+      <%= image_tag("logoCSSmarket.png", class: "header__logo") %>
+    <% end %>
+
+    <!-- tablet and higher -->
+    <%= link_to "Return to post", post_path(@post.nice_url), class: "header__link header__link--tablet" %>
+  </div>
+  <div class="header__column">
+    <%= link_to @post.title, post_path(@post.nice_url), class: "header__link header__link--tablet" %>
+  </div>
+</header>
+
+<%= stylesheet_link_tag "uploads/post_#{@post.id}/application", media: "all", "data-turbolinks-track": "reload" %>

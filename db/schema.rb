@@ -10,50 +10,80 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806131931) do
+ActiveRecord::Schema.define(version: 20180518125821) do
 
-  create_table "cart_posts", id: false, force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "cart_id"
-  end
-
-  create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "declined_posts", force: :cascade do |t|
+    t.integer  "post_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "amount"
     t.string   "description"
     t.string   "customer_id"
     t.string   "source"
     t.integer  "post_id"
     t.integer  "user_id"
+    t.string   "payment_type"
+    t.decimal  "author_cut"
+  end
+
+  create_table "password_resets", force: :cascade do |t|
+    t.string   "reset_id"
+    t.integer  "user_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "content"
     t.string   "categories"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.string   "price"
     t.string   "description"
     t.string   "image"
     t.string   "license"
     t.string   "file"
+    t.integer  "status",      default: 0
+    t.string   "nice_url"
+    t.string   "parent_id"
+  end
+
+  create_table "seller_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "content"
+    t.string   "portfolio_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "level",           default: 0, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "level",           default: 0,     null: false
+    t.string   "nano_address"
+    t.decimal  "cut_percentage",  default: "0.8"
+    t.string   "paypal_address"
+    t.integer  "status",          default: 0
+  end
+
+  create_table "withdrawals", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 0
   end
 
 end

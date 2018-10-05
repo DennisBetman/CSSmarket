@@ -1,0 +1,170 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid map-get($color, "light-grey");
+  border-right: 0;
+  border-bottom: 0;
+  width: 100%;
+
+  &--spacing {
+    margin-top: 45px;
+
+    @include mediaquery("tablet") {
+      margin-top: 65px;
+    }
+  }
+}
+
+.table__list {
+  display: grid;
+
+  &:hover {
+    background: lighten(map-get($color, "light-grey"), 5%);
+  }
+
+  &:first-of-type {
+    font-weight: 700;
+  }
+
+  &--users {
+    grid-template-columns: 80px 100px repeat(3, 1fr);
+  }
+
+  &--order {
+    grid-template-columns: 80px repeat(3, 1fr);
+  }
+
+  &--posts {
+    grid-template-columns: 80px 90px repeat(5, 1fr);
+  }
+
+  &--drawl {
+    grid-template-columns: 80px 100px repeat(3, 1fr);
+  }
+
+  &--col6 {
+    grid-template-columns: auto repeat(5, 1fr);
+  }
+
+  &--col7 {
+    grid-template-columns: auto repeat(6, 1fr);
+  }
+
+  &--earnings {
+    grid-template-columns: 1fr 100px;
+
+    @include mediaquery("tablet") {
+      grid-template-columns: 1fr 120px;
+    }
+
+    @include mediaquery("desktop") {
+      grid-template-columns: 138px 1fr 120px;
+    }
+  }
+}
+
+.table__item {
+  @include dotdotdot();
+  padding: 15px;
+  border-bottom: 1px solid map-get($color, "light-grey");
+  border-right: 1px solid map-get($color, "light-grey");
+  overflow: visible;
+
+  @include mediaquery("tablet") {
+    padding: 20px;
+  }
+
+  &--desktop {
+    display: none;
+
+    @include mediaquery("desktop") {
+      display: block;
+    }
+  }
+
+  &--actions {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      border: 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 400;
+      font-family: 'Open Sans', sans-serif;
+    }
+  }
+
+  &--plus {
+    color: map-get($color, "green");
+    font-weight: 600;
+  }
+
+  &--pending {
+    color: map-get($color, "yellow");
+    font-weight: 600;
+  }
+
+  &--min {
+    color: map-get($color, "error");
+    font-weight: 600;
+  }
+
+  .table__list--earnings & {
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+}
+
+.table-form {
+  display: flex;
+
+  &__input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid map-get($color, "light-grey");
+    border-radius: 0;
+
+    &:focus {
+      outline: 0;
+      border-color: darken(map-get($color, "light-grey"), 10%);
+    }
+  }
+
+  &__button {
+    -webkit-appearance: none;
+    padding: 0.3em 0.5em;
+    margin: 0;
+    border: 0;
+    background: map-get($color, "light-grey");
+    width: auto;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background: darken(map-get($color, "light-grey"), 10%);
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-spacing: 0;
+  font-size: 14px;
+  text-align: left;
+
+  td {
+    border: 0;
+    padding: 5px;
+  }
+
+  tr:nth-child(odd) td {
+    background: map-get($color, "light-grey");
+  }
+}

@@ -1,14 +1,11 @@
-<div class="project">
-  <%= link_to post_path(post), class: "project__image", style: "background-image: url(#{post.image})" do %>
-    <div class="project__overlay">
-      <i class="project__icon material-icons">search</i>
-    </div>
-  <% end %>
+<%= link_to post_path(post.nice_url), class: "project", data: { image: "#{post.image}" } do %>
+  <div class="project__image" style="background-image: url(<%= post.image %>)"></div>
+  <div class="project__gradient"></div>
   <div class="project__content">
     <span class="project__name"><%= post.title %></span>
     <% if post.user_name %>
       <span class="project__author"><%= post.user_name %></span>
     <% end %>
-    <%= link_to "€" + post.price, post_path(post), class: "project__price" %>
+    <span class="project__price">&euro; <%= post.price %></span>
   </div>
-</div>
+<% end %>

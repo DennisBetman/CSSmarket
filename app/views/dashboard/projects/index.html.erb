@@ -1,0 +1,17 @@
+<section class="dashboard">
+  <%= render "dashboard/menu" %>
+
+  <div class="dashboard__content">
+    <h3 class="content__title">Projects</h3>
+    <h1 class="content__subtitle"><%= @total_posts %> Projects</h1>
+    <div class="content__subject">
+      <div class="projects">
+        <div class="projects__parent">
+          <% @posts.each do |post| %>
+            <%= render "dashboard/projects/post", post: post %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
