@@ -92,7 +92,7 @@
 
 .intro__project {
   width: 100%;
-  background-color: white;
+  background-color: map-get($color, "white");
   position: relative;
   border-radius: 5px;
   box-shadow: 0 0 13px rgba(map-get($color, "black"), 0.13);

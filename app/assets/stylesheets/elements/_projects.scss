@@ -47,7 +47,7 @@ $gutter: 20px;
   box-shadow: 0 0 13px rgba(map-get($color, "black"), 0.13);
   overflow: hidden;
   will-change: transform;
-  transition: transform .2s ease;
+  transition: transform 200ms ease;
 
   &:hover {
     transform: scale(1.03);
@@ -65,7 +65,7 @@ $gutter: 20px;
 }
 
 .project__gradient {
-  background: linear-gradient(to top, map-get($color, "white") 50%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to top, map-get($color, "white") 50%, rgba(map-get($color, "black"), 0) 100%);
   position: absolute;
   bottom: 0;
   left: 0;
