@@ -1,27 +1,15 @@
 .post {
-  @include maxwidth(30px);
   position: relative;
-  margin-top: -115px;
+  padding: 0 30px;
 
   @include mediaquery("tablet") {
-    @include maxwidth(50px);
     display: flex;
     justify-content: space-between;
-    margin-top: -200px;
   }
 }
 
 .post__article {
   width: 100%;
-
-  @include mediaquery("tablet") {
-    width: calc(100% - 315px);
-    padding: 0 25px 0 0;
-  }
-
-  @include mediaquery("desktop") {
-    width: calc(100% - 366px);
-  }
 }
 
 .post__aside {
