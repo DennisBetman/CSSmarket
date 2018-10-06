@@ -1,5 +1,6 @@
 .intro {
   @include linear-gradient-b(45deg, rgba(map-get($color, "brand-secondary"), 1), rgba(map-get($color, "brand-secondary-second"), 1));
+  min-height: 178px;
   color: map-get($color, "white");
   display: flex;
   justify-content: center;
@@ -9,6 +10,7 @@
   position: relative;
 
   @include mediaquery("tablet") {
+    min-height: 280px;
     flex-direction: row;
   }
 
@@ -117,13 +119,21 @@
   min-height: 90px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   text-align: left;
   justify-content: center;
+  margin-bottom: calc(178px - 90px);
   padding: 20px 0;
 
   @include mediaquery("tablet") {
     min-height: 130px;
+    margin-bottom: calc(280px - 130px);
     padding: 25px 25px 25px 0;
+    max-width: calc(100% - 315px);
+  }
+
+  @include mediaquery("desktop") {
+    max-width: calc(100% - 366px);
   }
 
   &--form {
