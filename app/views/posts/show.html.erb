@@ -1,27 +1,5 @@
-<section class="intro intro--blue intro--content">
-  <div class="intro__head">
-    <h1 class="intro__title intro__title--small"><%= @post.title %></h1>
+<h1 class="intro__title intro__title--small"><%= @post.title %></h1>
 
-    <%= render "posts/options", post: @post %>
-  </div>
-</section>
+<%= render "posts/options", author: @author, post: @post %>
 
-<section class="post">
-  <article class="post__article">
-    <div class="post__actions post__actions--mobile">
-      <%= link_to "Live Preview", post_preview_path(@post.nice_url), class: "button button--large button--gradient" %>
-
-      <% if @author.deleted? && @has_ordered %>
-        <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient button--full" %>
-      <% end %>
-      <span class="actions__title">
-        <span>Regular Lisence</span>
-        <div class="actions__question">?</div>
-      </span>
-    </div>
-
-    <main class="post__content">
-      <%= render "posts/post/#{ @post.id }" %>
-    </main>
-  </article>
-</section>
+<iframe src="/files/<%= @author.name  %>/<%= @post.nice_url  %>/index.html"></iframe>

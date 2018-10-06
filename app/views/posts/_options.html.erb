@@ -1,5 +1,5 @@
 <aside class="post__aside">
-  <% unless @author.deleted? %>
+  <% unless author.deleted? %>
     <div class="accordion" data-role="charge-container">
       <% if current_user && current_user.id == post.user_id || check_user_level("admin") %>
         <% if post.status == 0 && @awaiting_edit.present? %>
@@ -44,12 +44,12 @@
             <span>Login or Register to buy<strong><%= post.title %></strong></span>
             <%= link_to "Login/Register", login_path, class: "post__button button button--gradient" %>
           <% end %>
-        <% end if @author.nano_address.present? %>
+        <% end if author.nano_address.present? %>
       <% end unless current_user && current_user.id == post.user_id %>
     </div>
   <% end %>
 
-  <% if @author.deleted? && @has_ordered %>
+  <% if author.deleted? && @has_ordered %>
     <%= link_to "Download", dashboard_downloads_path, class: "post__button button button--large button--gradient button--full" %>
   <% end %>
 </aside>
