@@ -99,7 +99,7 @@
   font-size: 11px;
 }
 
-.header__postTitle {
+.header__post-title {
   padding-right: 15px;
   display: none;
 
@@ -108,7 +108,7 @@
   }
 }
 
-.button__contentTablet {
+.button__content-tablet {
   display: none;
 
   @include mediaquery("tablet") {
@@ -116,7 +116,7 @@
   }
 }
 
-.button__contentMobile {
+.button__content-mobile {
   display: inline-block;
 
   @include mediaquery("tablet") {
@@ -124,7 +124,7 @@
   }
 }
 
-.button__contentExtra {
+.button__content-extra {
   padding-left: 6px;
 
   @include mediaquery("tablet") {

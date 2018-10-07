@@ -27,27 +27,27 @@
     <% end %>
 
     <% if request.original_url.include?("/p/") %>
-      <span class="header__postTitle"><%= @post.title %></span>
+      <span class="header__post-title"><%= @post.title %></span>
 
       <% if current_user && current_user.id == @post.user_id %>
         <%= link_to edit_post_path(@post.nice_url), class: "button button--gradient button--project" do %>
-          <span class='button__contentTablet'>Edit now</span>
-          <span class="button__contentMobile"><i class="material-icons">edit</i></span>
+          <span class='button__content-tablet'>Edit now</span>
+          <span class="button__content-mobile"><i class="material-icons">edit</i></span>
         <% end %>
       <% end %>
       <% if @has_ordered %>
         <%= link_to dashboard_downloads_path, class: "button button--gradient button--project" do %>
-          <span class='button__contentTablet'>Download</span>
-          <span class="button__contentMobile"><i class="material-icons">cloud_download</i></span>
+          <span class='button__content-tablet'>Download</span>
+          <span class="button__content-mobile"><i class="material-icons">cloud_download</i></span>
         <% end %>
       <% else %>
         <% if current_user %>
           <a href="javascript:void(0)" class="button button--gradient button--pay button--project">
-            <span class="button__contentTablet">Buy now</span>
-            <span class="button__contentMobile"><i class="material-icons">add_shopping_cart</i></span>
-            <span class="button__contentExtra">(&euro;<%= @post.price %>)</span>
+            <span class="button__content-tablet">Buy now</span>
+            <span class="button__content-mobile"><i class="material-icons">add_shopping_cart</i></span>
+            <span class="button__content-extra">(&euro;<%= @post.price %>)</span>
           </a>
-          <div class="post__paymentPopup">
+          <div class="post__payment-popup">
             <div class="accordion" data-role="charge-container">
             <%= render "posts/accordion", icon: "credit_card", price: "€#{@post.price}", name: "Creditcard" do %>
               <%= render "charges/form_creditcard", post: @post %>
@@ -56,9 +56,9 @@
           </div>
         <% else %>
           <%= link_to login_path, class: "button button--gradient button--project" do %>
-            <span class='button__contentTablet'>Buy now</span>
-            <span class="button__contentMobile"><i class="material-icons">add_shopping_cart</i></span>
-            <span class="button__contentExtra">(&euro;<%= @post.price %>)</span>
+            <span class='button__content-tablet'>Buy now</span>
+            <span class="button__content-mobile"><i class="material-icons">add_shopping_cart</i></span>
+            <span class="button__content-extra">(&euro;<%= @post.price %>)</span>
           <% end %>
         <% end unless current_user && current_user.id == @post.user_id %>
       <% end unless current_user && current_user.id == @post.user_id %>

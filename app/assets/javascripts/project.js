@@ -32,14 +32,14 @@ $(document).on('turbolinks:load', function() {
 })
 
 $(document).on("click", ".button--pay", function() {
-  $(".post__paymentPopup").addClass("popup--animation-in");
+  $(".post__payment-popup").addClass("popup--animation-in");
 
   //Prevent scrolling
   $("body, html").addClass('body--no-scroll');
 });
 
 $(document).on("click", ".accordion__arrow", function() {
-  $(".post__paymentPopup").removeClass("popup--animation-in");
+  $(".post__payment-popup").removeClass("popup--animation-in");
 
   //Add scrolling
   $("body, html").removeClass('body--no-scroll');
