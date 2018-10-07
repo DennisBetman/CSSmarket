@@ -1,5 +1,5 @@
-<%= link_to post_path(post.nice_url), target: "_blank", class: "project", data: { image: "#{post.image}" } do %>
-  <div class="project__image" style="background-image: url(<%= post.image %>)"></div>
+<%= link_to post_path(post.nice_url), target: "_blank", class: "project", data: { image: "/uploads/post/#{post.user_name}/#{post.nice_url}/file.jpg" } do %>
+  <div class="project__image" style="background-image: url(/uploads/post/<%= post.user_name %>/<%= post.nice_url %>/file.jpg)"></div>
   <div class="project__gradient"></div>
   <div class="project__content">
     <span class="project__name"><%= post.title %></span>

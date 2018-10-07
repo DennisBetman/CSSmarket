@@ -1,5 +1,1 @@
-<h1 class="intro__title intro__title--small"><%= @post.title %></h1>
-
-<%= render "posts/options", author: @author, post: @post %>
-
-<iframe src="/files/<%= @author.name  %>/<%= @post.nice_url  %>/index.html"></iframe>
+<iframe class="post__iframe" src="/uploads/post/<%= @author.name  %>/<%= @post.nice_url  %>/project/index.html"></iframe>

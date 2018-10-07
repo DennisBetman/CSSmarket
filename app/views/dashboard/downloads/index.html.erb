@@ -3,7 +3,9 @@
 
   <div class="dashboard__content">
     <h3 class="content__title">Downloads</h3>
-    <h1 class="content__subtitle"><%= @total_posts %> Projects</h1>
+    <h1 class="content__subtitle"><%= @total_posts %>
+      <%= @total_posts == 1 ? "Project" : "Projects" %>
+    </h1>
     <div class="content__subject">
       <div class="projects">
         <div class="projects__parent">
