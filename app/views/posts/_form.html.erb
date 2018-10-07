@@ -3,74 +3,21 @@
   <%= render "errors", post: @post if not @post.nil? and @post.errors.any? %>
 
   <section class="intro intro--blue intro--content">
-    <div class="intro__head intro__head--form">
-      <div class="intro__title intro__title--small">
-        <%= f.text_field :title, class: "from__input form__input--upload-title", placeholder: "Type your title here" %>
-      </div>
-
-      <span class="intro__subtitle intro__subtitle--small intro__subtitle--upload">
-        Select a category
-        <%= f.select :categories, options_for_select(
-                                  [["No category selected", ""],
-                                  ["Buttons", "buttons"],
-                                  ["Menus", "menus"],
-                                  ["Forms", "forms"]],
-            f.object.categories), {}, { :class => "form__input form__input--select-upload" } %>
-      </span>
-    </div>
   </section>
 
   <section class="post">
-    <div class="post__article">
-      <%= f.file_field :image, accept: "image/jpeg, image/jpg", class: "form__input form__input--hidden form__input--upload-image" %>
-      <%= f.file_field :image, accept: "image/jpeg, image/jpg", class: "form__input form__input--hidden form__input--upload-thumbnail" %>
+    <div>
+      <%= f.text_field :title, class: "form__input", placeholder: "Type your title here" %>
+      <%= f.text_field :price, class: "form__input", placeholder: "Price" %>
 
-      <div class="post__image">
-        <% if @post.image.present? %>
-          <%= image_tag @post.image, class: "image__banner-upload" %>
-        <% else %>
-          <div class="image__banner-upload">
-            <%= inline_svg "icons/icon-camera.svg" %>
-            <img class="image__placeholder image__placeholder--banner" />
-            <span class="image__title">Upload banner</span>
-            <span class="image__description">1584x912, JPG/JPEG and the size must be less than 1MB</span>
-          </div>
-        <% end %>
-
-        <div class="image__error image__error--banner">This is a error placeholder</div>
-
-        <div class="image__thumbnail">
-          <%= inline_svg "icons/icon-camera.svg" %>
-          <img class="image__placeholder image__placeholder-thumb" />
-          <span class="image__description">562x562</span>
-          <div class="image__error image__error--thumb">Placeholder</div>
-        </div>
+      <div class="post__article">
+        <%= f.submit class: "button button--gradient button--desktop" %>
       </div>
 
-      <div class="post__content">
-        <%= f.text_area :content, class: "form__input form__input--textarea", data: { role: "markdown" } %>
-      </div>
-
-      <%= f.submit class: "button button--gradient button--desktop" %>
+      <aside class="post__aside post__aside--upload">
+        <%= f.submit class: "button button--gradient button--mobile" %>
+      </aside>
     </div>
-
-    <aside class="post__aside post__aside--upload">
-      <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--preview" %>
-      <%= f.file_field :file, accept: "application/zip", class: "form__input form__input--hidden form__input--project" %>
-
-      <a href="javascript:void(0)" class="button button--large button--grey button--column button--preview button--full"><span>Upload preview</span><span class="button__upload-file button__upload-file--preview">No preview selected</span></a>
-      <a href="javascript:void(0)" class="post__button button button--large button--gradient button--column button--project button--full"><span>Upload project</span><span class="button__upload-file button__upload-file--project">No project selected</span></a>
-
-      <div class="post__license">
-        <span class="post__price post__price--upload">&euro; <%= f.text_field :price, class: "form__input form__input--price-upload", placeholder: "0" %></span>
-
-        <h3 class="license__title">Regular license</h3>
-        <p class="lisence__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum sapien vitae malesuada. Suspendisse sed egestas eros. Nulla non iaculis lectus. Morbi convallis malesuada consequat. Pellentesque cursus odio ut </p>
-        <p class="lisence__content">fermentum tempor. Donec sem massa, convallis id urna in, fermentum accumsan est. Duis ut libero ex. Sed at ex urna. Ut volutpat malesuada orci at hendrerit.</p>
-      </div>
-
-      <%= f.submit class: "button button--gradient button--mobile" %>
-    </aside>
   </section>
 
 <% end %>

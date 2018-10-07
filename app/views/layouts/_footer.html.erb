@@ -1,3 +1,5 @@
+<% if !request.original_url.include?("/p/") %>
+
 <footer class="footer">
   <div class="footer__item footer__item--column">
     <div class="footer__logo">
@@ -29,3 +31,5 @@
     <a class="footer__link" href="javascript:void(0)">&copy; <%= Time.current.year %></a>
   </div>
 </footer>
+
+<% end %>

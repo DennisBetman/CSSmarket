@@ -16,6 +16,28 @@
     position: relative;
     height: map-get($element, "header-height") + 20;
   }
+
+  .button--project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    min-width: 100px;
+
+    @include mediaquery("tablet") {
+      display: block;
+      height: auto;
+      min-width: 155px;
+    }
+
+    .button__content-mobile {
+      height: 16px;
+    }
+
+    i {
+      font-size: 17px;
+    }
+  }
 }
 
 .header__column {
@@ -75,4 +97,37 @@
   justify-content: center;
   align-items: center;
   font-size: 11px;
+}
+
+.header__post-title {
+  padding-right: 15px;
+  display: none;
+
+  @include mediaquery("tablet") {
+    display: block;
+  }
+}
+
+.button__content-tablet {
+  display: none;
+
+  @include mediaquery("tablet") {
+    display: inline-block;
+  }
+}
+
+.button__content-mobile {
+  display: inline-block;
+
+  @include mediaquery("tablet") {
+    display: none;
+  }
+}
+
+.button__content-extra {
+  padding-left: 6px;
+
+  @include mediaquery("tablet") {
+    padding-left: 0;
+  }
 }
