@@ -1,9 +1,4 @@
 <section class="intro">
-  <% if check_user_level("admin") %>
-    <!-- <h1 class="intro__title">The best projects on the web</h1> -->
-    <!-- <h2 class="intro__subtitle">Premium handcrafted web projects, handmade by the best creatives around the world</h2> -->
-  <% end %>
-
   <div class="intro__content">
     <h3>Sponsored project</h3>
     <h2>Mijn eerste super project ~ CSS</h2>
@@ -18,8 +13,6 @@
   <div class="projects__parent">
     <%= render @posts if @posts.any? %>
   </div>
-
-  <%= link_to "See more", posts_overview_path, class: "button button--grey projects__more" if @posts_total > 8 %>
 </section>
 
 <section class="media media--gradient">
@@ -28,9 +21,7 @@
     </div>
 
     <div class="media__item">
-      <h3>Become a seller</h3>
-      <h2>We’re looking for more awesome projects. Start selling yours.</h2>
-
-      <a href="#" class="button button--white">start selling</a>
+      <h3>About CSSmarket</h3>
+      <h2>CSSmarket is a platform where creative people around the world can sell their handcrafted projects.</h2>
     </div>
 </section>

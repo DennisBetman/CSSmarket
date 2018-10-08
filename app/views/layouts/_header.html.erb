@@ -4,30 +4,90 @@
       <%= image_tag("logoCSSmarket.png", class: "header__logo") %>
     <% end %>
 
-    <!-- tablet and higher -->
-    <%= link_to "About", page_path("about"), class: "header__link header__link--tablet" %>
-    <% if check_user_level("admin") %>
-    <!--<% if current_user %>
-      <%= link_to "Sell", check_user_level("regular") ? page_path("sell") : new_post_path, class: "header__link header__link--tablet" %>
-    <% else %>
-      <%= link_to "Sell", page_path("sell"), class: "header__link header__link--tablet" %>
-    <% end %>-->
+    <% if !request.original_url.include?("/p/") %>
+      <!-- tablet and higher -->
+      <%= link_to "About", page_path("about"), class: "header__link header__link--tablet" %>
+      <% if check_user_level("admin") %>
+      <!--<% if current_user %>
+        <%= link_to "Sell", check_user_level("regular") ? page_path("sell") : new_post_path, class: "header__link header__link--tablet" %>
+      <% else %>
+        <%= link_to "Sell", page_path("sell"), class: "header__link header__link--tablet" %>
+      <% end %>-->
+      <% end %>
+
     <% end %>
 
   </div>
   <div class="header__column">
     <!-- mobile -->
-    <a href="javascript:void(0)" class="header__link" data-menu-toggle>
+    <% if check_user_level("admin") %>
+    <!-- <a href="javascript:void(0)" class="header__link" data-menu-toggle>
       <i class="header__icon header__icon--mobile-menu material-icons">menu</i>
-    </a>
-    <!-- tablet and higher -->
-    <% if current_user %>
-      <%= link_to "admin", admin_users_path, class: "header__link header__link--tablet" if check_user_level("admin")  %>
-      <%= link_to "dashboard", user_settings_path, class: "header__link header__link--tablet" %>
-      <%= link_to "logout", logout_path, class: "header__link header__link--tablet" %>
-    <% else %>
-      <%= link_to "login/register", login_path, class: "header__link header__link--tablet" %>
+    </a> -->
     <% end %>
+
+    <% if request.original_url.include?("/p/") %>
+      <span class="header__post-title"><%= @post.title %></span>
+
+      <% if current_user && current_user.id == @post.user_id %>
+        <%= link_to edit_post_path(@post.nice_url), class: "button button--gradient button--project" do %>
+          <span class='button__content-tablet'>Edit now</span>
+          <span class="button__content-mobile"><i class="material-icons">edit</i></span>
+        <% end %>
+      <% end %>
+      <% if @has_ordered %>
+        <%= link_to dashboard_downloads_path, class: "button button--gradient button--project" do %>
+          <span class='button__content-tablet'>Download</span>
+          <span class="button__content-mobile"><i class="material-icons">cloud_download</i></span>
+        <% end %>
+      <% else %>
+        <% if current_user %>
+          <a href="javascript:void(0)" class="button button--gradient button--pay button--project">
+            <span class="button__content-tablet">Buy now</span>
+            <span class="button__content-mobile"><i class="material-icons">add_shopping_cart</i></span>
+            <span class="button__content-extra">(&euro;<%= @post.price %>)</span>
+          </a>
+          <div class="post__payment-popup">
+            <div class="accordion" data-role="charge-container">
+            <%= render "posts/accordion", icon: "credit_card", price: "€#{@post.price}", name: "Creditcard" do %>
+              <%= render "charges/form_creditcard", post: @post %>
+            <% end %>
+            </div>
+          </div>
+        <% else %>
+          <%= link_to login_path, class: "button button--gradient button--project" do %>
+            <span class='button__content-tablet'>Buy now</span>
+            <span class="button__content-mobile"><i class="material-icons">add_shopping_cart</i></span>
+            <span class="button__content-extra">(&euro;<%= @post.price %>)</span>
+          <% end %>
+        <% end unless current_user && current_user.id == @post.user_id %>
+      <% end unless current_user && current_user.id == @post.user_id %>
+
+
+    <% else %>
+      <% if current_user %>
+        <%= link_to user_settings_path, class: "header__link" do %>
+          <i class="header__icon header__icon--mobile-menu material-icons">settings</i>
+        <% end %>
+        <%= link_to logout_path, class: "header__link" do %>
+          <i class="header__icon header__icon--mobile-menu material-icons">power_settings_new</i>
+        <% end %>
+      <% else %>
+        <%= link_to login_path, class: "header__link" do %>
+          <i class="header__icon header__icon--mobile-menu material-icons">input</i>
+        <% end %>
+      <% end %>
+
+      <!-- tablet and higher -->
+      <% if current_user %>
+        <%= link_to "admin", admin_users_path, class: "header__link header__link--tablet" if check_user_level("admin")  %>
+        <%= link_to "dashboard", user_settings_path, class: "header__link header__link--tablet" %>
+        <%= link_to "logout", logout_path, class: "header__link header__link--tablet" %>
+      <% else %>
+        <%= link_to "login/register", login_path, class: "header__link header__link--tablet" %>
+      <% end %>
+    <% end %>
+
   </div>
 </header>
 

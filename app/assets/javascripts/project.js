@@ -18,7 +18,6 @@ let updateProjectColor = () => {
           let colorG = colors[1]
           let colorB = colors[2]
           $(element).find('.project__gradient').css({"background": "linear-gradient(to top, rgba("+colorR+", "+colorG+", "+colorB+", 1) 50%, rgba(0, 0, 0, 0) 100%)"})
-
         })
 
       }
@@ -31,3 +30,17 @@ let updateProjectColor = () => {
 $(document).on('turbolinks:load', function() {
   updateProjectColor()
 })
+
+$(document).on("click", ".button--pay", function() {
+  $(".post__payment-popup").addClass("popup--animation-in");
+
+  //Prevent scrolling
+  $("body, html").addClass('body--no-scroll');
+});
+
+$(document).on("click", ".accordion__arrow", function() {
+  $(".post__payment-popup").removeClass("popup--animation-in");
+
+  //Add scrolling
+  $("body, html").removeClass('body--no-scroll');
+});
